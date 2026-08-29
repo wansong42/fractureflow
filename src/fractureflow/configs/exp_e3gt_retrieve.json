@@ -1,0 +1,45 @@
+{
+  "seed": 42,
+  "obs_frac": 0.4,
+  "wd": 5e-5,
+  "backbone": {
+    "name": "e3gt_retrieve",
+    "d_model": 256,
+    "k_knn": 16,
+    "n_layers": 4,
+    "dropout": 0.1,
+    "obs_drop": 0.25,
+    "k_cand": 32,
+    "Ks": [3, 4, 5, 6],
+    "n_groups": 6
+  },
+  "augments": [
+    {"name": "so3"},
+    {"name": "domain_rand"}
+  ],
+  "losses": [
+    {"name": "dir"},
+    {"name": "set_dir", "w": 0.3},
+    {"name": "memb", "w": 0.3}
+  ],
+  "stages": {
+    "A": {
+      "enabled": true,
+      "steps": 40000,
+      "lr": 3e-4,
+      "batch": 32,
+      "warmup": 500,
+      "eval_every": 4000,
+      "ckpt": "models/e3gt_retrieve_stageA.pt"
+    },
+    "B": {
+      "enabled": true,
+      "steps": 24000,
+      "lr": 1e-4,
+      "batch": 16,
+      "warmup": 200,
+      "eval_every": 2000,
+      "ckpt": "models/e3gt_retrieve_stageB.pt"
+    }
+  }
+}

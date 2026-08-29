@@ -1,0 +1,20 @@
+{
+  "predictor": "l1_local",
+  "mae_mean": 49.2714,
+  "mae_std": 0.8361,
+  "p50": 49.078,
+  "p90": 82.8674,
+  "n_seeds": 10,
+  "n_wells": 1,
+  "n_hidden_total": 6466,
+  "is_oracle": false,
+  "poison_leaks_detected": 0,
+  "poison_leak_wells": [],
+  "per_well_mean": {
+    "decovalex_all#0": 49.271
+  },
+  "flags": [],
+  "source": "decovalex_routeA",
+  "predictor_label": "l1_local",
+  "observations": "obs_frac=0.4, rng=999, 10seeds"
+}

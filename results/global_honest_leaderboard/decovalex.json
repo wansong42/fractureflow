@@ -1,0 +1,43 @@
+{
+  "source": "DECOVALEX 2023-2027 (国际基准)",
+  "data_level": "L1 (DFN 基准, 确定性裂隙几何)",
+  "reproducibility": "公开 DOI: 10.5281/zenodo.14873207 (CC BY 4.0)",
+  "n_fractures": 1089,
+  "n_total_points": 11849,
+  "point_eval": {
+    "mae_mean": 49.2714,
+    "mae_std": 0.8361,
+    "p50": 49.078,
+    "p90": 82.8674,
+    "n_seeds": 10,
+    "predictor": "l1_local",
+    "observations": "obs_frac=0.4, rng=999, fracture-level collapse",
+    "note": "fracture-level masking (vertices share normals)"
+  },
+  "set_table": {
+    "K": 4,
+    "modal_err": 0.047,
+    "modal_err_std": 0.0,
+    "coverage": null,
+    "observations": "B2-B3: obs-only k-means, 10 seeds, pooled",
+    "source_file": "set_table_decovalex.json"
+  },
+  "routeA": {
+    "value": 49.27,
+    "unit": "deg MAE",
+    "note": "无 fracture_id, fracture-level masking"
+  },
+  "routeB": {
+    "value": 0.005,
+    "unit": "deg MAE",
+    "std": 0.0,
+    "prerequisite": "需 fracture_id",
+    "note": "fracture_aware_dirs, 10 seeds"
+  },
+  "honest_boundary": "单工区确定性基准, 4 主裂隙 + 随机族, 多场地泛化待验证",
+  "data_three_questions": {
+    "data": "dfnWorks 输出, 1089 条裂隙多边形顶点",
+    "metric": "Route A = 点级 MAE; Route B = fracture_id 平面拟合 MAE",
+    "observation_conditions": "有 fracture_id (每条裂隙顶点同组), 已知真平面法向"
+  }
+}

@@ -1,0 +1,15 @@
+# Conda environment for FractureFlow (release scope).
+# Usage:  conda env create -f environment.yml && conda activate fractureflow
+name: fractureflow
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - numpy>=1.26
+      - scipy>=1.11
+      - torch>=2.2
+      - matplotlib>=3.8
+      - pandas>=2.1
+      - scikit-learn>=1.4

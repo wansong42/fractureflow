@@ -1,0 +1,6 @@
+{
+  "mae_mean": 19.126754088509962,
+  "mae_std": 0.8673558936277437,
+  "is_oracle": true,
+  "note": "set_ids from full-data k-means, strict=True"
+}

@@ -1,0 +1,34 @@
+{
+  "source": "Aland Islands (Finland)",
+  "data_level": "L2 (outcrop trace map)",
+  "reproducibility": "公开 DOI: 10.1016/j.jsg.2019.04.004 (SKV tech report)",
+  "n_windows": 8,
+  "n_traces": 201090,
+  "point_eval": {
+    "mae_mean": null,
+    "note": "N/A (2D 迹线 dip 不可知, 点级口径不适用)"
+  },
+  "set_table": {
+    "K": 3,
+    "modal_err": 13.741,
+    "modal_err_std": 10.045,
+    "coverage": 0.917,
+    "ari": 0.585
+  },
+  "routeA": {
+    "value": 13.741,
+    "unit": "deg modal_err",
+    "K": 3,
+    "note": "观测-only k-means vs azimuth_sets 3 组真值"
+  },
+  "routeB": {
+    "value": null,
+    "note": "N/A (2D 数据 fracture_id 不驱 3D 法向)"
+  },
+  "honest_boundary": "2D 露头迹线 (走向无倾角), z=0 约定, 窗口边缘截断未修正",
+  "data_three_questions": {
+    "data": "GeoJSON 迹线, 13 文件 42709 条, azimuth_sets.json 3 组真值",
+    "metric": "组系表 modal_err (点级 N/A)",
+    "observation_conditions": "有 set_ids (3组), 有 fracture_id (迹线ID), 无 dip"
+  }
+}

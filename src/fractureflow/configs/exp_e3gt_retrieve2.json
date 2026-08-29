@@ -1,0 +1,53 @@
+{
+  "seed": 42,
+  "obs_frac": 0.4,
+  "wd": 5e-5,
+  "out_eval": "results/exp_e3gt_retrieve2_eval.json",
+  "backbone": {
+    "name": "e3gt_retrieve2",
+    "d_model": 256,
+    "k_knn": 16,
+    "n_layers": 4,
+    "dropout": 0.1,
+    "obs_drop": 0.25,
+    "k_cand": 32,
+    "Ks": [3, 4, 5, 6],
+    "n_groups": 6,
+    "d_head": 64,
+    "pow_iters": 6,
+    "n_pass": 2
+  },
+  "augments": [
+    {"name": "so3"},
+    {"name": "domain_rand"}
+  ],
+  "losses": [
+    {"name": "dir"},
+    {"name": "aux_dir", "key": "pred1", "w_aux": 0.3},
+    {"name": "set_dir", "w": 0.3},
+    {"name": "memb", "w": 0.3}
+  ],
+  "stages": {
+    "A": {
+      "enabled": true,
+      "steps": 30000,
+      "lr": 3e-4,
+      "batch": 24,
+      "warmup": 500,
+      "eval_every": 2000,
+      "save_every": 500,
+      "ckpt": "models/e3gt_retrieve2_stageA.pt"
+    },
+    "B": {
+      "enabled": true,
+      "steps": 16000,
+      "lr": 1e-4,
+      "batch": 16,
+      "warmup": 200,
+      "eval_every": 2000,
+      "save_every": 500,
+      "from_stageA": true,
+      "ckpt": "models/e3gt_retrieve2_stageB.pt"
+    }
+  }
+}

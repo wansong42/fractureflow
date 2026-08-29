@@ -1,0 +1,201 @@
+{
+  "task": "T56_global_honest_leaderboard",
+  "date": "2026-08 (FORGE row revised 2026-08: sin/cos fix)",
+  "description": "国际公开数据诚实全榜 —— 双口径拉通",
+  "methodology": {
+    "point_eval": "honest_eval l1_local, BlindInput protocol, obs_frac=0.4, rng=999, 10 seeds",
+    "set_table_eval": "观测-only k-means (strict=True) + 匈牙利匹配",
+    "routeB": "fracture_id 平面拟合 (单独一节, 带前提标注)"
+  },
+  "sources": {
+    "forge": {
+      "source": "FORGE (Utah, USA)",
+      "data_level": "L1 (FMI borehole imaging)",
+      "reproducibility": "公开 DOI: 10.15121/1452547 (GDR)",
+      "n_wells": 2,
+      "n_fractures": 4328,
+      "point_eval": {
+        "mae_mean": 39.6968,
+        "mae_std": 0.3317,
+        "p50": 35.8504,
+        "p90": 76.9004,
+        "n_seeds": 10,
+        "predictor": "l1_local",
+        "observations": "obs_frac=0.4, rng=999 (post-sin/cos-fix)"
+      },
+      "set_table": {
+        "K": 12,
+        "modal_err": 12.3707,
+        "modal_err_std": 3.9964,
+        "coverage": null,
+        "observations": "B2-B3: obs-only k-means, 10 seeds, pooled (post-sin/cos-fix)",
+        "source_file": "set_table_forge_revalidated.json"
+      },
+      "routeA": {
+        "value": 12.3707,
+        "unit": "deg modal_err",
+        "K": 12,
+        "note": "post-sin/cos-fix"
+      },
+      "routeB": null,
+      "honest_boundary": "FMI 成像测井, 双井, 含 natural/induced 类型字段; 旧数字 (25.86/7.78) 因 sin/cos swap bug 已废弃",
+      "data_three_questions": {
+        "data": "FMI 测井裂缝解释 (16B 2087条 + 58-32 2241条)",
+        "metric": "点级 MAE (acos|<pred,true>|) + 组系表 modal_err",
+        "observation_conditions": "无 fracture_id, 有 dip/dip_dir/ftype"
+      },
+      "revision_note": "2026-08: dip_dipdir_to_normal sin/cos bug fix 后重算, forge_fmi_2wells.pt 已重建"
+    },
+    "decovalex": {
+      "source": "DECOVALEX 2023-2027 (国际基准)",
+      "data_level": "L1 (DFN 基准, 确定性裂隙几何)",
+      "reproducibility": "公开 DOI: 10.5281/zenodo.14873207 (CC BY 4.0)",
+      "n_fractures": 1089,
+      "n_total_points": 11849,
+      "point_eval": {
+        "mae_mean": 49.2714,
+        "mae_std": 0.8361,
+        "p50": 49.078,
+        "p90": 82.8674,
+        "n_seeds": 10,
+        "predictor": "l1_local",
+        "observations": "obs_frac=0.4, rng=999, fracture-level collapse",
+        "note": "fracture-level masking (vertices share normals)"
+      },
+      "set_table": {
+        "K": 4,
+        "modal_err": 0.047,
+        "modal_err_std": 0.0,
+        "coverage": null,
+        "observations": "B2-B3: obs-only k-means, 10 seeds, pooled",
+        "source_file": "set_table_decovalex.json"
+      },
+      "routeA": {
+        "value": 49.27,
+        "unit": "deg MAE",
+        "note": "无 fracture_id, fracture-level masking"
+      },
+      "routeB": {
+        "value": 0.005,
+        "unit": "deg MAE",
+        "std": 0.0,
+        "prerequisite": "需 fracture_id",
+        "note": "fracture_aware_dirs, 10 seeds"
+      },
+      "honest_boundary": "单工区确定性基准, 4 主裂隙 + 随机族, 多场地泛化待验证",
+      "data_three_questions": {
+        "data": "dfnWorks 输出, 1089 条裂隙多边形顶点",
+        "metric": "Route A = 点级 MAE; Route B = fracture_id 平面拟合 MAE",
+        "observation_conditions": "有 fracture_id (每条裂隙顶点同组), 已知真平面法向"
+      }
+    },
+    "aland": {
+      "source": "Aland Islands (Finland)",
+      "data_level": "L2 (outcrop trace map)",
+      "reproducibility": "公开 DOI: 10.1016/j.jsg.2019.04.004 (SKV tech report)",
+      "n_windows": 8,
+      "n_traces": 201090,
+      "point_eval": {
+        "mae_mean": null,
+        "note": "N/A (2D 迹线 dip 不可知, 点级口径不适用)"
+      },
+      "set_table": {
+        "K": 3,
+        "modal_err": 13.741,
+        "modal_err_std": 10.045,
+        "coverage": 0.917,
+        "ari": 0.585
+      },
+      "routeA": {
+        "value": 13.741,
+        "unit": "deg modal_err",
+        "K": 3,
+        "note": "观测-only k-means vs azimuth_sets 3 组真值"
+      },
+      "routeB": {
+        "value": null,
+        "note": "N/A (2D 数据 fracture_id 不驱 3D 法向)"
+      },
+      "honest_boundary": "2D 露头迹线 (走向无倾角), z=0 约定, 窗口边缘截断未修正",
+      "data_three_questions": {
+        "data": "GeoJSON 迹线, 13 文件 42709 条, azimuth_sets.json 3 组真值",
+        "metric": "组系表 modal_err (点级 N/A)",
+        "observation_conditions": "有 set_ids (3组), 有 fracture_id (迹线ID), 无 dip"
+      }
+    },
+    "pontrelli": {
+      "source": "Pontrelli (Italy, HRF quarry)",
+      "data_level": "L3 (dense 3D point cloud)",
+      "reproducibility": "公开 DOI: 10.5194/se-12-2055-2021 (Solid Earth)",
+      "n_nets": 136,
+      "n_total_points": 10683,
+      "point_eval": {
+        "mae_mean": null,
+        "note": "N/A (Route B 真值需 fracture_id + 真平面标签)"
+      },
+      "set_table": {
+        "K": 1,
+        "modal_err": 0.0,
+        "note": "单组近水平退化数据, K=1 组系表"
+      },
+      "routeA": {
+        "value": null,
+        "note": "N/A (L3 管线为 RANSAC-SVD 壁面分割)"
+      },
+      "routeB": {
+        "value": 6.6,
+        "unit": "deg MAE",
+        "p50": 1.36,
+        "p90": 18.49,
+        "prerequisite": "需 fracture_id + 稠密采样",
+        "note": "vs 真平面 6.60 (单组近水平退化数据, 不推广到多走向)"
+      },
+      "honest_boundary": "单组近水平退化数据 (全部 dip 2.6-5.7°, 0 陡倾), 6.60° 不推广到多走向场景",
+      "data_three_questions": {
+        "data": "448 万点稠密扫描, 136 条 fracture_id, 真平面法向标签",
+        "metric": "Route B = fracture_id 平面拟合 vs 真平面法向",
+        "observation_conditions": "有 fracture_id, 有真平面标签 (作弊级真值)"
+      }
+    },
+    "beishan": {
+      "source": "beishan (甘肃北山, 中国高放处置预选区)",
+      "data_level": "L0 (borehole logs)",
+      "reproducibility": "内部数据, 论文附录可复现脚本",
+      "n_wells": 22,
+      "n_fractures": 880,
+      "point_eval": {
+        "mae_mean": 36.6871,
+        "mae_std": 1.1965,
+        "p50": 31.4875,
+        "p90": 76.5116,
+        "n_seeds": 10,
+        "predictor": "l1_local",
+        "observations": "obs_frac=0.4, rng=999"
+      },
+      "set_table": {
+        "K": 12,
+        "modal_err": 9.823,
+        "modal_err_std": 0.661,
+        "coverage": null,
+        "observations": "B2-B3: obs-only k-means, 10 seeds, pooled",
+        "source_file": "set_table_beishan.json"
+      },
+      "routeA": {
+        "value": 9.823,
+        "unit": "deg modal_err",
+        "K": 12
+      },
+      "routeB": {
+        "value": null,
+        "note": "N/A (无 fracture_id)"
+      },
+      "honest_boundary": "内部数据, 非公开; 论文附录提供可复现脚本; 与国家需求叙事 (高放处置) 对位",
+      "data_three_questions": {
+        "data": "22 井 880 条钻孔编录 (depth/dip/dip_direction)",
+        "metric": "点级 MAE + 组系表 modal_err",
+        "observation_conditions": "无 fracture_id, 无 set_ids"
+      }
+    }
+  },
+  "narrative": "公开数据供可复现研究 + beishan 供国家需求叙事, 不写转向国外"
+}

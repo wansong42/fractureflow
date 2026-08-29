@@ -1,0 +1,39 @@
+{
+  "source": "beishan (甘肃北山, 中国高放处置预选区)",
+  "data_level": "L0 (borehole logs)",
+  "reproducibility": "内部数据, 论文附录可复现脚本",
+  "n_wells": 22,
+  "n_fractures": 880,
+  "point_eval": {
+    "mae_mean": 36.6871,
+    "mae_std": 1.1965,
+    "p50": 31.4875,
+    "p90": 76.5116,
+    "n_seeds": 10,
+    "predictor": "l1_local",
+    "observations": "obs_frac=0.4, rng=999"
+  },
+  "set_table": {
+    "K": 12,
+    "modal_err": 9.823,
+    "modal_err_std": 0.661,
+    "coverage": null,
+    "observations": "B2-B3: obs-only k-means, 10 seeds, pooled",
+    "source_file": "set_table_beishan.json"
+  },
+  "routeA": {
+    "value": 9.823,
+    "unit": "deg modal_err",
+    "K": 12
+  },
+  "routeB": {
+    "value": null,
+    "note": "N/A (无 fracture_id)"
+  },
+  "honest_boundary": "内部数据, 非公开; 论文附录提供可复现脚本; 与国家需求叙事 (高放处置) 对位",
+  "data_three_questions": {
+    "data": "22 井 880 条钻孔编录 (depth/dip/dip_direction)",
+    "metric": "点级 MAE + 组系表 modal_err",
+    "observation_conditions": "无 fracture_id, 无 set_ids"
+  }
+}

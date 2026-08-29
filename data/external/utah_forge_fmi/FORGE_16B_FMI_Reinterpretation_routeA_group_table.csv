@@ -1,0 +1,4 @@
+﻿group_id,n_fractures,mean_dip_dir,mean_dip,mean_strike,proportion,development_grade,depth_min,depth_max,depth_mean,natural_pct
+1,400,167.1,77.6,77.1,19.2,发育,1908.5,3280.4,2588.6,84.0
+2,310,337.8,33.7,247.8,14.9,发育,1909.1,3274.6,2353.1,64.5
+3,1377,283.6,87.0,193.6,66.0,很发育,1906.3,3303.7,2716.4,100.0

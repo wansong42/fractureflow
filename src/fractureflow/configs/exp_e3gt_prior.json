@@ -1,0 +1,51 @@
+{
+  "seed": 42,
+  "obs_frac": 0.4,
+  "wd": 5e-5,
+  "backbone": {
+    "name": "e3gt_prior",
+    "d_model": 256,
+    "k_knn": 16,
+    "n_layers": 4,
+    "dropout": 0.1,
+    "obs_drop": 0.25
+  },
+  "augments": [
+    {"name": "so3"},
+    {"name": "domain_rand", "resample_frac": true}
+  ],
+  "losses": [
+    {"name": "dir", "w_hid": 1.0, "w_obs": 0.3, "w_aniso": 1.0, "aniso_floor": 0.2},
+    {"name": "set_dir", "w_set": 0.5}
+  ],
+  "stages": {
+    "A": {
+      "enabled": true,
+      "steps": 24000,
+      "lr": 3e-4,
+      "batch": 32,
+      "warmup": 500,
+      "eval_every": 4000,
+      "ckpt": "models/_prior_stageA.pt",
+      "augments": [
+        {"name": "so3"},
+        {"name": "domain_rand", "resample_frac": true}
+      ]
+    },
+    "B": {
+      "enabled": true,
+      "steps": 16000,
+      "lr": 1e-4,
+      "batch": 16,
+      "warmup": 500,
+      "eval_every": 2000,
+      "ckpt": "models/_prior_final.pt",
+      "from_stageA": true,
+      "augments": [
+        {"name": "so3"},
+        {"name": "domain_rand", "resample_frac": false}
+      ]
+    }
+  },
+  "out_eval": "results/exp_e3gt_prior_eval.json"
+}

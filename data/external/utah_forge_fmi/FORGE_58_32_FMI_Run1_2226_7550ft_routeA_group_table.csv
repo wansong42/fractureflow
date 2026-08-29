@@ -1,0 +1,4 @@
+group,n,frac,mode_dip_dir_deg,mode_dip_deg,angular_disp_deg,angular_disp_p90_deg,depth_min,depth_max,type_mix
+2,976,0.44,111.42,10.00,17.25,32.28,920.72,2299.46,induced:279;natural:697
+0,942,0.42,353.38,44.90,21.72,37.54,968.28,2293.16,natural:942
+1,323,0.14,226.99,56.15,29.94,47.88,969.83,2297.50,natural:323

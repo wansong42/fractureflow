@@ -1,0 +1,16 @@
+{
+  "name": "公路工程",
+  "code": "JTG C20-2011",
+  "sections": ["概述", "工程地质条件", "节理统计表", "结构面发育程度评价", "岩体结构类型判定", "结论与建议"],
+  "table_headers_cn": ["组号", "条数", "倾向(°)", "倾角(°)", "隙宽(mm)", "充填物", "间距(m)", "粗糙度"],
+  "table_headers_en": ["Set", "N", "Dip Dir(°)", "Dip(°)", "Aperture(mm)", "Filling", "Spacing(m)", "Roughness"],
+  "required_fields": ["group_id", "n_fractures", "mean_dip_dir", "mean_dip"],
+  "optional_fields": ["aperture", "filling", "spacing", "roughness"],
+  "qualitative_terms": {
+    "development": ["不发育", "较发育", "发育", "很发育"]
+  },
+  "chart_types": ["rose", "stereonet"],
+  "header_text": "公路工程地质勘察节理统计报告",
+  "footer_text": "自动生成 - FractureFlow | 依据 JTG C20-2011",
+  "honesty_note": "本报告依据钻孔编录表自动生成，供路基、桥梁、边坡工程初步参考。公路行业硬质岩高边坡应进行岩体结构类型判定，详细评价应结合 JTG C20 规范与地质师现场判断。"
+}

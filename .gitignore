@@ -1,0 +1,78 @@
+# ============================================================================
+# FractureFlow release .gitignore
+# Double duty: (a) keep runtime junk out of git; (b) act as a POLICY GUARD --
+# any file matching the data-policy / internal-material blocks below must
+# never be committed, even by accident.  Rulings follow the open-source
+# compliance audit (R145, 2026-08-29).
+# ============================================================================
+
+# ---- Runtime / editor junk ----
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+*.log
+_tmp_*/
+_release_checks/
+data/demo/
+results/demo/
+
+# ---- Internal process artifacts (must never enter any release) ----
+AGENTS.md
+TASKS.md
+DATA_MAP.md
+tasks/
+docs/架构师交接*.md
+docs/技术路线_*.md
+docs/伽马线_*.md
+.cowork-temp/
+.workbuddy/
+.meituan-catpaw/
+.qoder-cn/
+
+# ---- Business / client materials (NDA, commitments, deprecated-number scripts) ----
+docs/试点材料/
+docs/面向客户*.md
+docs/客户交付文档*.md
+docs/*验收标准*
+docs/*产品说明*
+
+# ---- Internal research ledgers & artifacts ----
+results/_archive*/
+results/_*_backup*
+results/_*_superseded*/
+fmi_attr/
+vision/
+models/
+
+# ---- Data policy: FORBIDDEN to distribute (hard rulings, R145 §2) ----
+# Beishan pre-selection area (high-level radioactive waste disposal): any
+# raw or derived site data. Also mixed-net files containing Beishan wells.
+data/real/beishan_wells.npz
+data/real/loaded_real_nets*.pt
+# Aland traces: rights held by the authors & Geological Survey of Finland.
+data/real/aland_20m.pt
+data/external/aland_islands_repo/
+data/external/aland_traces/
+data/external/published_reports/
+data/external/cnki_papers/
+data/external/cnki_*.png
+data/external/CNKI*.md
+data/external/literature_sets.csv
+data/external/EFRACTURE_DATA.md
+# E-drive junction (local filesystem artifact; git cannot carry it anyway)
+data/external/efracture_data
+# Internal incident backups
+*_complementbug.pt.bak
+*.bak
+
+# ---- Data policy: LINK-ONLY (download from the official source; do not commit) ----
+data/real/forge2024_single.pt
+data/real/pontrelli_*.pt
+data/external/decovalex_dfn/
+data/external/FORGE_16A-32_FMI_fracture_log.xlsx
+data/external/FORGE_16B-32_core_fracture_analysis.zip
+data/external/_forge_extract/
+data/external/snake_river_INEL1/
+data/external/gdr_egs_collab/
+data/external/utah_forge_fmi/*.las

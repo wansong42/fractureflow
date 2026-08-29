@@ -1,0 +1,6 @@
+{
+  "mae_mean": 16.217549674329224,
+  "mae_std": 0.5312250036288614,
+  "is_oracle": true,
+  "note": "truth-based group assignment (F1 leak)"
+}

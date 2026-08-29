@@ -1,0 +1,38 @@
+{
+  "source": "FORGE (Utah, USA)",
+  "data_level": "L1 (FMI borehole imaging)",
+  "reproducibility": "公开 DOI: 10.15121/1452547 (GDR)",
+  "n_wells": 2,
+  "n_fractures": 4328,
+  "point_eval": {
+    "mae_mean": 39.6968,
+    "mae_std": 0.3317,
+    "p50": 35.8504,
+    "p90": 76.9004,
+    "n_seeds": 10,
+    "predictor": "l1_local",
+    "observations": "obs_frac=0.4, rng=999 (post-sin/cos-fix)"
+  },
+  "set_table": {
+    "K": 12,
+    "modal_err": 12.3707,
+    "modal_err_std": 3.9964,
+    "coverage": null,
+    "observations": "B2-B3: obs-only k-means, 10 seeds, pooled (post-sin/cos-fix)",
+    "source_file": "set_table_forge_revalidated.json"
+  },
+  "routeA": {
+    "value": 12.3707,
+    "unit": "deg modal_err",
+    "K": 12,
+    "note": "post-sin/cos-fix"
+  },
+  "routeB": null,
+  "honest_boundary": "FMI 成像测井, 双井, 含 natural/induced 类型字段; 旧数字 (25.86/7.78) 因 sin/cos swap bug 已废弃",
+  "data_three_questions": {
+    "data": "FMI 测井裂缝解释 (16B 2087条 + 58-32 2241条)",
+    "metric": "点级 MAE (acos|<pred,true>|) + 组系表 modal_err",
+    "observation_conditions": "无 fracture_id, 有 dip/dip_dir/ftype"
+  },
+  "revision_note": "2026-08: dip_dipdir_to_normal sin/cos bug fix 后重算, forge_fmi_2wells.pt 已重建"
+}

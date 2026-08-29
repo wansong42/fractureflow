@@ -1,0 +1,16 @@
+{
+  "name": "水电工程",
+  "code": "GB 50487-2008(2022)",
+  "sections": ["概述", "岩体结构", "裂隙统计表", "结构面发育程度评价", "软弱结构面分类", "结论与建议"],
+  "table_headers_cn": ["组号", "条数", "走向(°)", "倾向(°)", "倾角(°)", "迹长(m)", "间距(m)", "张开度(mm)", "充填物特征"],
+  "table_headers_en": ["Set", "N", "Strike(°)", "Dip Dir(°)", "Dip(°)", "Trace(m)", "Spacing(m)", "Aperture(mm)", "Filling"],
+  "required_fields": ["group_id", "n_fractures", "mean_strike", "mean_dip_dir", "mean_dip", "trace_length", "spacing", "aperture", "filling"],
+  "optional_fields": ["permeability", "roughness", "structural_plane_type"],
+  "qualitative_terms": {
+    "development": [">2m (稀疏)", "1~2m (中等)", "0.5~1m (较密)", "<0.5m (密集)"]
+  },
+  "chart_types": ["rose", "stereonet"],
+  "header_text": "水利水电工程地质勘察裂隙统计报告",
+  "footer_text": "自动生成 - FractureFlow | 依据 GB 50487-2008(2022)",
+  "honesty_note": "本报告依据钻孔编录表自动生成，供坝基、库区、地下洞室初步评价参考。水电工程涉及坝基抗滑稳定与水库渗漏评价，软弱结构面需单独归类并给出强度参数，详细评价应结合 GB 50487 规范与地质师现场判断。"
+}

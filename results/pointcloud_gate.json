@@ -1,0 +1,69 @@
+{
+  "task": "T30_multi_orientation_gate",
+  "date": "2026-08-20",
+  "data_source": "合成多壁 (Pontrelli/HRF 实地全部单组 dip<9°, 任务书许可合成基准)",
+  "gate_criteria": {
+    "mae_hidden_lt_deg": 5.0,
+    "misclass_hidden_lt": 0.15
+  },
+  "synth_config": {
+    "K": 4,
+    "geometry": "K planar walls, spatially separated (non-overlapping)",
+    "pts_per_wall": 25000,
+    "total_points": 100000,
+    "wall_extent_m": 8.0,
+    "scan_noise_sigma_m": 0.015,
+    "group_pairwise_angular_separation_deg": [
+      [
+        0.0,
+        90.0,
+        90.0,
+        0.0
+      ],
+      [
+        90.0,
+        0.0,
+        90.0,
+        90.0
+      ],
+      [
+        90.0,
+        90.0,
+        0.0,
+        90.0
+      ],
+      [
+        0.0,
+        90.0,
+        90.0,
+        0.0
+      ]
+    ]
+  },
+  "label_free_pipeline": {
+    "tol": 0.05,
+    "max_planes": 30,
+    "min_inliers": 200,
+    "pca_k": 64,
+    "refine_rounds": 1
+  },
+  "pipeline_output": {
+    "n_RANSAC_planes": 4,
+    "fallback_frac": 0.0
+  },
+  "evaluation": {
+    "obs_frac": 0.4,
+    "n_hidden": 60000,
+    "mae_hidden_deg": 0.3674,
+    "p50_hidden_deg": 0.0031,
+    "p90_hidden_deg": 0.0046,
+    "misclass_rate_all": 0.0038,
+    "misclass_rate_hidden": 0.004
+  },
+  "gate_verdict": "PASS",
+  "diagnosis": [
+    "多走向管线达标, L3 智能重构主线成立"
+  ],
+  "_conclusion_pass": "L3 主线成立 → 进 T31 (点云→裂隙网络 v1)",
+  "_conclusion_fail": "L3 降级为单组/近水平专用, 主线改攻 L2 (迹线网络) 或 L4 融合, 报架构师重定"
+}

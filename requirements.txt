@@ -1,0 +1,16 @@
+# Core dependencies (release scope, import-census verified 2026-08-29).
+# Tested combination: numpy 2.2.5 / scipy 1.15.3 / torch 2.6.0 / matplotlib 3.10.9
+#                     pandas 2.3.3 / scikit-learn 1.7.2 (Python 3.10)
+numpy>=1.26
+scipy>=1.11
+torch>=2.2
+matplotlib>=3.8
+pandas>=2.1
+scikit-learn>=1.4
+
+# Notes
+# - torch: CPU wheels are sufficient for every released pipeline
+#   (https://pytorch.org for CUDA-specific builds).
+# - No GPL/LGPL dependencies are required by the released code.
+#   (dlisio, LGPL-3.0, is used by some internal research scripts that are
+#   deliberately not part of this release; see THIRD_PARTY_NOTICES.md.)

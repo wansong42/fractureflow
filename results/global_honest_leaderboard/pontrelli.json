@@ -1,0 +1,34 @@
+{
+  "source": "Pontrelli (Italy, HRF quarry)",
+  "data_level": "L3 (dense 3D point cloud)",
+  "reproducibility": "公开 DOI: 10.5194/se-12-2055-2021 (Solid Earth)",
+  "n_nets": 136,
+  "n_total_points": 10683,
+  "point_eval": {
+    "mae_mean": null,
+    "note": "N/A (Route B 真值需 fracture_id + 真平面标签)"
+  },
+  "set_table": {
+    "K": 1,
+    "modal_err": 0.0,
+    "note": "单组近水平退化数据, K=1 组系表"
+  },
+  "routeA": {
+    "value": null,
+    "note": "N/A (L3 管线为 RANSAC-SVD 壁面分割)"
+  },
+  "routeB": {
+    "value": 6.6,
+    "unit": "deg MAE",
+    "p50": 1.36,
+    "p90": 18.49,
+    "prerequisite": "需 fracture_id + 稠密采样",
+    "note": "vs 真平面 6.60 (单组近水平退化数据, 不推广到多走向)"
+  },
+  "honest_boundary": "单组近水平退化数据 (全部 dip 2.6-5.7°, 0 陡倾), 6.60° 不推广到多走向场景",
+  "data_three_questions": {
+    "data": "448 万点稠密扫描, 136 条 fracture_id, 真平面法向标签",
+    "metric": "Route B = fracture_id 平面拟合 vs 真平面法向",
+    "observation_conditions": "有 fracture_id, 有真平面标签 (作弊级真值)"
+  }
+}

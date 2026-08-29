@@ -1,0 +1,2223 @@
+{
+  "task": "R110",
+  "baseline": "B1_statistical_resampling_v1.1",
+  "protocol": "results/v_r110_recon_protocol.json",
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "scenarios": {
+    "full": {
+      "observation_type": "full",
+      "coverage_fraction": 1.0,
+      "n_observed_faces": 136,
+      "n_true_faces": 136,
+      "min_face_pts": 30,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.0855334258151648,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.015797317774869462,
+              "powerlaw_exponent_diff": 0.19701777186538116
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.25835907399660396,
+              "ripley_k_max_rel_dev": 0.962962962962963
+            },
+            "topology": {
+              "p10_rel_err": 0.30448430493273543,
+              "p32_rel_err": 0.017462119280593002,
+              "intersection_density_rel_err": 0.7077244258872651,
+              "largest_cluster_fraction_diff": 0.0,
+              "_diagnostics": {
+                "p10_rec": 2.1728811240474464,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 3.2580711388178325,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.00031780956911630796,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.30448430493273543,
+              "heldout_z_w1_rel": 0.15525582985557793,
+              "heldout_normal_circ_std_diff_deg": 0.9071896003781528,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 1551,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 2.1728811240474464,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.994121970732069
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.025913905257156054,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.01008146074404278,
+              "powerlaw_exponent_diff": -0.004694932609376146
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.25374300454012266,
+              "ripley_k_max_rel_dev": 0.9444444444444444
+            },
+            "topology": {
+              "p10_rel_err": 0.295067264573991,
+              "p32_rel_err": 0.005226281364246641,
+              "intersection_density_rel_err": 0.6978427279053584,
+              "largest_cluster_fraction_diff": 0.0,
+              "_diagnostics": {
+                "p10_rec": 2.202301177951377,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 3.2188900925468538,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.00032855455931024027,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.295067264573991,
+              "heldout_z_w1_rel": 0.14537673140994792,
+              "heldout_normal_circ_std_diff_deg": 0.6954030204065516,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 1572,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 2.202301177951377,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.7823353907604678
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.11665591613497633,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.016224282324037633,
+              "powerlaw_exponent_diff": -0.28749592049030426
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.26807737169368817,
+              "ripley_k_max_rel_dev": 0.962962962962963
+            },
+            "topology": {
+              "p10_rel_err": 0.3260089686098655,
+              "p32_rel_err": 0.029115855114868208,
+              "intersection_density_rel_err": 0.7048016701461378,
+              "largest_cluster_fraction_diff": 0.0,
+              "_diagnostics": {
+                "p10_rec": 2.1056352865527477,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 3.1089212577492895,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.000320987664807471,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.3260089686098655,
+              "heldout_z_w1_rel": 0.1742646458931203,
+              "heldout_normal_circ_std_diff_deg": 0.7394453850900793,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 1503,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 2.1056352865527477,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.8263777554439955
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 0.07603441573576573,
+            "std": 0.03764927205054574,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.014034353614316625,
+            "std": 0.0028005471149352163,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": -0.03172436041143308,
+            "std": 0.1987231273162318,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.2600598167434716,
+            "std": 0.005974273447685032,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 0.95679012345679,
+            "std": 0.008729713347982107,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 0.3085201793721973,
+            "std": 0.0129502502943441,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.017268085253235952,
+            "std": 0.009753842675220403,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 0.7034562746462538,
+            "std": 0.004144840611309126,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 0.3085201793721973,
+            "std": 0.0129502502943441,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 0.15829906905288205,
+            "std": 0.011988157473267144,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 0.7806793352915946,
+            "std": 0.09124533906245162,
+            "n": 3
+          }
+        }
+      }
+    },
+    "borehole_1": {
+      "observation_type": "borehole",
+      "coverage_fraction": 9.470003651758484e-05,
+      "n_observed_faces": 13,
+      "n_true_faces": 136,
+      "min_face_pts": 1,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 13,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 1,
+              "fisher_mean_direction_distance_deg": 46.83750422489078,
+              "set_proportion_L1": 7.609109747207239e-19
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9950569490135693,
+              "powerlaw_exponent_diff": -4.278946064422074
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.34913052249803705,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 1.0,
+              "p32_rel_err": 0.9999969416491253,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9230769230769231,
+              "_diagnostics": {
+                "p10_rec": 0.0,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 9.793312722086066e-06,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 1.0,
+              "heldout_z_w1_rel": 1.0,
+              "heldout_normal_circ_std_diff_deg": 1.0869323703539162,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 0,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.0,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 0.0
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 13,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 4.071199836341821,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9941841717741161,
+              "powerlaw_exponent_diff": -2.5779210467743123
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.24284837379112317,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 1.0,
+              "p32_rel_err": 0.9999966280195945,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9230769230769231,
+              "_diagnostics": {
+                "p10_rec": 0.0,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 1.079760300833145e-05,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 1.0,
+              "heldout_z_w1_rel": 1.0,
+              "heldout_normal_circ_std_diff_deg": 1.0869323703539162,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 0,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.0,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 0.0
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 13,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 1,
+              "fisher_mean_direction_distance_deg": 46.911360384945,
+              "set_proportion_L1": 1.2527759601841228e-18
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9947502621436183,
+              "powerlaw_exponent_diff": -4.79041930592432
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.31819348980695705,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 1.0,
+              "p32_rel_err": 0.9999965048885363,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9230769230769231,
+              "_diagnostics": {
+                "p10_rec": 0.0,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 1.119188770850612e-05,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 1.0,
+              "heldout_z_w1_rel": 1.0,
+              "heldout_normal_circ_std_diff_deg": 1.0869323703539162,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 0,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.0,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 0.0
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 0.6666666666666666,
+            "std": 0.4714045207910317,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 32.606688148725866,
+            "std": 20.177659818104928,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 6.712289783016156e-19,
+            "std": 5.153600986786491e-19,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.9946637943104345,
+            "std": 0.0003615176732042407,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": -3.8824288057069025,
+            "std": 0.9457648012868384,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.30339079536537245,
+            "std": 0.04463416931371322,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.9999966915190854,
+            "std": 1.8387331152346336e-07,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.923076923076923,
+            "std": 1.1102230246251565e-16,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 1.0869323703539162,
+            "std": 0.0,
+            "n": 3
+          }
+        }
+      }
+    },
+    "borehole_2": {
+      "observation_type": "borehole",
+      "coverage_fraction": 0.00018113615475415403,
+      "n_observed_faces": 16,
+      "n_true_faces": 136,
+      "min_face_pts": 1,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 16,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 1,
+              "fisher_mean_direction_distance_deg": 45.93072870777772,
+              "set_proportion_L1": 2.8876756914279115e-21
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9542697874537575,
+              "powerlaw_exponent_diff": -4.501595203563347
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.36704930116556367,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 0.9982062780269058,
+              "p32_rel_err": 0.9991941156162527,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9375,
+              "_diagnostics": {
+                "p10_rec": 0.005603819791224878,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.0025805664920157826,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.9982062780269058,
+              "heldout_z_w1_rel": 0.23443391620200513,
+              "heldout_normal_circ_std_diff_deg": 1.4011811552648685,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 4,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.005603819791224878,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 2.4881135256187847
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 16,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 1,
+              "fisher_mean_direction_distance_deg": 46.009341380808195,
+              "set_proportion_L1": 2.8738021128839315e-20
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9837934245464787,
+              "powerlaw_exponent_diff": -2.5888614742117944
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.22991148505145564,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 0.9995515695067265,
+              "p32_rel_err": 0.9997759377758033,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9375,
+              "_diagnostics": {
+                "p10_rec": 0.0014009549478062194,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.0007174819112385929,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.9995515695067265,
+              "heldout_z_w1_rel": 0.4043772206295492,
+              "heldout_normal_circ_std_diff_deg": 1.0869323703539162,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 1,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.0014009549478062194,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 0.0
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 16,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 1,
+              "fisher_mean_direction_distance_deg": 45.88134142195305,
+              "set_proportion_L1": 7.803225934011313e-22
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9758150802451648,
+              "powerlaw_exponent_diff": -4.358063360170947
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.30700741177257296,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 0.9995515695067265,
+              "p32_rel_err": 0.9996699256914003,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9375,
+              "_diagnostics": {
+                "p10_rec": 0.0014009549478062194,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.0010569490088475494,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.9995515695067265,
+              "heldout_z_w1_rel": 0.387280082907068,
+              "heldout_normal_circ_std_diff_deg": 1.0869323703539162,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 1,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.0014009549478062194,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 0.0
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 45.940470503512984,
+            "std": 0.05270783815740193,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 1.0802006471222785e-20,
+            "std": 1.2711823908435721e-20,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.9712927640818002,
+            "std": 0.012469958417646438,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": -3.8161733459820293,
+            "std": 0.8698165210579464,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.3013227326631974,
+            "std": 0.05613039482353659,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 0.9991031390134529,
+            "std": 0.0006341764853691655,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.9995466596944854,
+            "std": 0.0002530153300132857,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.9375,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 0.9991031390134529,
+            "std": 0.0006341764853691655,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 0.34203040657954076,
+            "std": 0.07640170847019813,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 1.1916819653242336,
+            "std": 0.14813829786011146,
+            "n": 3
+          }
+        }
+      }
+    },
+    "borehole_4": {
+      "observation_type": "borehole",
+      "coverage_fraction": 0.00032318620953053126,
+      "n_observed_faces": 28,
+      "n_true_faces": 136,
+      "min_face_pts": 1,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 28,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 1,
+              "fisher_mean_direction_distance_deg": 45.658729938730026,
+              "set_proportion_L1": 1.237950235957679e-21
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9755033301763134,
+              "powerlaw_exponent_diff": -4.7259241337043045
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.27171213028773844,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 0.9986547085201795,
+              "p32_rel_err": 0.9991604571310839,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9642857142857143,
+              "_diagnostics": {
+                "p10_rec": 0.004202864843418658,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.002688346169535833,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.9986547085201795,
+              "heldout_z_w1_rel": 0.2712278928812592,
+              "heldout_normal_circ_std_diff_deg": 1.0424193804403192,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 3,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.004202864843418658,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 2.1293517507942354
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 28,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 1,
+              "fisher_mean_direction_distance_deg": 45.63564342882407,
+              "set_proportion_L1": 1.1551364769241855e-21
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9225605635545183,
+              "powerlaw_exponent_diff": -4.758989350055234
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2609761852312126,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 0.9959641255605381,
+              "p32_rel_err": 0.9944256760462776,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9642857142857143,
+              "_diagnostics": {
+                "p10_rec": 0.012608594530255975,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.01784984782026581,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.9959641255605381,
+              "heldout_z_w1_rel": 0.13607668534789077,
+              "heldout_normal_circ_std_diff_deg": 0.04560611245046453,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 9,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.012608594530255975,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.1325384828043807
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 28,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 2,
+              "fisher_mean_direction_distance_deg": 60.63302243185992,
+              "set_proportion_L1": 1.202626620726466e-21
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.9235221002475128,
+              "powerlaw_exponent_diff": -4.554402873970919
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2755200051446547,
+              "ripley_k_max_rel_dev": 1.0
+            },
+            "topology": {
+              "p10_rel_err": 0.9937219730941703,
+              "p32_rel_err": 0.9945972763080332,
+              "intersection_density_rel_err": 1.0,
+              "largest_cluster_fraction_diff": 0.9642857142857143,
+              "_diagnostics": {
+                "p10_rec": 0.019613369269287074,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.01730035723025323,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.9937219730941703,
+              "heldout_z_w1_rel": 0.2923007354652282,
+              "heldout_normal_circ_std_diff_deg": 0.11294470684388702,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 14,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.019613369269287074,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 0.9739876635100292
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 1.3333333333333333,
+            "std": 0.4714045207910317,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 50.64246526647134,
+            "std": 7.0643970067235875,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 1.198571111202777e-21,
+            "std": 3.3929977300679415e-23,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.9405286646594481,
+            "std": 0.024733938346806605,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": -4.679772119243485,
+            "std": 0.08967129930378394,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.26940277355453524,
+            "std": 0.006157949919118217,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 0.9961136023916293,
+            "std": 0.0020165527000347533,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.9960611364951316,
+            "std": 0.002192670056618745,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.9642857142857143,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 0.9961136023916293,
+            "std": 0.0020165527000347533,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 0.23320177123145944,
+            "std": 0.06921453558591154,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 0.40032339991155697,
+            "std": 0.4548619261066043,
+            "n": 3
+          }
+        }
+      }
+    },
+    "outcrop_10": {
+      "observation_type": "outcrop_halfspace",
+      "coverage_fraction": 0.0998906705946336,
+      "n_observed_faces": 127,
+      "n_true_faces": 136,
+      "min_face_pts": 30,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 127,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.0819713140558904,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.7054949410433424,
+              "powerlaw_exponent_diff": -3.851732295750944
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2667624238253905,
+              "ripley_k_max_rel_dev": 0.9575053118360205
+            },
+            "topology": {
+              "p10_rel_err": 0.8874439461883409,
+              "p32_rel_err": 0.8810744936084898,
+              "intersection_density_rel_err": 0.978009742519137,
+              "largest_cluster_fraction_diff": 0.3385826771653543,
+              "_diagnostics": {
+                "p10_rec": 0.35163969189936106,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.3808178729223239,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 2.391138662875079e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.8874439461883409,
+              "heldout_z_w1_rel": 0.08692209100246798,
+              "heldout_normal_circ_std_diff_deg": 0.9937839221509741,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 251,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.35163969189936106,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 2.0807162925048903
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 127,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.029019707040780978,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.7488457403372404,
+              "powerlaw_exponent_diff": -3.8748846129367465
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2609157619342739,
+              "ripley_k_max_rel_dev": 0.9575053118360205
+            },
+            "topology": {
+              "p10_rel_err": 0.915695067264574,
+              "p32_rel_err": 0.9057704165887945,
+              "intersection_density_rel_err": 0.9824634655532358,
+              "largest_cluster_fraction_diff": 0.5118110236220472,
+              "_diagnostics": {
+                "p10_rec": 0.26337953018756927,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.3017377063157379,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 1.9068574146978476e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.915695067264574,
+              "heldout_z_w1_rel": 0.06244009945647872,
+              "heldout_normal_circ_std_diff_deg": 0.8337415197931373,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 188,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.26337953018756927,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.9206738901470535
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 127,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.1365232886873695,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.7275944924451796,
+              "powerlaw_exponent_diff": -3.9511263782493096
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.26834679716432835,
+              "ripley_k_max_rel_dev": 0.9645877598633503
+            },
+            "topology": {
+              "p10_rel_err": 0.9053811659192824,
+              "p32_rel_err": 0.8918690423081237,
+              "intersection_density_rel_err": 0.9828810020876828,
+              "largest_cluster_fraction_diff": 0.3779527559055118,
+              "_diagnostics": {
+                "p10_rec": 0.29560149398711233,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.34625205773530965,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 1.8614560476812322e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.9053811659192824,
+              "heldout_z_w1_rel": 0.165943470950581,
+              "heldout_normal_circ_std_diff_deg": 0.8829287004819582,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 211,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.29560149398711233,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.9698610708358744
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 0.08250476992801363,
+            "std": 0.04388977442098032,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.7273117246085875,
+            "std": 0.01769901914593036,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": -3.892581095645667,
+            "std": 0.04246308227251302,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.2653416609746642,
+            "std": 0.003195725943201892,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 0.9598661278451305,
+            "std": 0.0033386980183508033,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 0.9028400597907323,
+            "std": 0.01167259970424786,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.892904650835136,
+            "std": 0.010108627230512944,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 0.9811180700533519,
+            "std": 0.0022045194842063806,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.4094488188976378,
+            "std": 0.07414407817231253,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 0.9028400597907323,
+            "std": 0.01167259970424786,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 0.10510188713650924,
+            "std": 0.04416722554314087,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 0.9034847141420231,
+            "std": 0.06693432060018,
+            "n": 3
+          }
+        }
+      }
+    },
+    "outcrop_30": {
+      "observation_type": "outcrop_halfspace",
+      "coverage_fraction": 0.30002669022255624,
+      "n_observed_faces": 135,
+      "n_true_faces": 136,
+      "min_face_pts": 30,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 135,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.05677858606241588,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.5534982998656597,
+              "powerlaw_exponent_diff": -3.3268233650257573
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.25635580254474494,
+              "ripley_k_max_rel_dev": 0.9436152570480928
+            },
+            "topology": {
+              "p10_rel_err": 0.7887892376681614,
+              "p32_rel_err": 0.7645806826635763,
+              "intersection_density_rel_err": 0.9486430062630481,
+              "largest_cluster_fraction_diff": 0.07407407407407407,
+              "_diagnostics": {
+                "p10_rec": 0.6598497804167294,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.753849080766096,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 5.5843681430436967e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.7887892376681614,
+              "heldout_z_w1_rel": 0.12685089010746212,
+              "heldout_normal_circ_std_diff_deg": 0.8755603652705888,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 471,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.6598497804167294,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.962492735624505
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 135,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.01939452848569309,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.608440056564875,
+              "powerlaw_exponent_diff": -3.281212959423235
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2535882001684214,
+              "ripley_k_max_rel_dev": 0.9624101713653952
+            },
+            "topology": {
+              "p10_rel_err": 0.8260089686098655,
+              "p32_rel_err": 0.8091656118291701,
+              "intersection_density_rel_err": 0.954070981210856,
+              "largest_cluster_fraction_diff": 0.11111111111111116,
+              "_diagnostics": {
+                "p10_rec": 0.5435705197488132,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.6110812389093716,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 4.9941503718276964e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.8260089686098655,
+              "heldout_z_w1_rel": 0.0752272229007899,
+              "heldout_normal_circ_std_diff_deg": 0.8426332580708848,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 388,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.5435705197488132,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.929565628424801
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 135,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.1251668869231405,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.5724984157985578,
+              "powerlaw_exponent_diff": -3.313691988978084
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2663028916061682,
+              "ripley_k_max_rel_dev": 0.9561451999262944
+            },
+            "topology": {
+              "p10_rel_err": 0.8071748878923767,
+              "p32_rel_err": 0.787244552931431,
+              "intersection_density_rel_err": 0.9468336812804453,
+              "largest_cluster_fraction_diff": 0.06666666666666665,
+              "_diagnostics": {
+                "p10_rec": 0.6024106275566744,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.681275861366224,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 5.781107400115697e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.8071748878923767,
+              "heldout_z_w1_rel": 0.1347220242757088,
+              "heldout_normal_circ_std_diff_deg": 0.7799257654878493,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 430,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.6024106275566744,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.8668581358417655
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 0.06711333382374983,
+            "std": 0.04379538187847939,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.5781455907430307,
+            "std": 0.022782553206917723,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": -3.307242771142359,
+            "std": 0.01917066479157017,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.25874896477311154,
+            "std": 0.005459625364298576,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 0.9540568761132607,
+            "std": 0.007813792221013097,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 0.8073243647234679,
+            "std": 0.01519525913644308,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.7869969491413925,
+            "std": 0.018202563151067244,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 0.9498492229181165,
+            "std": 0.003075261130907294,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.08395061728395063,
+            "std": 0.019441994750646476,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 0.8073243647234679,
+            "std": 0.01519525913644308,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 0.11226671242798696,
+            "std": 0.026387263677768738,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 0.8327064629431077,
+            "std": 0.03966862836913518,
+            "n": 3
+          }
+        }
+      }
+    },
+    "outcrop_50": {
+      "observation_type": "outcrop_halfspace",
+      "coverage_fraction": 0.49994963476831433,
+      "n_observed_faces": 136,
+      "n_true_faces": 136,
+      "min_face_pts": 30,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.08502557379487773,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.3168385911401243,
+              "powerlaw_exponent_diff": -3.2517934466698093
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2581597109480392,
+              "ripley_k_max_rel_dev": 0.962962962962963
+            },
+            "topology": {
+              "p10_rel_err": 0.5937219730941704,
+              "p32_rel_err": 0.48096137595485666,
+              "intersection_density_rel_err": 0.8637439109255393,
+              "largest_cluster_fraction_diff": 0.007352941176470562,
+              "_diagnostics": {
+                "p10_rec": 1.2692651827124348,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 1.6620419855324793,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.00014815979436422165,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.5937219730941704,
+              "heldout_z_w1_rel": 0.14144699075821665,
+              "heldout_normal_circ_std_diff_deg": 0.8825846843028322,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 906,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 1.2692651827124348,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.9695170546567484
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.02671112992776211,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.33736093467597694,
+              "powerlaw_exponent_diff": -3.2399383657477703
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.25397057242753823,
+              "ripley_k_max_rel_dev": 0.95679012345679
+            },
+            "topology": {
+              "p10_rel_err": 0.5946188340807175,
+              "p32_rel_err": 0.5082107933136785,
+              "intersection_density_rel_err": 0.8556715379262352,
+              "largest_cluster_fraction_diff": 0.0,
+              "_diagnostics": {
+                "p10_rec": 1.2664632728168224,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 1.5747851348212683,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.00015693739198743397,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.5946188340807175,
+              "heldout_z_w1_rel": 0.11623775464994165,
+              "heldout_normal_circ_std_diff_deg": 0.7544550563090258,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 904,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 1.2664632728168224,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.841387426662942
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.11684480482878147,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.3441263582212972,
+              "powerlaw_exponent_diff": -3.0367496523271225
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.26802137034455803,
+              "ripley_k_max_rel_dev": 0.962962962962963
+            },
+            "topology": {
+              "p10_rel_err": 0.6278026905829597,
+              "p32_rel_err": 0.5249647740948991,
+              "intersection_density_rel_err": 0.8615170494084899,
+              "largest_cluster_fraction_diff": 0.007352941176470562,
+              "_diagnostics": {
+                "p10_rec": 1.162792606679162,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 1.5211362960004198,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0001505812006051078,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.6278026905829597,
+              "heldout_z_w1_rel": 0.1574403831532333,
+              "heldout_normal_circ_std_diff_deg": 0.7365886078094435,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 830,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 1.162792606679162,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.8235209781633597
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 0.0761938361838071,
+            "std": 0.037323089633753186,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.33277529467913286,
+            "std": 0.011602489063546623,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": -3.176160488248234,
+            "std": 0.09869708410108287,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.2600505512400451,
+            "std": 0.00588997386998374,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 0.9609053497942387,
+            "std": 0.0029099044493274217,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 0.6053811659192826,
+            "std": 0.015858639413901178,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.5047123144544781,
+            "std": 0.01813384088224694,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 0.8603108327534215,
+            "std": 0.0034041171566400615,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.004901960784313708,
+            "std": 0.00346620971169875,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 0.6053811659192826,
+            "std": 0.015858639413901178,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 0.1383750428537972,
+            "std": 0.016960577758253905,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 0.7912094494737673,
+            "std": 0.06502244561455757,
+            "n": 3
+          }
+        }
+      }
+    },
+    "station_30": {
+      "observation_type": "station_occlusion",
+      "coverage_fraction": 0.30016606008761987,
+      "n_observed_faces": 136,
+      "n_true_faces": 136,
+      "min_face_pts": 30,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.08528120049039517,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.022464300390514384,
+              "powerlaw_exponent_diff": 0.8568731179401325
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2583619013952626,
+              "ripley_k_max_rel_dev": 0.962962962962963
+            },
+            "topology": {
+              "p10_rel_err": 0.2986547085201794,
+              "p32_rel_err": 0.026038661610228084,
+              "intersection_density_rel_err": 0.7060542797494781,
+              "largest_cluster_fraction_diff": 0.0,
+              "_diagnostics": {
+                "p10_rec": 2.191093538368927,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 3.2855345544138754,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.00031962562379697255,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.2986547085201794,
+              "heldout_z_w1_rel": 0.15650439166980784,
+              "heldout_normal_circ_std_diff_deg": 0.9064834244187487,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 1564,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 2.191093538368927,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.993415794772665
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.026074534445262892,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.013275773281105666,
+              "powerlaw_exponent_diff": 0.42520629844933033
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.25373906417331227,
+              "ripley_k_max_rel_dev": 0.9444444444444444
+            },
+            "topology": {
+              "p10_rel_err": 0.28654708520179367,
+              "p32_rel_err": 0.018942856861596878,
+              "intersection_density_rel_err": 0.6940848990953374,
+              "largest_cluster_fraction_diff": 0.0,
+              "_diagnostics": {
+                "p10_rec": 2.228919321959695,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 3.262812689668141,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.00033264068234173567,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.28654708520179367,
+              "heldout_z_w1_rel": 0.14416235328525054,
+              "heldout_normal_circ_std_diff_deg": 0.6936516668282426,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 1591,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 2.228919321959695,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.7805840371821589
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 136,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.11687161944100959,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.01577190772373554,
+              "powerlaw_exponent_diff": -0.3054127465337153
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2680736204841425,
+              "ripley_k_max_rel_dev": 0.962962962962963
+            },
+            "topology": {
+              "p10_rel_err": 0.32152466367713006,
+              "p32_rel_err": 0.02242079296534788,
+              "intersection_density_rel_err": 0.703688239387613,
+              "largest_cluster_fraction_diff": 0.0,
+              "_diagnostics": {
+                "p10_rec": 2.11964483603081,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 3.1303598826853873,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 0.0003221983679279141,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.32152466367713006,
+              "heldout_z_w1_rel": 0.17344008875652048,
+              "heldout_normal_circ_std_diff_deg": 0.736560230289717,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 1513,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 2.11964483603081,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.8234926006436332
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 0.07607578479222254,
+            "std": 0.03763493429925034,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.017170660465118528,
+            "std": 0.0038794019757113388,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": 0.32555555661858254,
+            "std": 0.47970463860553036,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.2600581953509058,
+            "std": 0.005973716656881462,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 0.95679012345679,
+            "std": 0.008729713347982107,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 0.3022421524663677,
+            "std": 0.01450310459981727,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.022467437145724283,
+            "std": 0.0028970379145311547,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 0.7012758060774762,
+            "std": 0.00517567349355441,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 0.3022421524663677,
+            "std": 0.01450310459981727,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 0.15803561123719298,
+            "std": 0.012001525558696604,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 0.778898440512236,
+            "std": 0.09190115085750435,
+            "n": 3
+          }
+        }
+      }
+    },
+    "multi_30_2": {
+      "observation_type": "multi",
+      "coverage_fraction": 0.3002078263773104,
+      "n_observed_faces": 135,
+      "n_true_faces": 136,
+      "min_face_pts": 30,
+      "per_seed": [
+        {
+          "seed": 11,
+          "n_generated": 135,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.055736081902390225,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.5533929152450604,
+              "powerlaw_exponent_diff": -3.3297199493674716
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.25639075223588614,
+              "ripley_k_max_rel_dev": 0.9498802284871937
+            },
+            "topology": {
+              "p10_rel_err": 0.7883408071748879,
+              "p32_rel_err": 0.7644927764819318,
+              "intersection_density_rel_err": 0.9486430062630481,
+              "largest_cluster_fraction_diff": 0.07407407407407407,
+              "_diagnostics": {
+                "p10_rec": 0.6612507353645356,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.7541305699615284,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 5.5843681430436967e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.7883408071748879,
+              "heldout_z_w1_rel": 0.12755079128557337,
+              "heldout_normal_circ_std_diff_deg": 0.87485795245357,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 472,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.6612507353645356,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.9617903228074862
+              }
+            }
+          }
+        },
+        {
+          "seed": 22,
+          "n_generated": 135,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.020216687690186565,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.6077692204802184,
+              "powerlaw_exponent_diff": -3.2762231171417167
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.25360324862607386,
+              "ripley_k_max_rel_dev": 0.9561451999262944
+            },
+            "topology": {
+              "p10_rel_err": 0.8251121076233183,
+              "p32_rel_err": 0.8088209443535356,
+              "intersection_density_rel_err": 0.9539318023660404,
+              "largest_cluster_fraction_diff": 0.11111111111111116,
+              "_diagnostics": {
+                "p10_rec": 0.5463724296444256,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.6121849174970801,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 5.009284160833235e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.8251121076233183,
+              "heldout_z_w1_rel": 0.07589183104414904,
+              "heldout_normal_circ_std_diff_deg": 0.8436934555681541,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 390,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.5463724296444256,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.9306258259220703
+              }
+            }
+          }
+        },
+        {
+          "seed": 33,
+          "n_generated": 135,
+          "scorecard": {
+            "set": {
+              "set_count_abs_diff": 0,
+              "fisher_mean_direction_distance_deg": 0.12646069154769515,
+              "set_proportion_L1": 0.0
+            },
+            "scale": {
+              "trace_length_w1_rel": 0.5723652783400265,
+              "powerlaw_exponent_diff": -3.3122225314112193
+            },
+            "spatial": {
+              "density_field_l1_rel": 0.2663641441652511,
+              "ripley_k_max_rel_dev": 0.9561451999262944
+            },
+            "topology": {
+              "p10_rel_err": 0.8076233183856503,
+              "p32_rel_err": 0.7871588224483934,
+              "intersection_density_rel_err": 0.9466945024356299,
+              "largest_cluster_fraction_diff": 0.06666666666666665,
+              "_diagnostics": {
+                "p10_rec": 0.6010096726088682,
+                "p10_true": 3.1241295336078694,
+                "p32_rec": 0.6815503836380695,
+                "p32_true": 3.20215473095105,
+                "inter_rec": 5.796241189121235e-05,
+                "inter_true": 0.0010873627400479393
+              }
+            },
+            "consistency": {
+              "heldout_p10_rel_err": 0.8076233183856503,
+              "heldout_z_w1_rel": 0.1350525288116324,
+              "heldout_normal_circ_std_diff_deg": 0.7762784710643422,
+              "_diagnostics": {
+                "picks_true": 2230,
+                "picks_rec": 429,
+                "p10_true": 3.1241295336078694,
+                "p10_rec": 0.6010096726088682,
+                "circ_std_true": 1.0869323703539162,
+                "circ_std_rec": 1.8632108414182584
+              }
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "set": {
+          "set_count_abs_diff": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          },
+          "fisher_mean_direction_distance_deg": {
+            "mean": 0.06747115371342398,
+            "std": 0.044160548167839916,
+            "n": 3
+          },
+          "set_proportion_L1": {
+            "mean": 0.0,
+            "std": 0.0,
+            "n": 3
+          }
+        },
+        "scale": {
+          "trace_length_w1_rel": {
+            "mean": 0.5778424713551017,
+            "std": 0.022534349709573905,
+            "n": 3
+          },
+          "powerlaw_exponent_diff": {
+            "mean": -3.3060551993068024,
+            "std": 0.02227112859754037,
+            "n": 3
+          }
+        },
+        "spatial": {
+          "density_field_l1_rel": {
+            "mean": 0.2587860483424037,
+            "std": 0.005478028618573908,
+            "n": 3
+          },
+          "ripley_k_max_rel_dev": {
+            "mean": 0.954056876113261,
+            "std": 0.002953335859018796,
+            "n": 3
+          }
+        },
+        "topology": {
+          "p10_rel_err": {
+            "mean": 0.8070254110612854,
+            "std": 0.015017772893998685,
+            "n": 3
+          },
+          "p32_rel_err": {
+            "mean": 0.7868241810946204,
+            "std": 0.01809844570379848,
+            "n": 3
+          },
+          "intersection_density_rel_err": {
+            "mean": 0.9497564370215729,
+            "std": 0.0030577141365407175,
+            "n": 3
+          },
+          "largest_cluster_fraction_diff": {
+            "mean": 0.08395061728395063,
+            "std": 0.019441994750646476,
+            "n": 3
+          }
+        },
+        "consistency": {
+          "heldout_p10_rel_err": {
+            "mean": 0.8070254110612854,
+            "std": 0.015017772893998685,
+            "n": 3
+          },
+          "heldout_z_w1_rel": {
+            "mean": 0.11283171704711827,
+            "std": 0.026299371347515036,
+            "n": 3
+          },
+          "heldout_normal_circ_std_diff_deg": {
+            "mean": 0.8316099596953554,
+            "std": 0.04114192259422039,
+            "n": 3
+          }
+        }
+      }
+    }
+  },
+  "identity_check": {
+    "set": {
+      "set_count_abs_diff": 0,
+      "fisher_mean_direction_distance_deg": 1.2074182697257333e-06,
+      "set_proportion_L1": 0.0
+    },
+    "scale": {
+      "trace_length_w1_rel": 0.0018600428815426866,
+      "powerlaw_exponent_diff": 0.0078018848139223
+    },
+    "spatial": {
+      "density_field_l1_rel": 0.000597911464464097,
+      "ripley_k_max_rel_dev": 0.024691358024691287
+    },
+    "topology": {
+      "p10_rel_err": 0.0,
+      "p32_rel_err": 0.00030944246161958733,
+      "intersection_density_rel_err": 0.0006958942240778215,
+      "largest_cluster_fraction_diff": 0.0,
+      "_diagnostics": {
+        "p10_rec": 3.1241295336078694,
+        "p10_true": 3.1241295336078694,
+        "p32_rec": 3.2011638483086178,
+        "p32_true": 3.20215473095105,
+        "inter_rec": 0.0010866060505976625,
+        "inter_true": 0.0010873627400479393
+      }
+    },
+    "consistency": {
+      "heldout_p10_rel_err": 0.0,
+      "heldout_z_w1_rel": 5.85558360590051e-05,
+      "heldout_normal_circ_std_diff_deg": 0.0004244797133519107,
+      "_diagnostics": {
+        "picks_true": 2230,
+        "picks_rec": 2230,
+        "p10_true": 3.1241295336078694,
+        "p10_rec": 3.1241295336078694,
+        "circ_std_true": 1.0869323703539162,
+        "circ_std_rec": 1.0865078906405643
+      }
+    }
+  },
+  "notes": [
+    "B1 = 朴素参数化重采样参考带 (v1.1, 见协议 preregister_amendments); 遮蔽场景无门, 退化结构本身是平台产出物; 反常档诊断见 results/r110_report.md"
+  ],
+  "selfconsistency": {
+    "identity_check_passed": false,
+    "gates_passed": "10/14",
+    "checks": [
+      {
+        "layer": "set",
+        "metric": "set_count_abs_diff",
+        "value": 0.0,
+        "gate": "<= 1",
+        "passed": true
+      },
+      {
+        "layer": "set",
+        "metric": "fisher_mean_direction_distance_deg",
+        "value": 0.07603441573576573,
+        "gate": "<= 8.0",
+        "passed": true
+      },
+      {
+        "layer": "set",
+        "metric": "set_proportion_L1",
+        "value": 0.0,
+        "gate": "<= 0.20",
+        "passed": true
+      },
+      {
+        "layer": "scale",
+        "metric": "trace_length_w1_rel",
+        "value": 0.014034353614316625,
+        "gate": "<= 0.25",
+        "passed": true
+      },
+      {
+        "layer": "scale",
+        "metric": "powerlaw_exponent_diff",
+        "value": -0.03172436041143308,
+        "gate": "<= 0.80",
+        "passed": true
+      },
+      {
+        "layer": "spatial",
+        "metric": "density_field_l1_rel",
+        "value": 0.2600598167434716,
+        "gate": "<= 0.30",
+        "passed": true
+      },
+      {
+        "layer": "spatial",
+        "metric": "ripley_k_max_rel_dev",
+        "value": 0.95679012345679,
+        "gate": "<= 0.60",
+        "passed": false
+      },
+      {
+        "layer": "topology",
+        "metric": "p10_rel_err",
+        "value": 0.3085201793721973,
+        "gate": "<= 0.30",
+        "passed": false
+      },
+      {
+        "layer": "topology",
+        "metric": "p32_rel_err",
+        "value": 0.017268085253235952,
+        "gate": "<= 0.25",
+        "passed": true
+      },
+      {
+        "layer": "topology",
+        "metric": "intersection_density_rel_err",
+        "value": 0.7034562746462538,
+        "gate": "<= 0.40",
+        "passed": false
+      },
+      {
+        "layer": "topology",
+        "metric": "largest_cluster_fraction_diff",
+        "value": 0.0,
+        "gate": "<= 0.25",
+        "passed": true
+      },
+      {
+        "layer": "consistency",
+        "metric": "heldout_p10_rel_err",
+        "value": 0.3085201793721973,
+        "gate": "<= 0.30",
+        "passed": false
+      },
+      {
+        "layer": "consistency",
+        "metric": "heldout_z_w1_rel",
+        "value": 0.15829906905288205,
+        "gate": "<= 0.35",
+        "passed": true
+      },
+      {
+        "layer": "consistency",
+        "metric": "heldout_normal_circ_std_diff_deg",
+        "value": 0.7806793352915946,
+        "gate": "<= 6.0",
+        "passed": true
+      }
+    ],
+    "verdict": "HONEST_FAIL"
+  }
+}

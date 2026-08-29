@@ -1,0 +1,16 @@
+{
+  "name": "通用岩土工程",
+  "code": "GB 50021-2001",
+  "sections": ["概述", "地质条件", "结构面分组统计", "结构面发育程度评价", "结论建议"],
+  "table_headers_cn": ["组号", "条数", "优势倾向(°)", "优势倾角(°)", "发育程度", "充填特征"],
+  "table_headers_en": ["Set", "N", "Trend(°)", "Plunge(°)", "Development", "Filling"],
+  "required_fields": ["group_id", "n_fractures", "mean_trend", "mean_plunge"],
+  "optional_fields": ["development_grade", "filling", "aperture", "roughness"],
+  "qualitative_terms": {
+    "development": ["不发育", "较发育", "发育", "很发育"]
+  },
+  "chart_types": ["rose", "stereonet"],
+  "header_text": "岩土工程勘察结构面统计报告",
+  "footer_text": "自动生成 - FractureFlow | 依据 GB 50021-2001",
+  "honesty_note": "本报告依据钻孔编录表自动生成，供初步评价参考。详细工程评价应结合地质师现场判断与规范强制性条文要求。"
+}

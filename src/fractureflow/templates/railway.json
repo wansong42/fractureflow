@@ -1,0 +1,16 @@
+{
+  "name": "铁路工程",
+  "code": "TB 10012-2019 J124-2019",
+  "sections": ["概述", "工程地质条件", "结构面分组统计", "隧道围岩分级相关评价", "结论与建议"],
+  "table_headers_cn": ["组号", "条数", "倾向(°)", "倾角(°)", "迹长(m)", "张开度(mm)", "充填物", "组数"],
+  "table_headers_en": ["Set", "N", "Dip Dir(°)", "Dip(°)", "Trace(m)", "Aperture(mm)", "Filling", "Count"],
+  "required_fields": ["group_id", "n_fractures", "mean_dip_dir", "mean_dip", "trace_length", "aperture"],
+  "optional_fields": ["filling", "roughness", "spacing"],
+  "qualitative_terms": {
+    "development": ["节理不发育", "节理较发育", "节理发育"]
+  },
+  "chart_types": ["rose", "stereonet"],
+  "header_text": "铁路工程地质勘察结构面统计报告",
+  "footer_text": "自动生成 - FractureFlow | 依据 TB 10012-2019",
+  "honesty_note": "本报告依据钻孔编录表自动生成，供隧道围岩分级初步参考。铁路工程详细评价应结合地质师现场判断与 TB 10012 规范条文要求。结构面状态对围岩分级影响显著，建议结合现场验证。"
+}

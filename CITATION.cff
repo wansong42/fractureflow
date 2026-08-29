@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "FractureFlow: label-free structural-orientation statistics and honest machine-learning benchmarks for fracture data"
+version: 0.1.0
+date-released: 2026-08-29
+license: MIT
+# PLACEHOLDER: fill in the real author names, ORCID iDs and affiliation
+# (supervisor / institution) before the first public push. See PUSH_GUIDE.md.
+authors:
+  - given-names: "[First]"
+    family-names: "[Author]"
+    affiliation: "[Institution]"
+  - given-names: "[Second]"
+    family-names: "[Author]"
+    affiliation: "[Institution]"
+repository-code: "https://github.com/[ACCOUNT]/fractureflow"
+abstract: >-
+  FractureFlow turns raw fracture observations (borehole logs, borehole-image
+  logs, outcrop trace maps, dense point clouds) into structural-orientation
+  statistics (set tables, rose diagrams, DFN screening) without requiring
+  fracture-level ground-truth labels, and ships an honest evaluation harness
+  with published negative results and information-ceiling measurements.
+keywords:
+  - fracture networks
+  - structural geology
+  - borehole image logs
+  - discrete fracture network
+  - label-free learning

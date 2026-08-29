@@ -1,0 +1,41 @@
+{
+  "16B": {
+    "n": 2087,
+    "md_ft_range": [
+      6254.2821,
+      10838.8936
+    ],
+    "dip_median": 78.2428,
+    "az_median": 242.5844,
+    "hdev_median": 64.5849,
+    "type_counts": {
+      "induced": 174,
+      "natural": 1913
+    },
+    "raw_type_counts": {
+      "Conductive Continuous Fracture": 1682,
+      "Conductive Non-Continuous Fracture": 231,
+      "Tensile Drilling Induced Fracture": 174
+    }
+  },
+  "58-32": {
+    "n": 2241,
+    "md_ft_range": [
+      3020.736550766376,
+      7544.154080754593
+    ],
+    "dip_median": 53.70936,
+    "az_median": 225.3625,
+    "hdev_median": 2.431163,
+    "type_counts": {
+      "induced": 279,
+      "natural": 1962
+    },
+    "raw_type_counts": {
+      "Conductive_Continuous_Fracture": 35,
+      "Conductive_Part_Resistive_Fracture": 1878,
+      "Resistive_Continuous_Fracture": 49,
+      "Tensile_Induced_Fracture": 279
+    }
+  }
+}
