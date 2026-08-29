@@ -33,7 +33,7 @@ the project owner — see `PUSH_GUIDE.md`).
 - Route B (fracture_id) on DECOVALEX 4-frac_plus: **0.0054°** ± 0.0001 —
   `results/decovalex_routeB.json`
 
-### Quality gates at release time (2026-08-29 final-state rerun)
+### Quality gates at release time (2026-08-29, source-project terminal rerun)
 - selfcheck: 33/35 PASS (2 failures are pre-existing ledger/integration
   accounts, documented in the project audit trail)
 - pytest (root suite): 969 passed / 13 failed — every failure is a

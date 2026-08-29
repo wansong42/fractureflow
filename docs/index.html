@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FractureFlow — Honest Fracture Reconstruction · 诚实裂隙重构</title>
+<meta name="description" content="Label-free structural-orientation statistics for rock fractures: borehole logs in, set tables / rose diagrams / DFN screening out — with measured information ceilings and published negative results.">
+<!--
+  FractureFlow open-source landing page (docs/) — R147 (2026-08-29).
+  Adapted from the B-line exhibit demos/portal v1.3 (main project, read-only).
+  Design language: extracted (k-means) palette — warm paper #EFE2CC / vivid orange #E07B2E /
+  warm ink #171009 / kraft #E3D0AE / rust #8F4A1F. Editorial-print system: hard offset
+  shadows, hairline technical grid, big grotesque display type, serif accents, mono labels.
+  Signature graphics are DOMAIN-NATIVE: hero rose diagram (SVG, deterministic bimodal
+  synthetic strikes, seed 42) and the product stereonet screenshot — deliberately NOT a
+  generic radial-burst template graphic.
+  数字纪律: 每个可见数字带 data-src (NNS 编号或 JSON 路径, 悬停可见) — 与 demos/portal v1.3
+  同源同值, 全部内容块逐字节保留; 判废数字 (台账 DEP 系列) 零出现。
+  运行方式: 静态托管 (GitHub Pages: Settings → Pages → deploy from branch /docs)。
+  plotly.min.js (4.4MB) 与 data/*.js 均为本地副本 —— 页面零外部请求, 断网可渲染。
+  悬停溯源中的 results/… 路径指向上游证据库; 本仓库随附 results/ 冻结子集与随页 data/。
+-->
+<style>
+:root{
+  --ink:#171009; --ink2:#33261A; --paper:#EFE2CC; --paper-deep:#E3D0AE;
+  --card:#F7EEDC; --cream:#F4E7CE; --line:#CDB48C;
+  --orange:#E07B2E; --orange-deep:#B4551E; --rust:#8F4A1F;
+  --ok:#5E7A3A; --bad:#A8321E; --muted:#6E5B41;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{overflow-x:clip}
+body{
+  margin:0; background-color:var(--paper); color:var(--ink);
+  font-family:"Segoe UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+  font-size:16px; line-height:1.65;
+  background-image:
+    linear-gradient(rgba(23,16,9,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23,16,9,.045) 1px, transparent 1px);
+  background-size:44px 44px;
+}
+::selection{background:var(--orange);color:var(--ink)}
+a:focus-visible,button:focus-visible{outline:2px dashed var(--rust);outline-offset:2px}
+.display{font-family:"Arial Black","Avenir-Heavy","PingFang SC Heavy","Microsoft YaHei",sans-serif;font-weight:900;letter-spacing:-.005em;line-height:.94;text-transform:uppercase}
+.serif{font-family:Georgia,"Times New Roman","Noto Serif SC",serif}
+.mono{font-family:Consolas,"JetBrains Mono","Courier New",monospace}
+.small{font-size:13px;color:var(--muted)}
+.note{font-size:13.5px;color:var(--muted);margin-top:14px}
+
+/* ============ masthead ============ */
+.masthead{background:var(--ink);color:var(--cream);display:flex;align-items:center;gap:22px;
+  padding:12px 4vw;position:sticky;top:0;z-index:50;border-bottom:3px solid var(--orange)}
+.masthead .wordmark{font-size:21px;color:var(--cream);text-decoration:none;letter-spacing:.01em}
+.masthead .wordmark b{color:var(--orange)}
+.masthead nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+.masthead nav a{color:var(--cream);text-decoration:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.masthead nav a:hover{color:var(--orange);opacity:1}
+.masthead .lang{font-size:11px;letter-spacing:.2em;border:1px solid #4A3823;padding:2px 8px;color:#B9A683}
+
+/* ============ hero ============ */
+.hero{background:var(--orange);border-bottom:3px solid var(--ink);position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:2vw;
+  padding:58px 4vw 30px;max-width:1440px;margin:0 auto}
+.hero .kicker{font-family:Consolas,monospace;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);margin:0 0 18px}
+.hero .kicker::before{content:"◆ ";color:var(--cream)}
+.hero h1{margin:0;font-size:clamp(42px,6.4vw,88px);color:var(--ink)}
+.hero h1 .ghost{color:transparent;-webkit-text-stroke:2.5px var(--cream);text-stroke:2.5px var(--cream)}
+.hero .zh-sub{font-size:clamp(16px,1.6vw,20px);font-weight:700;color:var(--ink);margin:20px 0 8px}
+.hero .en-body{font-size:15.5px;color:#4A2B10;max-width:56ch;margin:0}
+.hero .chips{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:Consolas,monospace;font-size:12.5px;border:1.5px solid var(--ink);color:var(--ink);
+  padding:3px 10px;background:rgba(244,231,206,.55)}
+.hero .ctas{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+.btn-hero{display:inline-block;font-family:Consolas,monospace;font-size:14px;letter-spacing:.08em;
+  text-decoration:none;padding:11px 20px;border:2px solid var(--ink);font-weight:700}
+.btn-hero.solid{background:var(--ink);color:var(--cream)}
+.btn-hero.solid:hover{background:var(--cream);color:var(--ink)}
+.btn-hero.ghosty{background:transparent;color:var(--ink)}
+.btn-hero.ghosty:hover{background:var(--ink);color:var(--cream)}
+.rose-wrap{display:flex;align-items:center;justify-content:center;min-width:0}
+.rose-wrap svg{width:min(46vw,520px);height:auto;display:block}
+/* badges row */
+.hero-badges{max-width:1440px;margin:0 auto;padding:0 4vw 26px;display:flex;gap:10px;flex-wrap:wrap}
+.ghbadge{display:inline-flex;font-family:Consolas,monospace;font-size:12.5px;line-height:1;
+  border:2px solid var(--ink);text-decoration:none;background:var(--cream)}
+.ghbadge .k{background:var(--ink);color:var(--cream);padding:5px 9px}
+.ghbadge .v{color:var(--ink);padding:5px 9px;font-weight:700}
+a.ghbadge:hover .v{background:var(--orange)}
+
+/* ============ hero stat band ============ */
+.statband{background:var(--cream);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.statband .inner{max-width:1440px;margin:0 auto;padding:26px 4vw;display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.stat .v{font-family:"Arial Black","Microsoft YaHei",sans-serif;font-weight:900;font-size:clamp(30px,3.4vw,46px);
+  color:var(--orange-deep);line-height:1;white-space:nowrap}
+.stat .v .deg{font-size:.6em}
+.stat .k{border-top:2px solid var(--ink);margin-top:10px;padding-top:8px;font-size:13px;color:var(--ink2)}
+.stat .k b{display:block;font-size:14px}
+.stat .src{font-size:11.5px;color:var(--muted);font-family:Consolas,monospace}
+
+/* ============ marquee ============ */
+.marquee{background:var(--ink);overflow:hidden;border-bottom:3px solid var(--ink)}
+.marquee .track{display:inline-block;white-space:nowrap;padding:10px 0;
+  animation:mq 36s linear infinite}
+.marquee span{color:var(--cream);font-family:Consolas,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.marquee b{color:var(--orange)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marquee .track{animation:none}}
+
+/* ============ screenshots band ============ */
+.shots{max-width:1440px;margin:0 auto;padding:56px 4vw 30px}
+.shots .skicker{font-family:Consolas,monospace;font-size:12.5px;letter-spacing:.24em;color:var(--rust);text-transform:uppercase;margin:0 0 10px}
+.shots h2{margin:0;font-size:clamp(28px,3.4vw,46px);color:var(--ink)}
+.shots .zh-sub{font-weight:700;margin:10px 0 6px;color:var(--ink2)}
+.shots .en-body{font-size:15px;color:#4A2B10;max-width:70ch;margin:0 0 28px}
+.shotgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.fig{background:var(--card);border:2px solid var(--ink);box-shadow:7px 7px 0 var(--ink);padding:12px;margin:0}
+.fig img{width:100%;height:auto;display:block;border:1px solid var(--line);background:#fff}
+.fig figcaption{font-family:Consolas,monospace;font-size:12.5px;color:var(--ink2);
+  border-top:2px solid var(--ink);margin-top:10px;padding-top:8px;line-height:1.55}
+.fig figcaption b{color:var(--rust)}
+
+/* ============ sections ============ */
+main{max-width:1440px;margin:0 auto;padding:20px 4vw 50px}
+section.panel{
+  background:var(--card);border:2px solid var(--ink);box-shadow:7px 7px 0 var(--ink);
+  padding:30px 34px 28px;margin-top:44px;position:relative;
+}
+.shead{display:flex;gap:22px;align-items:flex-start;border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:8px}
+.sindex{font-family:"Arial Black","Microsoft YaHei",sans-serif;font-weight:900;font-size:56px;line-height:.9;
+  color:var(--orange-deep);text-shadow:3px 3px 0 var(--ink);flex:0 0 auto}
+.skicker{font-family:Consolas,monospace;font-size:12px;letter-spacing:.24em;color:var(--rust);text-transform:uppercase;margin:0 0 4px}
+section.panel h2{margin:0;font-size:22px;color:var(--ink)}
+section.panel>.lead{color:var(--muted);font-size:14.5px;margin:6px 0 4px}
+.fs-btn{
+  position:absolute;top:20px;right:22px;font-size:12.5px;font-family:Consolas,monospace;color:var(--ink);
+  background:var(--cream);border:2px solid var(--ink);padding:3px 12px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);
+}
+.fs-btn:hover{background:var(--orange)}
+/* ---- 数字溯源 ---- */
+.num{
+  font-weight:700;font-style:normal;white-space:nowrap;
+  border-bottom:2px dotted rgba(143,74,31,.6);cursor:help;position:relative;
+}
+.num::after{
+  content:attr(data-src);
+  position:absolute;left:50%;transform:translateX(-50%);bottom:130%;
+  background:var(--ink);color:var(--cream);font-size:13px;font-weight:400;line-height:1.5;
+  font-family:Consolas,monospace;
+  padding:8px 12px;width:max-content;max-width:430px;white-space:normal;
+  opacity:0;pointer-events:none;transition:opacity .12s;z-index:30;
+  border:1px solid var(--orange);text-align:left;
+}
+.num:hover::after,.num:focus::after{opacity:1}
+.src-tag{font-size:12.5px;color:var(--muted);white-space:normal}
+/* ---- S1 阶梯 ---- */
+.ladder{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.rung{display:grid;grid-template-columns:minmax(210px,300px) 1fr minmax(150px,190px);gap:16px;align-items:center;
+  border:1.5px solid var(--line);background:var(--cream);padding:10px 14px}
+.rung .tag{font-size:14px;color:var(--ink2)}
+.rung .tag b{display:block;font-size:16px;color:var(--ink)}
+.rung .barbox{position:relative;height:44px;background:#EBDCBC;border:1.5px solid var(--line)}
+.rung .bar{height:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;color:var(--cream);font-size:16.5px;font-weight:700;min-width:64px}
+.rung .big{text-align:right}
+.rung .big .num{font-size:24px}
+.wallline{
+  position:absolute;top:-4px;bottom:-4px;left:63.4%;
+  border-left:3px dashed var(--rust);z-index:5;
+}
+.walllabel{
+  position:absolute;top:2px;left:63.4%;transform:translateX(-50%);
+  background:var(--ink);color:var(--cream);font-size:13px;padding:1px 8px;z-index:6;white-space:nowrap;
+}
+.gapchip{
+  display:inline-block;background:transparent;border:1.5px dashed var(--rust);color:var(--rust);
+  padding:1px 12px;font-size:13.5px;font-weight:700;margin-top:3px;
+}
+.caliber{font-size:12.5px;color:var(--muted)}
+.legend-wall{display:inline-block;width:26px;border-top:3px dashed var(--rust);vertical-align:middle;margin-right:6px}
+/* ---- S2 墙 ---- */
+.wallgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;margin-top:18px}
+.wallbig{
+  background:var(--paper-deep);border:2px solid var(--ink);
+  padding:22px 24px;text-align:center;box-shadow:5px 5px 0 var(--ink);
+}
+.wallbig .num{font-size:40px;color:var(--rust)}
+.wallbig p{margin:8px 0 0;font-size:14.5px;color:var(--ink2);text-align:left}
+table.probe{width:100%;border-collapse:collapse;font-size:14.5px}
+table.probe th,table.probe td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.probe th{background:var(--ink);color:var(--cream);font-size:13px;font-family:Consolas,monospace;letter-spacing:.06em}
+.verdict-pass{color:var(--ok);font-weight:700}
+.verdict-fail{color:var(--bad);font-weight:700}
+/* ---- S3 组系表 ---- */
+.strow{display:grid;grid-template-columns:170px 1fr 200px;gap:12px;align-items:center;margin:26px 0 14px}
+.strow .name{font-size:15.5px;text-align:right}
+.strow .track{background:#EBDCBC;border:1.5px solid var(--line);height:34px;position:relative}
+.strow .fill{height:100%;min-width:3px}
+.thresh{position:absolute;top:-7px;bottom:-7px;border-left:3px solid var(--bad)}
+.thlabel{position:absolute;top:-24px;transform:translateX(-92%);color:var(--bad);font-size:13px;white-space:nowrap;font-weight:700}
+.stval{font-size:15px}
+.promisebox{
+  margin-top:20px;border:2px solid var(--ink);background:var(--paper-deep);
+  padding:14px 18px;font-size:14.5px;box-shadow:5px 5px 0 var(--ink);
+}
+/* ---- S4 三胜一封顶 ---- */
+.wingrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.win{border:2px solid var(--ink);border-top:6px solid var(--orange);padding:16px 18px;background:var(--cream)}
+.win h3{margin:0 0 8px;font-size:16.5px;color:var(--rust)}
+.win .kpi{font-size:26px;font-weight:800;color:var(--orange-deep)}
+.cap{border-top-color:var(--rust);background:var(--paper-deep);grid-column:span 3}
+.cap h3{color:var(--rust)}
+.cap p{margin:6px 0 0;font-size:14.5px}
+/* ---- S5/S6 ---- */
+.dfn-layout{display:grid;grid-template-columns:1fr 295px;gap:20px}
+#dfn3d{width:100%;height:640px;border:2px solid var(--ink);background:#171009}
+.dfn-side h3{margin:0 0 6px;font-size:15.5px;color:var(--ink)}
+.dfn-side table{width:100%;border-collapse:collapse;font-size:13.8px}
+.dfn-side td{padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.dfn-side td:first-child{color:var(--muted);white-space:nowrap}
+.setdot{display:inline-block;width:11px;height:11px;margin-right:6px}
+.demo-flag{
+  display:inline-block;background:var(--paper-deep);border:1.5px solid var(--rust);color:var(--rust);
+  font-size:13px;font-weight:700;padding:2px 10px;margin:12px 0 10px;
+}
+.btnrow{display:flex;gap:8px;margin:10px 0 0;flex-wrap:wrap}
+.btn{font-size:13px;font-family:Consolas,monospace;border:2px solid var(--ink);background:var(--cream);
+  padding:4px 14px;cursor:pointer;color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.btn:hover{background:var(--orange)}
+/* ---- 页脚 ---- */
+footer{background:var(--ink);color:var(--cream);margin-top:60px;padding:44px 4vw 46px;border-top:6px solid var(--orange)}
+footer .foot-head{max-width:1180px;margin:0 auto 30px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+footer .foot-head .wm{font-size:34px;color:var(--cream)}
+footer .foot-head .wm b{color:var(--orange)}
+footer .foot-head .tag{font-family:Consolas,monospace;font-size:12.5px;color:#B9A683;letter-spacing:.18em;text-transform:uppercase}
+footer .cols{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:34px}
+footer h2{font-size:19px;margin:0 0 12px;color:var(--cream)}
+footer h2 .zh{color:var(--orange)}
+footer li{margin:7px 0;font-size:14.2px;line-height:1.6}
+footer a{color:var(--orange);text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .fineprint{max-width:1180px;margin:26px auto 0;border-top:1px solid #4A3823;padding-top:14px;font-size:13px;color:#B9A683;line-height:1.7}
+.bugstory{background:#241A10;border:1px solid #4A3823;padding:16px 20px;margin-bottom:16px;font-size:14.5px}
+.oslinks{max-width:1180px;margin:26px auto 0;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.oslinks a{display:block;border:1.5px solid #4A3823;color:var(--cream);text-decoration:none;
+  font-family:Consolas,monospace;font-size:12.5px;padding:9px 12px}
+.oslinks a b{display:block;color:var(--orange);font-size:13px;margin-bottom:2px}
+.oslinks a:hover{border-color:var(--orange)}
+/* ---- S5 少打井双轴汇率表 ---- */
+.fewgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+.fewpanel{border:2px solid var(--ink);padding:18px 20px;background:var(--cream)}
+.fewpanel h3{margin:0 0 4px;font-size:16px;color:var(--ink)}
+.fewpanel .axisname{font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.fewpanel table{width:100%;border-collapse:collapse;font-size:13.8px}
+.fewpanel th,.fewpanel td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:center}
+.fewpanel th{background:var(--ink);color:var(--cream);font-size:13px;font-family:Consolas,monospace}
+.fewpanel td:first-child{font-weight:700}
+.fewpanel tr.highlight{background:#F5E4C4}
+.fewpanel tr.highlight td:first-child{color:var(--orange-deep)}
+.platform-note{font-size:13.5px;color:var(--rust);margin-top:10px;padding:8px 12px;background:var(--paper-deep);border:1.5px dashed var(--rust)}
+.scenario-tag{display:inline-block;font-size:12px;padding:1px 10px;margin-left:6px;border:1.5px solid var(--ink)}
+.scenario-far{background:#E4E9D4;color:var(--ok)}
+.scenario-high{background:var(--paper-deep);color:var(--rust)}
+.takeawaybox{margin-top:20px;border:2px solid var(--ink);background:var(--paper-deep);padding:14px 18px}
+.takeawaybox h3{margin:0 0 8px;font-size:15px;color:var(--ink)}
+.takeawaybox ol{margin:0;padding-left:22px}
+.takeawaybox li{font-size:14.2px;margin:6px 0;line-height:1.6}
+.boundary-note{margin-top:14px;font-size:13.5px;color:var(--ink2);padding:10px 14px;background:var(--cream);border:1.5px dashed var(--line)}
+/* ---- S7 重构线冲刺屏 (R135) ---- */
+.research-flag{
+  display:inline-block;background:var(--paper-deep);border:1.5px solid var(--rust);color:var(--rust);
+  font-size:13px;padding:2px 10px;margin:2px 0 12px;font-weight:700;
+}
+.s7-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:6px}
+.s7-wide{grid-column:span 2}
+.s7-card{border:2px solid var(--ink);border-top:6px solid var(--rust);padding:16px 18px;background:var(--cream)}
+.s7-card h3{margin:0 0 10px;font-size:16px;color:var(--ink)}
+.s7-chart{width:100%;height:330px;margin:2px 0 12px}
+table.s7-t{width:100%;border-collapse:collapse;font-size:13.6px}
+.s7-t th,.s7-t td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.s7-t th{background:var(--ink);color:var(--cream);font-size:12.8px;white-space:nowrap}
+.s7-t tr.flagrow td{color:var(--muted);font-size:12.8px;background:var(--paper-deep)}
+.s7-t td.s7-greencell{background:#E4E9D4}
+.s7-verd-ok{color:var(--ok);font-weight:700}
+.s7-verd-red{color:var(--bad);font-weight:700}
+.s7-green{display:inline-block;background:#E4E9D4;border:1.5px solid var(--ok);color:var(--ok);font-weight:700;padding:1px 10px;font-size:13.5px}
+.s7-note{font-size:13.2px;color:var(--muted);margin-top:10px;line-height:1.6}
+.s7-caution{padding:9px 12px;background:var(--paper-deep);border:1.5px dashed var(--rust);color:var(--ink2)}
+.s7-take{margin-top:10px;padding:10px 14px;background:var(--paper-deep);border:1.5px solid var(--line);font-size:14px}
+.s7-kpis{display:flex;flex-direction:column;gap:7px}
+.s7-kpi{display:grid;grid-template-columns:165px 1fr;gap:4px 10px;align-items:baseline;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.s7-kpi .kk{font-size:13px;color:var(--muted)}
+.s7-kpi .vv{font-size:16px;font-weight:700;color:var(--ink)}
+.s7-kpi .nn{grid-column:span 2;font-size:12.6px;color:var(--muted)}
+.s7-flow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.s7-flow .step{background:var(--paper-deep);border:1.5px solid var(--rust);padding:2px 12px;font-size:13.5px;color:var(--ink)}
+.s7-flow .arr{align-self:center;color:var(--muted)}
+.s7-e1{margin-top:12px;padding:10px 12px;background:var(--paper-deep);border:1.5px dashed var(--rust);font-size:13.4px;color:var(--ink2)}
+.s7-boundary{margin-top:12px;font-size:13px;color:var(--muted);padding:9px 12px;background:var(--cream);border:1.5px dashed var(--line)}
+/* ---- responsive ---- */
+@media (max-width:1100px){
+  .statband .inner{grid-template-columns:repeat(2,1fr)}
+  .shotgrid{grid-template-columns:1fr 1fr}
+  .oslinks{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .rose-wrap svg{width:min(72vw,420px)}
+  .hero h1{font-size:clamp(30px,9vw,44px);overflow-wrap:break-word}
+  .hero .kicker{letter-spacing:.16em;font-size:11.5px}
+  .chip{max-width:100%}
+  .wingrid{grid-template-columns:1fr}.cap{grid-column:span 1}
+  .wallgrid,.dfn-layout,footer .cols,.fewgrid{grid-template-columns:1fr}
+  .rung{grid-template-columns:1fr}
+  .strow{grid-template-columns:96px 1fr 120px}
+  .s7-grid{grid-template-columns:1fr}.s7-wide{grid-column:span 1}
+  .shotgrid{grid-template-columns:1fr}
+  .masthead nav{display:none}
+  .panel{padding:34px 5vw}
+  table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
+.dfn-layout:fullscreen{background:var(--card);padding:28px}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="wordmark serif" href="#top">FractureFlow<b>.</b></a>
+  <nav class="mono">
+    <a href="#screenshots">Screenshots</a>
+    <a href="#s1">Ladder</a>
+    <a href="#s2">Wall</a>
+    <a href="#s3">Commitment</a>
+    <a href="#s5">Cost</a>
+    <a href="#s6">3D</a>
+    <a href="#honesty">Honesty</a>
+  </nav>
+  <span class="lang">EN · 中文</span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div>
+      <p class="kicker">Open-source · Rock fracture statistics · 诚实优先</p>
+      <h1 class="display" lang="en">Borehole logs in.<br>Fracture twins out.<br><span class="ghost">— Honestly.</span></h1>
+      <p class="zh-sub">复杂岩石非连续结构智能重构 · 数据阶梯框架：重构精度由<b>数据档位</b>决定，而非算法复杂度</p>
+      <p class="en-body" lang="en">FractureFlow turns raw fracture observations into auto-labeled set tables, rose
+      diagrams and DFN screening reports — and measures, exactly, how far label-free inference can go before it
+      hits a proven information ceiling.</p>
+      <div class="chips">
+        <span class="chip">BlindInput 盲评协议（物理掩码 + 毒丸测试 + 红旗审计）</span>
+        <span class="chip">数字台账 v1.1（锁定）</span>
+        <span class="chip">悬停任意数字可溯源</span>
+      </div>
+      <div class="ctas">
+        <a class="btn-hero solid" href="../README.md" lang="en">GET STARTED →</a>
+        <a class="btn-hero ghosty" href="#s6" lang="en">PLAY THE 3D DFN ↓</a>
+      </div>
+    </div>
+    <div class="rose-wrap" aria-hidden="true">
+      <!-- deterministic synthetic rose (seed 42) — domain-native signature graphic -->
+      <svg viewBox="-352 -352 704 704" role="img">
+        <g transform="rotate(-90)">
+          <circle r="316" fill="none" stroke="#171009" stroke-width="1.6" stroke-dasharray="3 7" opacity=".55"/>
+          <circle r="210" fill="none" stroke="#171009" stroke-width="1" stroke-dasharray="2 8" opacity=".4"/>
+          <g fill="#F4E7CE" fill-opacity=".88" stroke="#171009" stroke-width="1.7" stroke-linejoin="round">
+            <path d="M0,0 L72.1,0.0 A72.1,72.1 0 0 1 71.5,9.4 Z"/>
+            <path d="M0,0 L-72.1,0.0 A72.1,72.1 0 0 1 -71.5,-9.4 Z"/>
+            <path d="M0,0 L147.6,19.4 A148.9,148.9 0 0 1 143.8,38.5 Z"/>
+            <path d="M0,0 L-147.6,-19.4 A148.9,148.9 0 0 1 -143.8,-38.5 Z"/>
+            <path d="M0,0 L193.3,51.8 A200.1,200.1 0 0 1 184.9,76.6 Z"/>
+            <path d="M0,0 L-193.3,-51.8 A200.1,200.1 0 0 1 -184.9,-76.6 Z"/>
+            <path d="M0,0 L236.9,98.1 A256.5,256.5 0 0 1 222.1,128.2 Z"/>
+            <path d="M0,0 L-236.9,-98.1 A256.5,256.5 0 0 1 -222.1,-128.2 Z"/>
+            <path d="M0,0 L259.8,150.0 A300.0,300.0 0 0 1 238.0,182.6 Z" fill="#171009" fill-opacity=".92"/>
+            <path d="M0,0 L-259.8,-150.0 A300.0,300.0 0 0 1 -238.0,-182.6 Z" fill="#171009" fill-opacity=".92"/>
+            <path d="M0,0 L154.7,118.7 A195.0,195.0 0 0 1 137.9,137.9 Z"/>
+            <path d="M0,0 L-154.7,-118.7 A195.0,195.0 0 0 1 -137.9,-137.9 Z"/>
+            <path d="M0,0 L116.2,116.2 A164.3,164.3 0 0 1 100.0,130.3 Z"/>
+            <path d="M0,0 L-116.2,-116.2 A164.3,164.3 0 0 1 -100.0,-130.3 Z"/>
+            <path d="M0,0 L92.2,120.2 A151.5,151.5 0 0 1 75.7,131.2 Z"/>
+            <path d="M0,0 L-92.2,-120.2 A151.5,151.5 0 0 1 -75.7,-131.2 Z"/>
+            <path d="M0,0 L65.5,113.4 A131.0,131.0 0 0 1 50.1,121.0 Z"/>
+            <path d="M0,0 L-65.5,-113.4 A131.0,131.0 0 0 1 -50.1,-121.0 Z"/>
+            <path d="M0,0 L58.9,142.3 A154.0,154.0 0 0 1 39.9,148.8 Z"/>
+            <path d="M0,0 L-58.9,-142.3 A154.0,154.0 0 0 1 -39.9,-148.8 Z"/>
+            <path d="M0,0 L27.9,104.3 A107.9,107.9 0 0 1 14.1,107.0 Z"/>
+            <path d="M0,0 L-27.9,-104.3 A107.9,107.9 0 0 1 -14.1,-107.0 Z"/>
+            <path d="M0,0 L10.1,76.6 A77.2,77.2 0 0 1 0.0,77.2 Z"/>
+            <path d="M0,0 L-10.1,-76.6 A77.2,77.2 0 0 1 -0.0,-77.2 Z"/>
+            <path d="M0,0 L0.0,87.5 A87.5,87.5 0 0 1 -11.4,86.7 Z"/>
+            <path d="M0,0 L-0.0,-87.5 A87.5,87.5 0 0 1 11.4,-86.7 Z"/>
+            <path d="M0,0 L-12.8,96.9 A97.7,97.7 0 0 1 -25.3,94.4 Z"/>
+            <path d="M0,0 L12.8,-96.9 A97.7,97.7 0 0 1 25.3,-94.4 Z"/>
+            <path d="M0,0 L-36.6,136.4 A141.2,141.2 0 0 1 -54.0,130.5 Z"/>
+            <path d="M0,0 L36.6,-136.4 A141.2,141.2 0 0 1 54.0,-130.5 Z"/>
+            <path d="M0,0 L-61.9,149.4 A161.7,161.7 0 0 1 -80.9,140.1 Z"/>
+            <path d="M0,0 L61.9,-149.4 A161.7,161.7 0 0 1 80.9,-140.1 Z"/>
+            <path d="M0,0 L-92.4,160.0 A184.8,184.8 0 0 1 -112.5,146.6 Z"/>
+            <path d="M0,0 L92.4,-160.0 A184.8,184.8 0 0 1 112.5,-146.6 Z"/>
+            <path d="M0,0 L-56.4,73.4 A92.6,92.6 0 0 1 -65.5,65.5 Z"/>
+            <path d="M0,0 L56.4,-73.4 A92.6,92.6 0 0 1 65.5,-65.5 Z"/>
+            <path d="M0,0 L-34.7,34.7 A49.0,49.0 0 0 1 -38.9,29.9 Z"/>
+            <path d="M0,0 L34.7,-34.7 A49.0,49.0 0 0 1 38.9,-29.9 Z"/>
+            <path d="M0,0 L-26.7,20.5 A33.7,33.7 0 0 1 -29.2,16.8 Z"/>
+            <path d="M0,0 L26.7,-20.5 A33.7,33.7 0 0 1 29.2,-16.8 Z"/>
+            <path d="M0,0 L-27.6,7.4 A28.6,28.6 0 0 1 -28.3,3.7 Z"/>
+            <path d="M0,0 L27.6,-7.4 A28.6,28.6 0 0 1 28.3,-3.7 Z"/>
+            <path d="M0,0 L-41.0,5.4 A41.4,41.4 0 0 1 -41.4,0.0 Z"/>
+            <path d="M0,0 L41.0,-5.4 A41.4,41.4 0 0 1 41.4,-0.0 Z"/>
+          </g>
+          <g font-family="Consolas,monospace" font-size="17" fill="#171009" font-weight="700">
+            <text x="0" y="-326" text-anchor="middle">N</text>
+            <text x="336" y="6" text-anchor="middle">E</text>
+            <text x="0" y="340" text-anchor="middle">S</text>
+            <text x="-336" y="6" text-anchor="middle">W</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-badges">
+    <a class="ghbadge" href="https://github.com/your-account/fractureflow/actions" lang="en"><span class="k">CI</span><span class="v">passing</span></a>
+    <a class="ghbadge" href="../LICENSE" lang="en"><span class="k">License</span><span class="v">MIT</span></a>
+    <a class="ghbadge" href="../RELEASE_VERIFICATION.md" lang="en"><span class="k">tests</span><span class="v">116 passed ✓</span></a>
+    <span class="ghbadge" lang="en"><span class="k">DOI</span><span class="v">pending</span></span>
+    <span class="ghbadge" lang="en"><span class="k">Python</span><span class="v">≥ 3.9</span></span>
+    <a class="ghbadge" href="https://github.com/your-account/fractureflow" lang="en"><span class="k">GitHub</span><span class="v">source</span></a>
+  </div>
+</section>
+
+<!-- ============ HERO STAT BAND ============ -->
+<div class="statband">
+  <div class="inner">
+    <div class="stat">
+      <div class="v"><span class="num" data-src="NNS-001 · results/honest_leaderboard/l1_local__beishan_22.json#mae_mean (std ±1.20, 10 seed)">36.69°</span></div>
+      <div class="k"><b>L0 unlabeled · point MAE</b>无标签编录表的可部署最优（beishan 22 井）</div>
+      <div class="src">results/honest_leaderboard/</div>
+    </div>
+    <div class="stat">
+      <div class="v"><span class="num" data-src="NNS-017 · results/set_table_beishan.json#12.modal_err_mean (std ±0.66)">9.82°±0.66</span></div>
+      <div class="k"><b>Set table · 组系表</b>同数据、同一协议下的产品口径（K=12）</div>
+      <div class="src">组系表承诺线见 ③</div>
+    </div>
+    <div class="stat">
+      <div class="v"><span class="num" data-src="NNS-021 · results/pointcloud_gate.json#evaluation.mae_hidden_deg (K=4 多走向壁, 100k 点)">0.37°</span></div>
+      <div class="k"><b>L3 dense point cloud</b>合成多走向基准（壁面级场景）</div>
+      <div class="src">results/pointcloud_gate.json</div>
+    </div>
+    <div class="stat">
+      <div class="v"><span class="num" data-src="NNS-020 · results/decovalex_routeB.json#4fracplus_example.hidden_mae_mean">0.0054°</span></div>
+      <div class="k"><b>L1 with fracture_id</b>同一裂隙多点共面拟合（DECOVALEX Route B）</div>
+      <div class="src">results/decovalex_routeB.json</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="track"><span>Honesty is a feature, not a bug <b>◆</b> 负结果入档 <b>◆</b> Every number traceable <b>◆</b> 悬停任意数字可溯源 <b>◆</b> Measured ceilings, not marketing <b>◆</b> 每个数字有台账编号 <b>◆</b>&nbsp;</span><span>Honesty is a feature, not a bug <b>◆</b> 负结果入档 <b>◆</b> Every number traceable <b>◆</b> 悬停任意数字可溯源 <b>◆</b> Measured ceilings, not marketing <b>◆</b> 每个数字有台账编号 <b>◆</b>&nbsp;</span></div>
+</div>
+
+<!-- ============ SCREENSHOTS ============ -->
+<section class="shots" id="screenshots">
+  <p class="skicker">Screenshots · 产品截图 · synthetic data only</p>
+  <h2 class="display" lang="en">What one command produces.</h2>
+  <p class="zh-sub">一条命令的产出（内置合成样例 · 现跑现截）：<code class="mono">python scripts/demo_run.py</code></p>
+  <p class="en-body" lang="en">All figures below are generated from the built-in, seed-fixed synthetic samples
+  (<code>data/demo/*.xlsx</code>) — no field-data products are shipped or shown. The interactive 3D panel is
+  rendered live by this very page.</p>
+  <div class="shotgrid">
+    <figure class="fig">
+      <img src="./screenshots/rose_diagram.png" alt="Auto-labeled fracture set rose diagram (synthetic demo well)">
+      <figcaption><b>Fig. S1</b> — 走向玫瑰图 rose diagram · auto-labeled sets<br>scripts/demo_run.py → results/demo/</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="./screenshots/stereonet.png" alt="Pole stereonet with set mean orientations (synthetic demo well)">
+      <figcaption><b>Fig. S2</b> — 极点图 pole stereonet · set mean stars<br>scripts/demo_run.py → results/demo/</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="./screenshots/dfn_3d.png" alt="Interactive 3D DFN disc network rendered by this page">
+      <figcaption><b>Fig. S3</b> — 交互三维 DFN · rendered by this page (⑥)<br>data/dfn_demo_discs.js · local plotly, zero backend</figcaption>
+    </figure>
+  </div>
+</section>
+
+<main>
+<!-- ============ S1 数据阶梯 ============ -->
+<section class="panel" id="s1">
+  <button class="fs-btn" onclick="fs('s1')">全屏</button>
+  <header class="shead">
+    <div class="sindex">01</div>
+    <div>
+      <p class="skicker">The data ladder · 数据阶梯</p>
+      <h2>① 数据阶梯：每升一档，误差掉一个台阶</h2>
+      <p class="lead">横条 = 隐伏点法向角距误差（度，越短越好）。<span class="legend-wall"></span>虚线 = L0 无标签信息墙：同档理论渐近线，不是任何方法的失败。</p>
+    </div>
+  </header>
+
+  <div class="ladder" id="ladder">
+
+    <div class="rung">
+      <div class="tag"><b>L0 编录表 · 无标签点几何</b>depth + dip + dip_dir，无组标签
+        <span class="caliber"><br>口径：隐伏点 acos|cos| 均值</span></div>
+      <div class="barbox"><div class="bar" style="width:73%;background:#A8321E"><span class="num" data-src="NNS-001 · results/honest_leaderboard/l1_local__beishan_22.json#mae_mean (std ±1.20, 10 seed)">36.69°</span></div></div>
+      <div class="big small">可部署最优 l1_local<br><span class="src-tag">8 方法窄带 <span class="num" data-src="NNS-001~NNS-008 · results/honest_leaderboard/ 各方法 mae_mean 最小/最大">36.69–39.88°</span></span></div>
+    </div>
+
+    <div class="rung">
+      <div class="tag"><b>L0 + 自动打标</b>观测-only 球形 k-means（无真值标签）
+        <span class="caliber"><br>口径：同上 · strict K=6</span></div>
+      <div class="barbox"><div class="bar" style="width:32%;background:#C2601F"><span class="num" data-src="NNS-015 · results/p1_honest_decoder.json (kmeans_obs K=6 strict)">16.12°</span></div></div>
+      <div class="big"><span class="gapchip">补组隶属信息 ↓ 约 <span class="num" data-src="差值 NNS-001 − NNS-015（两端实测相减）">20.6°</span></span></div>
+    </div>
+
+    <div class="rung">
+      <div class="tag"><b>组隶属理论地板</b>观测组心 + 真值指派（oracle 参考线，不可部署）
+        <span class="caliber"><br>口径：同上 · K=12 · 内部参考</span></div>
+      <div class="barbox">
+        <div class="bar" style="width:25%;background:#8F6A28"><span class="num" data-src="NNS-011 · results/phase0_oracle_floor_strict.json#beishan_22.12.mae_mean">12.37°</span></div>
+        <div class="wallline"></div>
+        <div class="walllabel">信息墙 <span class="num" data-src="NNS-045 · results/l4_evidence_grading.json#threshold_sources.information_ceiling_31_7deg.value（L1 留一探针，非方法误差）">~31.7°±0.5°</span></div>
+      </div>
+      <div class="big"><span class="gapchip">真值指派再 ↓ <span class="num" data-src="差值 NNS-015 − NNS-011（两端实测相减）">≈3.8°</span></span><br><span class="small">简单聚类已贴住地板</span></div>
+    </div>
+
+    <div class="rung">
+      <div class="tag"><b>L1 迹线档 · 有 fracture_id</b>同一裂隙多点共面拟合
+        <span class="caliber"><br>口径：隐伏点 MAE · DECOVALEX 基准</span></div>
+      <div class="barbox"><div class="bar" style="width:2%;min-width:56px;background:#5E7A3A"><span class="num" data-src="NNS-020 · results/decovalex_routeB.json#4fracplus_example.hidden_mae_mean">0.0054°</span></div></div>
+      <div class="big"><span class="gapchip">一个观测量 = 数量级跃迁</span><br><span class="small">同数据无 id 对照 <span class="num" data-src="results/global_honest_leaderboard/decovalex.json#point_eval.mae_mean (std ±0.84, l1_local)">49.27±0.84°</span></span></div>
+    </div>
+
+    <div class="rung">
+      <div class="tag"><b>L3 稠密点云 · 免标签</b>RANSAC 分割 + 分段 SVD
+        <span class="caliber"><br>口径：隐伏 MAE · 合成多走向基准（壁面级场景）</span></div>
+      <div class="barbox"><div class="bar" style="width:2%;min-width:56px;background:#4E6E58"><span class="num" data-src="NNS-021 · results/pointcloud_gate.json#evaluation.mae_hidden_deg (K=4 多走向壁, 100k 点)">0.37°</span></div></div>
+      <div class="big small">组间错分率 <span class="num" data-src="results/pointcloud_gate.json#evaluation.misclass_rate_hidden (&lt;15% 阈值 PASS)">0.40%</span></div>
+    </div>
+
+    <div class="rung">
+      <div class="tag"><b>L4 多源融合数字孪生</b>冲突门控融合引擎
+        <span class="caliber"><br>口径：合成孪生模态误差（与前两行口径不同，勿直接横比）</span></div>
+      <div class="barbox"><div class="bar" style="width:2%;min-width:120px;background:#3F5847"><span class="num" data-src="NNS-022 · results/l4_fuse_gate.json#fused_result.modal_err_deg">1.47°</span></div></div>
+      <div class="big small">最佳单源 <span class="num" data-src="results/l4_fuse_gate.json#best_single_source">18.22°</span> → 融合改善 <span class="num" data-src="NNS-022 · results/l4_fuse_gate.json (improvement 91.9%)">91.9%</span></div>
+    </div>
+
+  </div>
+
+  <p class="note">读法：<b>买方位、买身份、买密度 —— 每一笔“信息采购”都有实测价格（度）。</b>
+  L0 无标签档的一切算法都停在 <span class="num" data-src="NNS-001~NNS-008 · results/honest_leaderboard/">36.69–39.88°</span> 窄带里；
+  组隶属一旦可恢复即贴住 <span class="num" data-src="NNS-011 · results/phase0_oracle_floor_strict.json">12.37°</span> 地板；
+  fracture_id 直接跨数量级；点云与融合档进入亚度级。详见 ②③④ 屏与页脚溯源表。</p>
+</section>
+
+<!-- ============ S2 信息墙 ============ -->
+<section class="panel" id="s2">
+  <button class="fs-btn" onclick="fs('s2')">全屏</button>
+  <header class="shead">
+    <div class="sindex">02</div>
+    <div>
+      <p class="skicker">The information wall · 信息墙</p>
+      <h2>② 信息墙是图例，不是失败</h2>
+      <p class="lead">为什么无标签编录表永远停在 ~31.7°±0.5°：组隶属信息<b>物理不存在</b>于点的几何坐标中 —— 这是几何事实，不是模型缺陷。</p>
+    </div>
+  </header>
+
+  <div class="wallgrid">
+    <div class="wallbig">
+      <div class="num" data-src="NNS-045 · results/l4_evidence_grading.json#threshold_sources.information_ceiling_31_7deg.value（局部真值 L1 留一探针上限）">~31.7°±0.5°</div>
+      <p><b>机制：</b>即使空间距离 &lt; 0.25r 的相邻裂隙对，法向平均仍相差
+      <span class="num" data-src="docs/论文素材包/README.md L15 · docs/论文素材包/智能性论证章节.md §2.2（局部真值 L1 留一探测）">30.5°</span>。
+      观测变量里根本没有“它属于哪一组”这个维度。</p>
+      <p><b>立场：</b>我们不是在“解决 L0 重构”，而是在<b>证明 L0 的墙在哪、有多高</b>，
+      并给出升档路径（L1 迹线 → L2 露头 → L3 点云 → L4 融合）。</p>
+    </div>
+    <div>
+      <table class="probe">
+        <tr><th>独立可学性探针</th><th>结果</th><th>判定</th></tr>
+        <tr><td>group_probe（组隶属直接监督）</td><td><span class="num" data-src="docs/论文素材包/智能性论证章节.md §2.2 表（复跑 36.48°）">36.28°</span> vs 几何基线 <span class="num" data-src="docs/论文素材包/智能性论证章节.md §2.2 表（几何基线）">34.63°</span></td><td class="verdict-fail">明确劣化</td></tr>
+        <tr><td>rank_probe argmax（硬选择候选）</td><td><span class="num" data-src="docs/论文素材包/智能性论证章节.md §2.2 表（复跑 34.84°）">35.19°</span></td><td>与基线平手（训练噪声内）</td></tr>
+        <tr><td>rank soft 聚合（最强学习变体）</td><td><span class="num" data-src="docs/论文素材包/智能性论证章节.md §2.2 表（复跑 32.95°）">33.27°</span></td><td class="verdict-fail">小胜 ≤1.7° 但仍高于墙</td></tr>
+        <tr><td>对抗复审三攻击（核族扫描 / 多核边际化 / 逐点自适应核）</td><td><span class="num" data-src="docs/13度目标可达性审计.md §7.4 · results/skeptic_repro/（最大收益 ≤0.1°）">≤0.1° 收益</span></td><td class="verdict-fail">全部失败，墙值稳定</td></tr>
+        <tr><td>学习解码器 vs 简单 k-means</td><td><span class="num" data-src="docs/论文素材包/关键数字.md §2.2 · results/p1_honest_decoder.json">全部不如 k-means</span></td><td class="verdict-fail">瓶颈在数据不在算法</td></tr>
+      </table>
+      <p class="note" style="margin-top:10px">六类探针 + 对抗复审一致结论：<b>无新观测量时墙不可破；有标签 / 身份 / 密度时逐级打开</b>。
+      这把优化精力从“换模型”重定向到“换数据档位”。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S3 商务承诺线 ============ -->
+<section class="panel" id="s3">
+  <button class="fs-btn" onclick="fs('s3')">全屏</button>
+  <header class="shead">
+    <div class="sindex">03</div>
+    <div>
+      <p class="skicker">The commitment line · 承诺线</p>
+      <h2>③ 商务承诺线：组系表模态误差（三源验证）</h2>
+      <p class="lead">产品交付口径 = 自动生成的<b>组系表</b>（每组方向 / 浓度 / 占比），衡量“组模态方向”与评审基准的角距。三源全部通过 ≤12° 工程阈值。</p>
+    </div>
+  </header>
+
+  <div class="strow">
+    <div class="name">DECOVALEX（国际基准）<div class="small">1089 裂隙 · K=4</div></div>
+    <div class="track">
+      <div class="fill" style="width:0.4%;background:#5E7A3A"></div>
+      <div class="thresh" style="left:100%"><span class="thlabel">工程阈值 ≤12°</span></div>
+    </div>
+    <div class="stval"><span class="num" data-src="NNS-018 · results/set_table_decovalex.json#4.modal_err_mean (std ±0.0)">0.05°</span></div>
+  </div>
+  <div class="strow">
+    <div class="name">beishan（中国场地）<div class="small">22 井 880 法向 · K=12</div></div>
+    <div class="track">
+      <div class="fill" style="width:81.8%;background:#B4551E"></div>
+      <div class="thresh" style="left:100%"></div>
+    </div>
+    <div class="stval"><span class="num" data-src="NNS-017 · results/set_table_beishan.json#12.modal_err_mean (std ±0.66)">9.82±0.66°</span></div>
+  </div>
+  <div class="strow">
+    <div class="name">FORGE 双井 FMI（美国场地）<div class="small">4328 条 · K=12</div></div>
+    <div class="track">
+      <div class="fill" style="width:92%;background:#8F4A1F"></div>
+      <div class="thresh" style="left:100%"></div>
+    </div>
+    <div class="stval"><span class="num" data-src="NNS-019 · results/t58_b2b3_forge_rebuild.json#new_numbers.K12.mean (std ±2.14, T58 法向修复后复算)">11.05±2.14°</span></div>
+  </div>
+
+  <div class="promisebox">
+    <b>对外承诺口径：</b>当某组有
+    <span class="num" data-src="docs/面向客户的数据需求与精度可达性说明.md §3.1.1（承诺前提）">≥5 条</span>同组裂隙观测时，组模态方向误差
+    <span class="num" data-src="docs/面向客户的数据需求与精度可达性说明.md §3.1.1（对外商务承诺表述）">7–10°</span>；
+    工程验收阈值
+    <span class="num" data-src="docs/A1-B3_诚实评测与组系表产品化_总结报告.md（三源全部 &lt; 12° 判定）· docs/论文/论文全文_EN_v0.7.md Table 3">≤12°</span>
+    —— 三源全部通过。
+    <div class="small" style="margin-top:6px">注：FORGE 行为 T58 法向修复后复算值，历史受染快照仅存于台账废弃记录；页面不展示内部研发锚点与 oracle 性质数字（按台账纪律）。</div>
+  </div>
+</section>
+
+<!-- ============ S4 AI 三胜一封顶 ============ -->
+<section class="panel" id="s4">
+  <button class="fs-btn" onclick="fs('s4')">全屏</button>
+  <header class="shead">
+    <div class="sindex">04</div>
+    <div>
+      <p class="skicker">Wins &amp; caps · 三胜一封顶</p>
+      <h2>④ AI 在哪里赢、在哪里被封顶</h2>
+      <p class="lead">三个带预注册闸门的增益 + 一个被信息墙封顶的诚实发现。“封顶”是发现而非失败——它告诉我们钱该花在数据上。</p>
+    </div>
+  </header>
+
+  <div class="wingrid">
+    <div class="win">
+      <h3>胜₁ 类型隔离聚类</h3>
+      天然 / 诱导裂隙分入不同组空间：
+      混聚 <span class="num" data-src="NNS-025 · results/t51_type_isolation_revalidation.json#new_numbers.mixed（T58 重验）">12.37°</span>
+      → 隔离后 <span class="num" data-src="NNS-025 · results/t51_type_isolation_revalidation.json#new_numbers.isolated（T58 重验）">9.29°</span>
+      <div class="kpi"><span class="num" data-src="NNS-025 · results/t51_type_isolation_revalidation.json#new_numbers.improvement（预注册闸门 ≥0.5° PASS）">+3.08°</span></div>
+      <div class="small">FORGE 双井 FMI · 已入管线默认</div>
+    </div>
+    <div class="win">
+      <h3>胜₂ 冲突门控多源融合</h3>
+      合成孪生三源融合：最佳单源 <span class="num" data-src="results/l4_fuse_gate.json#best_single_source">18.22°</span>
+      → 融合 <span class="num" data-src="NNS-022 · results/l4_fuse_gate.json#fused_result.modal_err_deg">1.47°</span>
+      <div class="kpi"><span class="num" data-src="NNS-022 · results/l4_fuse_gate.json#gates.gate2_improvement.improvement_pct（3/3 GATES PASS）">−91.9%</span></div>
+      <div class="small">后验集合另将渗流阈值钉在 <span class="num" data-src="NNS-023 · results/l4_ensemble_gate.json#ensemble_result.p32_crit_interval.median">0.214</span>（全部闸门 PASS）</div>
+    </div>
+    <div class="win">
+      <h3>胜₃ 置信锥校准</h3>
+      浓度重标定后覆盖率恢复名义水平：原始 <span class="num" data-src="NNS-042 · results/l4_calibration.json#raw_coverage">0%</span>
+      → 校准后 <span class="num" data-src="NNS-024 · results/l4_calibration.json#recalibrated_coverage（目标 90%）">90.6%</span>
+      <div class="kpi"><span class="num" data-src="NNS-042 → NNS-024 · results/l4_calibration.json">0% → 90.6%</span></div>
+      <div class="small">分场地：beishan <span class="num" data-src="NNS-043 · results/l4_calibration.json">89.77%</span> · FORGE <span class="num" data-src="NNS-044 · results/l4_calibration.json">87.5%</span></div>
+    </div>
+    <div class="cap">
+      <h3>封顶：点级档的墙（发现而非失败）</h3>
+      无标签 L0 档上，8 个可部署方法（含神经网络混合注意力模型）全部收敛在
+      <span class="num" data-src="NNS-001~NNS-008 · results/honest_leaderboard/">36.69–39.88°</span> 窄带，
+      距信息墙 <span class="num" data-src="NNS-045 · results/l4_evidence_grading.json">~31.7°±0.5°</span> 尚有约
+      <span class="num" data-src="差值 NNS-001 − NNS-045（两端实测相减）">约 5°</span> 渐近空间；学习解码器全部输给简单 k-means。
+      结论：<b>继续在 L0 上堆模型没有意义，升数据档位才有新空间。</b>
+      另一诚实负结果：多井池化在诚实口径下无增益（联合 <span class="num" data-src="NNS-031 · results/p0_full_audit.json#multiwell strict K=12">19.47°</span>
+      ≈ 单井 <span class="num" data-src="NNS-014 · results/p0_full_audit.json#single strict K=12">19.49°</span>）。
+    </div>
+  </div>
+</section>
+
+<!-- ============ S5 少打井双轴汇率表 ============ -->
+<section class="panel" id="s5">
+  <button class="fs-btn" onclick="fs('s5')">全屏</button>
+  <header class="shead">
+    <div class="sindex">05</div>
+    <div>
+      <p class="skicker">Observation cost curves · 少打井</p>
+      <h2>⑤ 少打井双轴汇率表：打多少井才够？</h2>
+      <p class="lead">两个轴度量"信息采购"的边际回报 —— 组系统计外推精度（轴A）与连通判定正确率（轴B）随观测量的饱和曲线。曲线一拐弯，再多打井就是浪费。</p>
+    </div>
+  </header>
+
+  <div class="fewgrid">
+    <!-- 轴A: 组系统计外推 -->
+    <div class="fewpanel">
+      <h3>轴A · 组系走向外推精度</h3>
+      <div class="axisname">校准井数 → 未打井处的组模态方向误差（beishan 22 井 LOO 外推, R57）</div>
+      <table>
+        <tr><th>校准井数</th><th>modal_err</th><th>95% CI</th><th>观测井均条数</th></tr>
+        <tr><td>1</td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w1.modal_err.mean">25.76°</span></td><td>[24.34, 27.31]</td><td>~40</td></tr>
+        <tr><td>2</td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w2.modal_err.mean">21.94°</span></td><td>[20.52, 23.38]</td><td>~80</td></tr>
+        <tr><td>5</td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w5.modal_err.mean">19.82°</span></td><td>[17.73, 21.87]</td><td>~200</td></tr>
+        <tr class="highlight"><td><b>10</b></td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w10.modal_err.mean">19.30°</span></td><td>[17.39, 21.26]</td><td>~400</td></tr>
+        <tr><td>21 (全量)</td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.loo.modal_err.mean">18.07°</span></td><td>[15.99, 20.21]</td><td>~840</td></tr>
+      </table>
+      <div class="platform-note">
+        <b>平台期已到：</b>10 口井 (19.30°) → 21 口 (18.07°) 仅再降 <span class="num" data-src="差值 cells.w10 − cells.loo = 1.24°">1.24°</span>。
+        继续加井边际收益递减 —— 10 口井已吃下 90% 可收割空间 (25.76→19.30 = 6.46° 中的 6.46−1.24 = <span class="num" data-src="差值 cells.w1 − cells.w10 = 6.46°">5.22°</span>)。
+      </div>
+    </div>
+
+    <!-- 轴B: 连通判定正确率 -->
+    <div class="fewpanel">
+      <h3>轴B · 连通判定正确率</h3>
+      <div class="axisname">整孔编录井数 → 场地级连通/不连通判对率（R47, 200 rep MC）</div>
+
+      <div style="margin-bottom:6px"><span class="scenario-tag scenario-far">远阈值档</span><span class="small" style="color:var(--muted)"> 强度距临界 −50%, 可判断区间</span></div>
+      <table>
+        <tr><th>井数 W</th><th>观测条数</th><th>判对率</th><th>95% CI</th></tr>
+        <tr><td>1</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_1.n_obs_mean">3.6</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_1.p10_axis.acc_site_strict">1%</span></td><td>[0%, 3%]</td></tr>
+        <tr><td>2</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_2.n_obs_mean">7.0</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_2.p10_axis.acc_site_strict">40%</span></td><td>[27%, 52%]</td></tr>
+        <tr class="highlight"><td><b>4</b></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_4.n_obs_mean">13.8</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_4.p10_axis.acc_site_strict">97%</span></td><td>[91%, 100%]</td></tr>
+        <tr><td>8</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_8.n_obs_mean">28.2</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_8.p10_axis.acc_site_strict">100%</span></td><td>[100%, 100%]</td></tr>
+      </table>
+
+      <div style="margin:14px 0 6px"><span class="scenario-tag scenario-high">高强度档</span><span class="small" style="color:var(--muted)"> 强度距临界 +35%（同为远阈值可判断区间, 上侧更难判）</span></div>
+      <table>
+        <tr><th>井数 W</th><th>观测条数</th><th>判对率</th><th>95% CI</th></tr>
+        <tr><td>4</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_4.n_obs_mean">40.5</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_4.p10_axis.acc_site_strict">71%</span></td><td>[61%, 82%]</td></tr>
+        <tr><td>8</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_8.n_obs_mean">81.9</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_8.p10_axis.acc_site_strict">76%</span></td><td>[66%, 85%]</td></tr>
+        <tr><td>16</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_16.n_obs_mean">160.3</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_16.p10_axis.acc_site_strict">82%</span></td><td>[72%, 90%]</td></tr>
+        <tr class="highlight"><td><b>32</b></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_32.n_obs_mean">322.3</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_32.p10_axis.acc_site_strict">90%</span></td><td>[83%, 96%]</td></tr>
+        <tr><td>64</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_64.n_obs_mean">642.8</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_64.p10_axis.acc_site_strict">98%</span></td><td>[94%, 100%]</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 三句话结论 -->
+  <div class="takeawaybox">
+    <h3>三句话结论（预注册截止前落盘, R62-A1/A2/B1）</h3>
+    <ol>
+      <li><b>(R62-A1)</b> 打 <b class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w10">10 口井</b>校准, 未打处的组系走向外推误差约 <b class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w10.modal_err.mean">19.3°</b>, 再加井到 21 口只再降 <b class="num" data-src="差值 cells.w10 − cells.loo = 1.24°">1.2°</b>, 平台期已到。</li>
+      <li><b>(R62-A2)</b> 少打井省下的不只是钻井费: 组系统计在 10 口井即达可用精度, 后续井主要用于降低单井波动而非提升均值。</li>
+      <li><b>(R62-B1)</b> 连通判定: 远离阈值场地, ≥<b class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_8">8 口</b>整孔编录即达 100% 判对; 近阈值场地需 ≥<b class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_32">32 口</b>才达 90% —— <b>本质变量 = 观测条数 (~300+) 而非覆盖率本身</b>; 贴阈值场地物理不可判, 系统输出『不确定 + 建议补勘』而非硬判。</li>
+    </ol>
+  </div>
+
+  <!-- 诚实边界 -->
+  <div class="boundary-note">
+    <b>诚实边界:</b> 轴A = beishan 22 井真实法向统计外推 (R57), 轴B = 合成 DFN 模拟 + 贝叶斯判定 (R47); 两轴均为<b>筛查级</b>统计, 非逐条保证。
+    贴阈值档 (at_crit / near_low) 受贝叶斯天花板 max(p_span, 1−p_span) 限制只能输出『不确定』= 产品应然行为, 非方法缺陷。
+    外推精度只看 modal_err (p32_rel_err 不单调, 测的是井间异质性, 非外推精度)。
+    研究线数字入台账, 升格客户文档需架构师批准。
+  </div>
+</section>
+
+<!-- ============ S6 DFN 交互 3D ============ -->
+<section class="panel" id="s6">
+  <button class="fs-btn" onclick="fs('s6')">全屏</button>
+  <header class="shead">
+    <div class="sindex">06</div>
+    <div>
+      <p class="skicker">Interactive 3D · 可玩的数字孪生</p>
+      <h2>⑥ 冻结 DFN 生成器 · 交互三维展示</h2>
+      <p class="lead">拖拽旋转 / 滚轮缩放 / 点击图例开关组系 / 悬停盘心查看产状。组系参数来自真实数据管线输出，盘片位置为冻结种子的随机实现。</p>
+    </div>
+  </header>
+  <span class="demo-flag">⚠ 展示用途，非交付数据 —— Baecher 盘模拟实现，裂隙位置非实测定位</span>
+  <div class="dfn-layout" id="dfnwrap">
+    <div>
+      <div id="dfn3d"></div>
+      <div class="btnrow">
+        <button class="btn" onclick="resetCam()">复位视角</button>
+        <button class="btn" onclick="fs('dfnwrap')">3D 全屏</button>
+        <span class="small" style="align-self:center">渲染：<span id="ndisp"></span> 盘（抽样率见右侧）</span>
+      </div>
+    </div>
+    <div class="dfn-side">
+      <h3>来源与参数（JSON 直读）</h3>
+      <table>
+        <tr><td>组系表来源</td><td><span class="num" data-src="results/dfn_pipeline_final.json#set_table（beishan 22 井 880 法向, Auto-K=4）">beishan Auto-K=4</span></td></tr>
+        <tr><td>P32 临界</td><td><span class="num" data-src="results/dfn_pipeline_final.json#percolation.p32_crit [lower, upper]">0.240 [0.215, 0.276]</span></td></tr>
+        <tr><td>幂律 β</td><td><span class="num" data-src="results/dfn_pipeline_final.json#percolation.beta（假设值; 迹长拟合可收窄, 见关键数字 §2.7）">3.5（假设）</span></td></tr>
+        <tr><td>域尺寸</td><td><span class="num" data-src="results/dfn_pipeline_final.json#input.domain_m">50 × 50 × 50 m</span></td></tr>
+        <tr><td>生成 / 显示</td><td><span class="num" data-src="data/dfn_demo_discs.json#meta.sampling（冻结生成器 + 固定种子确定性重排抽样）">13644 → 2000 盘</span></td></tr>
+      </table>
+      <h3 style="margin-top:16px">组系属性（悬停同款）</h3>
+      <div id="setlegend"></div>
+      <p class="note" style="font-size:13px;margin-top:12px">诚实边界：渗流结论为<b>筛查级</b>（无开度、非真实连通性判定）；本视图仅示意几何与组系结构。<span class="num" data-src="results/dfn_pipeline_final.json#honest_boundary">详见 JSON honest_boundary 字段</span>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S7 重构线冲刺屏 (R135) ============ -->
+<section class="panel" id="s7">
+  <button class="fs-btn" onclick="fs('s7')">全屏</button>
+  <header class="shead">
+    <div class="sindex">07</div>
+    <div>
+      <p class="skicker">Research sprint · 重构线冲刺 (research-grade)</p>
+      <h2>⑦ 重构线冲刺：从败因定位到因果闭合</h2>
+      <p class="lead">重构线冲刺日战报四幕 —— 基线谱系合围二阶聚集阵地 → κ 剂量响应完成因果闭合 → 无标架等变去噪器全门通过 → L4 交付壳首次单入口闭环。<b>本屏全部数字为研究线口径（初筛待复核），对外承诺一律仍走 ③ 屏。</b></p>
+    </div>
+  </header>
+  <span class="research-flag">研究线数字 · 初筛待复核 · 零商务承诺语气 · 数字由冻结 JSON 直读生成</span>
+
+  <div class="s7-grid">
+    <div class="s7-card s7-wide">
+      <h3>卡一 · 基线谱系：统计尺子合围二阶聚集阵地</h3>
+      <div id="s7-gatechart" class="s7-chart"></div>
+      <div id="s7-baseline"></div>
+    </div>
+
+    <div class="s7-card s7-wide">
+      <h3>卡二 · κ 剂量响应：败因从“组数”下移到“浓度”，锐化完成因果闭合</h3>
+      <div id="s7-kappachart" class="s7-chart"></div>
+      <div id="s7-kappa"></div>
+    </div>
+
+    <div class="s7-card">
+      <h3>卡三 · E0 无标架等变去噪器：随机初始化前向即判</h3>
+      <div id="s7-e0"></div>
+    </div>
+
+    <div class="s7-card">
+      <h3>卡四 · L4 交付壳：多源观测→生成→对账的单入口闭环</h3>
+      <div id="s7-shell"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer id="honesty">
+  <div class="foot-head">
+    <span class="wm serif">FractureFlow<b>.</b></span>
+    <span class="tag">Open source · MIT · honesty-first engineering</span>
+  </div>
+  <div class="cols">
+    <div>
+      <h2>质量故事：这套数字为什么可信 <span class="zh">/ Why trust these numbers</span></h2>
+      <div class="bugstory">
+        项目历史上共发生 <b class="num" data-src="docs/论文/论文全文_EN_v0.7.md §Leakage（four leakage incidents）">4 起</b>泄漏事件、
+        产生 <b class="num" data-src="results/digital_ledger.json#deprecated（DEP-001 ~ DEP-018 新旧对照记录）">18 条</b>带新旧对照的废弃数字记录
+        —— <b>全部被 BlindInput 协议（物理掩码 + 毒丸测试 + 红旗审计）揪出</b>，包括曾被视为头版结果的口径。
+        多次修正让数字“变差”：诚实不是装饰，是交付的前提。
+      </div>
+      <ul>
+        <li><b>盲评协议</b>：真值物理掩码（rng 固定 / 观测率固定），毒丸测试确保泄漏必报警。</li>
+        <li><b>双榜单隔离</b>：可部署榜与 oracle 榜分轨，oracle 性质数字禁止进入客户材料。</li>
+        <li><b>机器台账</b>：每个数字有 NNS 编号 + JSON 路径 + 口径说明，锁定后只走变更单。</li>
+        <li><b>负结果入档</b>：学习解码器不敌 k-means、多井池化无增益、组内深度精修零收益 —— 全部如实发表。</li>
+      </ul>
+    </div>
+    <div>
+      <h2>诚实边界（引用本页前必读） <span class="zh">/ Honest boundaries</span></h2>
+      <ul>
+        <li>L3 点云多走向验证为<b>合成基准</b>（壁面级空间分离场景；可获得的真实扫描均为单组近水平）。
+            <span class="num" data-src="docs/论文素材包/诚实边界.md §3.1 · results/pointcloud_gate.json">边界详情</span></li>
+        <li>DFN 渗流为<b>筛查级</b>：Baecher 盘模型 + 假设尺寸分布，无开度，非真实连通性判定。
+            <span class="num" data-src="results/dfn_pipeline_final.json#honest_boundary">边界详情</span></li>
+        <li>置信锥度量的是<b>跨井变异性</b>（校准后），非井内采样误差，两种语义不可混用。
+            <span class="num" data-src="docs/论文/论文全文_EN_v0.7.md §6.6 · results/l4_calibration.json">边界详情</span></li>
+        <li>信息墙数值按数据集标定（beishan）；其机制（点几何不含组隶属）是普适的。
+            <span class="num" data-src="NNS-045 · results/digital_ledger.json">台账条目</span></li>
+        <li>⑦ 屏（重构线冲刺）全部数字为<b>研究线水印</b>（active-research / active-baseline 口径），初筛待复核；
+            其中“原型座次地板”为 κ 归因诊断，仅用于方法归因、不入承诺语境。
+            <span class="num" data-src="data/recon_line.json#meta.watermark（随页分发）">本屏水印声明</span></li>
+        <li>本页不展示内部研发锚点与 oracle-existence 性质数字；对外承诺一律走 ③ 屏口径。</li>
+      </ul>
+      <p class="small" style="color:#B9A683;margin-top:10px">
+        悬停任意虚线数字即可看到其溯源（NNS 编号 · JSON 路径 · 口径限定）。悬浮路径指向上游证据库；本仓库随附 results/ 冻结子集与随页 data/。
+      </p>
+    </div>
+  </div>
+  <div class="oslinks">
+    <a href="../README.md" lang="en"><b>README</b>quickstart · data ladder</a>
+    <a href="../LICENSE" lang="en"><b>LICENSE</b>MIT</a>
+    <a href="../CITATION.cff" lang="en"><b>CITATION.cff</b>cite this repo</a>
+    <a href="../SECURITY.md" lang="en"><b>SECURITY</b>report an issue</a>
+    <a href="../PUSH_GUIDE.md" lang="en"><b>PUSH_GUIDE</b>Pages &amp; release ops</a>
+  </div>
+  <div class="fineprint">
+    FractureFlow 开源首页 (docs/) v1.0 · 改编自 B 线展示件 v1.3（R147, 2026-08-29）· 数据基线 = 数字台账 v1.1（锁定，变更需走 changelog）
+    · 单文件离线页面（本地 plotly 副本 4.4MB，零后端零构建零外部请求）· S5 少打井双轴汇率表 (R57/R47 数据) · ⑦ 重构线冲刺屏 (B1~B5b / R117 / R121 / R127 / R119 / R133 冻结件直读)
+    · 复现入口：src/fractureflow/honest_eval.py（评测）/ set_table_eval.py（组系表）/ dfn.py（DFN 生成器，本页 3D 使用其冻结版）。
+    本页为展示层，不属于评测链路；数字若与台账冲突，以台账为准并请回报。
+  </div>
+</footer>
+
+<script src="./plotly.min.js"></script>
+<script src="./data/dfn_demo_discs.js"></script>
+<script src="./data/recon_line.js"></script>
+<script>
+'use strict';
+function fs(id){
+  var el = document.getElementById(id);
+  if (!document.fullscreenElement) {
+    (el.requestFullscreen || el.webkitRequestFullscreen || function(){}).call(el);
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+}
+
+/* ============ DFN 3D（数据: data/dfn_demo_discs.js → window.DFN_DEMO） ============ */
+(function(){
+  var DATA = window.DFN_DEMO;
+  if (!DATA) return;
+  var COLORS = ['#E8853B', '#F0DFC0', '#8FA37E', '#7FA0AA', '#C2A05A', '#B06A45'];
+  var discs = DATA.discs, sets = DATA.sets;
+  var n = discs.centers.length;
+  document.getElementById('ndisp').textContent = n;
+
+  var RIM_SEG = 20;               /* 每盘圆周采样点数 */
+  var traces = [];
+  var legendRows = [];
+
+  function basisFromNormal(nx, ny, nz){
+    /* 任取与 n 不共线的辅助向量构造盘面正交基 */
+    var ax = Math.abs(nx), ay = Math.abs(ny), az = Math.abs(nz);
+    var helper = (ax <= ay && ax <= az) ? [1,0,0] : (ay <= az ? [0,1,0] : [0,0,1]);
+    var u = [ny*helper[2]-nz*helper[1], nz*helper[0]-nx*helper[2], nx*helper[1]-ny*helper[0]];
+    var lu = Math.hypot(u[0],u[1],u[2]) || 1;
+    u = [u[0]/lu, u[1]/lu, u[2]/lu];
+    var v = [ny*u[2]-nz*u[1], nz*u[0]-nx*u[2], nx*u[1]-ny*u[0]];
+    return [u, v];
+  }
+
+  sets.forEach(function(s, k){
+    var color = COLORS[k % COLORS.length];
+    var lx = [], ly = [], lz = [];
+    for (var i = 0; i < n; i++){
+      if (discs.sets[i] !== k) continue;
+      var c = discs.centers[i], nrm = discs.normals[i], r = discs.radii[i];
+      var uv = basisFromNormal(nrm[0], nrm[1], nrm[2]);
+      var u = uv[0], v = uv[1];
+      for (var t = 0; t <= RIM_SEG; t++){
+        var th = t / RIM_SEG * Math.PI * 2;
+        var co = Math.cos(th) * r, si = Math.sin(th) * r;
+        lx.push(c[0] + co*u[0] + si*v[0]);
+        ly.push(c[1] + co*u[1] + si*v[1]);
+        lz.push(c[2] + co*u[2] + si*v[2]);
+      }
+      lx.push(null); ly.push(null); lz.push(null);   /* 盘间断线 */
+    }
+    traces.push({
+      type:'scatter3d', mode:'lines', name:s.name,
+      x:lx, y:ly, z:lz,
+      line:{width:1.6, color:color},
+      opacity:0.55, hoverinfo:'skip',
+      legendgroup:'g'+k, showlegend:false
+    });
+  });
+
+  sets.forEach(function(s, k){
+    var color = COLORS[k % COLORS.length];
+    var cd = [], cx = [], cy = [], cz = [];
+    for (var i = 0; i < n; i++){
+      if (discs.sets[i] !== k) continue;
+      var nrm = discs.normals[i];
+      var dip = Math.acos(Math.max(-1, Math.min(1, nrm[2]))) * 180 / Math.PI;
+      var dd = (Math.atan2(nrm[0], nrm[1]) * 180 / Math.PI + 360) % 360;
+      cx.push(discs.centers[i][0]); cy.push(discs.centers[i][1]); cz.push(discs.centers[i][2]);
+      cd.push([s.name, dip.toFixed(1), dd.toFixed(1), discs.radii[i].toFixed(2),
+               s.kappa.toFixed(2), (s.proportion_target * 100).toFixed(1)]);
+    }
+    traces.push({
+      type:'scatter3d', mode:'markers', name:s.name,
+      x:cx, y:cy, z:cz,
+      marker:{size:2.2, color:color, opacity:0.9},
+      customdata:cd,
+      hovertemplate:'<b>%{customdata[0]}</b><br>倾角 %{customdata[1]}° · 倾向 %{customdata[2]}°<br>半径 %{customdata[3]} m · 组浓度 κ=%{customdata[4]} · 目标占比 %{customdata[5]}%<extra></extra>',
+      legendgroup:'g'+k, showlegend:true
+    });
+    legendRows.push(
+      '<span style="display:block;margin:6px 0;font-size:13.8px">' +
+      '<span class="setdot" style="background:' + color + '"></span><b>' + s.name + '</b>' +
+      '　倾角 ~<span class="num" data-src="data/dfn_demo_discs.json#sets[' + k + ']（展示实现统计）">' + s.dip_mean_deg + '°</span>' +
+      ' · 倾向 ~<span class="num" data-src="data/dfn_demo_discs.json#sets[' + k + ']（展示实现统计，圆均值）">' + s.dipdir_circmean_deg + '°</span>' +
+      '<br><span style="color:#6E5B41;margin-left:17px">κ=<span class="num" data-src="results/dfn_pipeline_final.json#set_table.concentrations[' + k + ']">' + s.kappa +
+      '</span> · 目标占比 <span class="num" data-src="results/dfn_pipeline_final.json#set_table.proportions[' + k + ']">' + (s.proportion_target * 100).toFixed(1) + '%</span>' +
+      ' · 显示 <span class="num" data-src="data/dfn_demo_discs.json#sets[' + k + '].n_displayed">' + s.n_displayed + '</span> 盘</span></span>'
+    );
+  });
+
+  document.getElementById('setlegend').innerHTML = legendRows.join('');
+
+  var layout = {
+    margin:{l:0,r:0,t:0,b:0},
+    paper_bgcolor:'#171009', plot_bgcolor:'#171009',
+    font:{color:'#E8DCC4', size:13},
+    scene:{
+      aspectmode:'cube',
+      xaxis:{title:'x (m)', gridcolor:'#33291C', zerolinecolor:'#4A3823'},
+      yaxis:{title:'y (m)', gridcolor:'#33291C', zerolinecolor:'#4A3823'},
+      zaxis:{title:'z (m)', gridcolor:'#33291C', zerolinecolor:'#4A3823'},
+      camera:{eye:{x:1.55, y:1.35, z:0.95}}
+    },
+    legend:{bgcolor:'rgba(23,16,9,.78)', bordercolor:'#4A3823', borderwidth:1,
+            x:0.01, y:0.99, itemsizing:'constant'},
+    hoverlabel:{bgcolor:'#33261A', font:{color:'#F4E7CE'}}
+  };
+  var config = {displaylogo:false, responsive:true, scrollZoom:true,
+                modeBarButtonsToRemove:['lasso2d','select2d']};
+  Plotly.newPlot('dfn3d', traces, layout, config);
+
+  window.resetCam = function(){
+    Plotly.relayout('dfn3d', {'scene.camera':{eye:{x:1.55, y:1.35, z:0.95}},
+                              'scene.aspectmode':'cube'});
+  };
+})();
+</script>
+<script>
+'use strict';
+/* ============ S7 重构线冲刺屏 (数据: data/recon_line.js → window.RECON_LINE) ============
+   本屏零手打数字: 所有可见数字对象 {v,t,src} 均来自 recon_line.json (scripts/r135_portal_data.py
+   从冻结 results/*.json 直读生成)。图表轴刻度/悬停数值为图形几何口径 (与 ⑥ 屏同例), 主张数字一律走 DOM .num。 */
+(function(){
+  var D = window.RECON_LINE;
+  var root = document.getElementById('s7');
+  if (!D || !root) return;
+  var C1 = D.card1_baseline, C2 = D.card2_kappa, C3 = D.card3_e0, C4 = D.card4_shell;
+
+  function esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function NUM(o){
+    return '<span class="num" data-src="' + esc(o.src) + '">' + esc(o.t) + '</span>';
+  }
+
+  /* ---------- 卡一 · 基线谱系 ---------- */
+  var h = '<div class="s7-note" style="margin:0 0 8px">冻结自评门 (R110 协议运行时直读): Ripley 最大相对偏差 ≤ '
+        + NUM(C1.gates.ripley) + ' · 相交密度相对误差 ≤ ' + NUM(C1.gates.inter) + '</div>';
+  h += '<table class="s7-t"><tr><th>基线</th><th>机制 (逐尺单点替换)</th><th>判定</th><th>full 14 门</th><th>Ripley rel.dev</th><th>相交密度误差</th></tr>';
+  C1.rows.forEach(function(r){
+    var cls = (r.verdict.t === 'SELF_CONSISTENT') ? 's7-verd-ok' : 's7-verd-red';
+    h += '<tr><td>' + NUM(r.key) + '</td><td class="small">' + esc(r.mech) + '</td>'
+       + '<td><span class="' + cls + '">' + NUM(r.verdict) + '</span></td>'
+       + '<td>' + NUM(r.g14) + '</td><td>' + NUM(r.ripley) + '</td><td>' + NUM(r.inter) + '</td></tr>';
+    if (r.flag) h += '<tr class="flagrow"><td></td><td colspan="5">' + NUM(r.flag) + '</td></tr>';
+  });
+  h += '</table><div class="s7-take">' + NUM(C1.takeaway) + '</div>';
+  document.getElementById('s7-baseline').innerHTML = h;
+
+  /* ---------- 卡二 · κ 剂量响应 ---------- */
+  var g = C2.green;
+  h = '<table class="s7-t"><tr><th>臂</th><th>剂量档</th><th>组系 fisher</th><th>full k_eff (逐 seed)</th><th>拓扑 interdens</th></tr>';
+  C2.arms.forEach(function(a){
+    h += '<tr><td>' + NUM(a.arm) + '</td><td>' + NUM(a.dose) + '</td>'
+       + '<td' + (a.green ? ' class="s7-greencell"' : '') + '>' + NUM(a.fisher) + '</td>'
+       + '<td>' + NUM(a.keff) + '</td><td>' + NUM(a.inter) + '</td></tr>';
+  });
+  h += '</table>';
+  h += '<div style="margin-top:10px"><span class="s7-green">GREEN 成立</span> <span class="small">三判据 (任务书预写): '
+     + 'full fisher ≤ ' + NUM(g.threshold) + ' · ' + NUM(g.keff_gate) + ' · ' + NUM(g.proc_gate) + '</span></div>';
+  h += '<div class="s7-note">地板合流: ' + NUM(g.floor) + ' —— ' + NUM(g.merge_note) + '。中途档注: ' + NUM(g.keff_mid) + '</div>';
+  h += '<div class="s7-note s7-caution">' + NUM(C2.caution) + '</div>';
+  h += '<div class="s7-note">' + NUM(C2.arch_note) + '</div>';
+  document.getElementById('s7-kappa').innerHTML = h;
+
+  /* ---------- 卡三 · E0 ---------- */
+  h = '<div class="s7-kpis">';
+  C3.kpis.forEach(function(o){
+    h += '<div class="s7-kpi"><span class="kk">' + NUM(o.k) + '</span><span class="vv">' + NUM(o.v)
+       + '</span><span class="nn">' + NUM(o.note) + '</span></div>';
+  });
+  h += '</div><div class="s7-note">' + NUM(C3.env) + '</div>';
+  h += '<div class="s7-note">判定性质: ' + NUM(C3.nature) + '</div>';
+  h += '<div class="s7-e1">' + NUM(C3.e1.conclusion)
+     + '<br><span class="small">p99 ' + NUM(C3.e1.p99) + ' · legacy 符号翻号率 ' + NUM(C3.e1.flip)
+     + ' · 布局修复后 median ' + NUM(C3.e1.fix_median) + ' / 翻号率 ' + NUM(C3.e1.fix_flip) + '</span></div>';
+  h += '<div class="s7-note">' + NUM(C3.status) + '</div>';
+  document.getElementById('s7-e0').innerHTML = h;
+
+  /* ---------- 卡四 · L4 交付壳 ---------- */
+  h = '<div class="s7-note">单入口: <code>' + esc(C4.entry.t) + '</code></div><div class="s7-flow">';
+  C4.segments.forEach(function(s, i){
+    h += (i ? '<span class="arr">→</span>' : '') + '<span class="step">' + NUM(s) + '</span>';
+  });
+  h += '</div><div class="s7-kpis">';
+  h += '<div class="s7-kpi"><span class="kk">位级承继锚</span><span class="vv">' + NUM(C4.anchors)
+     + '</span><span class="nn">逐条 true · 生成/装配/评分全部恒等上游冻结件 (非新数字)</span></div>';
+  h += '<div class="s7-kpi"><span class="kk">S4 组系 fisher</span><span class="vv">' + NUM(C4.fisher)
+     + '</span><span class="nn">端到端复现 = R127 C3b 位级恒等</span></div>';
+  h += '<div class="s7-kpi"><span class="kk">S5 三色对账</span><span class="vv">绿组占比 ' + NUM(C4.green_frac)
+     + '</span><span class="nn">' + NUM(C4.green_note) + '</span></div>';
+  h += '<div class="s7-kpi"><span class="kk">端到端运行</span><span class="vv">' + NUM(C4.runtime)
+     + '</span><span class="nn">' + NUM(C4.boundary) + '</span></div>';
+  h += '</div><span class="research-flag">' + NUM(C4.watermark) + '</span>';
+  document.getElementById('s7-shell').innerHTML = h;
+
+  /* ---------- 图表 (复用本地 plotly; 无 Plotly 时表格仍是完整主张载体) ---------- */
+  if (!window.Plotly) return;
+  var gR = C1.gates.ripley.v, gI = C1.gates.inter.v;
+  function gateColor(vals, gate){
+    return vals.map(function(v){ return v <= gate ? '#5E7A3A' : '#A8321E'; });
+  }
+  var baseAxis = {font:{size:12, color:'#33261A'}, margin:{l:44,r:10,t:26,b:34}, paper_bgcolor:'#F7EEDC', plot_bgcolor:'#F7EEDC',
+                  bargap:0.25, showlegend:true,
+                  legend:{orientation:'h', x:0, y:1.12, font:{size:12, color:'#33261A'}}};
+  Plotly.newPlot('s7-gatechart', [
+    {type:'bar', name:'Ripley 最大相对偏差 (越低越聚集)', x:C1.chart.x, y:C1.chart.ripley,
+     marker:{color:gateColor(C1.chart.ripley, gR)}},
+    {type:'bar', name:'相交密度相对误差 (越低越连通)', x:C1.chart.x, y:C1.chart.inter,
+     marker:{color:gateColor(C1.chart.inter, gI)}}
+  ], Object.assign({}, baseAxis, {
+    yaxis:{title:'相对误差', rangemode:'tozero', gridcolor:'#E0CFA9'},
+    xaxis:{tickangle:0},
+    shapes:[{type:'line', x0:-0.5, x1:C1.chart.x.length-0.5, y0:gR, y1:gR,
+             line:{color:'#5E7A3A', width:1.4, dash:'dot'}},
+            {type:'line', x0:-0.5, x1:C1.chart.x.length-0.5, y0:gI, y1:gI,
+             line:{color:'#A8321E', width:1.4, dash:'dot'}}],
+    annotations:[{x:C1.chart.x[C1.chart.x.length-1], y:gR, text:'Ripley 绿门', showarrow:false,
+                  yanchor:'bottom', font:{size:11, color:'#5E7A3A'}},
+                 {x:0, y:gI, text:'相交门', showarrow:false, yanchor:'bottom',
+                  font:{size:11, color:'#A8321E'}}]
+  }), {displaylogo:false, responsive:true});
+
+  var th = C2.chart.threshold;
+  Plotly.newPlot('s7-kappachart', [
+    {type:'scatter', mode:'lines+markers', name:'组系 fisher (°)', x:C2.chart.x, y:C2.chart.fisher,
+     line:{color:'#8F4A1F', width:2.4}, marker:{size:9, color:['#A8321E','#A8321E','#A8321E','#5E7A3A']},
+     text:C2.arms.map(function(a){ return a.fisher.t + ' (k_eff ' + a.keff.t + ')'; }),
+     hovertemplate:'%{x}: %{text}<extra></extra>'}
+  ], Object.assign({}, baseAxis, {
+    yaxis:{title:'组系 fisher (°, 对数轴)', type:'log', gridcolor:'#E0CFA9'},
+    shapes:[{type:'line', x0:-0.4, x1:C2.chart.x.length-0.6, y0:th, y1:th,
+             line:{color:'#8F6A28', width:1.4, dash:'dash'}}],
+    annotations:[{x:C2.chart.x[0], y:th, text:'恢复线 (预注册)', showarrow:false, yanchor:'bottom',
+                  font:{size:11, color:'#8F6A28'}}]
+  }), {displaylogo:false, responsive:true});
+})();
+</script>
+</body>
+</html>

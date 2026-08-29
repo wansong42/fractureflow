@@ -37,6 +37,7 @@ run_demo.cmd                                   # 一键 demo 冒烟
 | `CITATION.cff` | authors / repository-code | 作者与 ORCID、GitHub 账号 |
 | `SECURITY.md` | `[SECURITY CONTACT ...]` | 漏洞报告邮箱 |
 | `README.md` | （无强制占位） | 可选：CI 徽章换成真实账号 |
+| `docs/index.html` | `github.com/your-account/fractureflow` ×2 | 与上同账号；Pages 开启前定稿 |
 
 ## 步骤 3 · GitHub 建仓（先私有，后公开）
 
@@ -74,6 +75,24 @@ git push origin v0.1.0
 - **Issues / PR 模板**：已在 `.github/ISSUE_TEMPLATE/` 与
   `PULL_REQUEST_TEMPLATE.md`，可直接使用。
 - **SECURITY.md**：已就位，GitHub 会自动在 Security 页展示。
+
+## 步骤 5½ · GitHub Pages（项目主页 docs/）
+
+仓库自带 `docs/` 单文件门户页（英文主视觉 + 双语 + 徽章 + 合成数据截图 +
+可玩的 3D DFN demo，零外链、零 CDN、plotly 本地副本）。转公开后开启：
+
+1. GitHub 仓库 → **Settings → Pages**；
+2. Source 选 **Deploy from a branch**，Branch 选 `main`，目录选 **`/docs`**，
+   Save；
+3. 约 1–2 分钟后访问 `https://<你的账号>.github.io/fractureflow/` 确认；
+4. 首屏徽章中的 `github.com/your-account/fractureflow` 两处占位链接与
+   步骤 2 的占位符定稿一起替换为真实账号（`docs/index.html` 内搜索
+   `your-account`）。
+
+> 页面为纯静态相对路径，可在项目子路径下直接服务；首载约 4.4 MB
+> （本地 plotly 副本），详见 `docs/README.md`。CI 已在每次 push 时跑
+> `tests/`（含 `tests/test_v_r147_.py` 的 Pages 资产与零死链守卫），
+> Pages 部署不依赖额外 workflow。
 
 ## 步骤 6 · 论文投稿期匿名评审（双盲替代方案）
 

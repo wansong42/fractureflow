@@ -53,6 +53,11 @@ to the predictor, masks are fixed (`obs_frac=0.4`, `rng=999`), and the metric
 is `mean acos(|<pred, true>|)` over hidden points, 10 seeds. A
 poison-pill/self-leak audit runs inside the harness.
 
+Caliber note: the FORGE set-table figure quotes the linked result file as
+shipped (pooled obs-only k-means, 10 seeds). The project's type-aware rebuild
+pipeline reports **11.05° ± 2.14°** on the same data — both are honest
+post-bug-fix calibers; they differ in grouping protocol, not in correctness.
+
 The `fracture_id` row is the key honest contrast: when observations carry the
 same-fracture grouping (Route B), the error collapses to measurement
 precision (0.0054°). Without it — the L0/L1 reality — the same data tops out
@@ -200,3 +205,12 @@ work, please cite the software and the underlying datasets (notices file §3).
 
 MIT — see [`LICENSE`](LICENSE). Third-party components and data rulings:
 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+## Acknowledgments
+
+This work was carried out at the China University of Mining and Technology
+(Beijing) under the Undergraduate Innovation and Entrepreneurship Training
+Program (大学生创新创业训练计划), with guidance from the project supervisor
+Prof. Liu Peng (刘鹏).
+
+Author: Jiacheng Yi (易嘉诚), 2998812494@qq.com.

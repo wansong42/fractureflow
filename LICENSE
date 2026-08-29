@@ -1,8 +1,6 @@
 MIT License
 
-Copyright (c) 2026 [Copyright holder -- to be finalized by the institution /
-supervisor before the first public push; placeholder: "The FractureFlow
-Authors"]
+Copyright (c) 2026 Jiacheng Yi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----------------------------------------------------------------------------
-NOTE (remove this note when the copyright holder is finalized):
-This is a DRAFT license file. Before the first public push, replace the
-bracketed placeholder in the copyright line with the actual copyright holder
-(university / research group / individual names), as decided by the
-supervisor and the institution. See PUSH_GUIDE.md, step 0.

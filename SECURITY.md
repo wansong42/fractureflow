@@ -9,8 +9,8 @@
 ## Reporting a vulnerability
 
 Please report security issues privately via GitHub **Security Advisories →
-"Report a vulnerability"** on this repository, or by email to the maintainers
-at `[SECURITY CONTACT — to be filled by the repository owner]`.
+"Report a vulnerability"** on this repository, or by email to the maintainer
+at **2998812494@qq.com**.
 
 Please do not open a public issue for a security report.
 

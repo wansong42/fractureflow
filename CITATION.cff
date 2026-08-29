@@ -4,16 +4,11 @@ title: "FractureFlow: label-free structural-orientation statistics and honest ma
 version: 0.1.0
 date-released: 2026-08-29
 license: MIT
-# PLACEHOLDER: fill in the real author names, ORCID iDs and affiliation
-# (supervisor / institution) before the first public push. See PUSH_GUIDE.md.
 authors:
-  - given-names: "[First]"
-    family-names: "[Author]"
-    affiliation: "[Institution]"
-  - given-names: "[Second]"
-    family-names: "[Author]"
-    affiliation: "[Institution]"
-repository-code: "https://github.com/[ACCOUNT]/fractureflow"
+  - given-names: "Jiacheng"
+    family-names: "Yi"
+    email: "2998812494@qq.com"
+repository-code: "https://github.com/wansong42/fractureflow"
 abstract: >-
   FractureFlow turns raw fracture observations (borehole logs, borehole-image
   logs, outcrop trace maps, dense point clouds) into structural-orientation
