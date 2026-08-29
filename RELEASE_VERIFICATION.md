@@ -10,8 +10,8 @@
 
 | 门禁 | 结果 | 日志 |
 |---|---|---|
-| pytest（副本环境） | **103 passed / 0 failed / 0 skipped**（加 R146 守卫后见 §5 更新） | `_release_checks/pytest_full.log` |
-| 敏感扫描 | 90 命中，**0 未豁免**（豁免表见 §4） | `_release_checks/scan_report.md` / `.json` |
+| pytest（副本环境，git 转化后终态） | **111 passed / 0 failed / 0 skipped** | `_release_checks/pytest_full.log` |
+| 敏感扫描 | 128 命中，**0 未豁免**（豁免表见 §4） | `_release_checks/scan_report.md` / `.json` |
 | 合成管线冒烟（一键 demo） | PASS：内置 60 行 3 组合成样本 → 组系表（3 组×20 条，组内离散 4.3–5.2°）+ 玫瑰图 + 极点图 + Markdown 报告 | `_release_checks/demo_smoke.log` |
 
 测试环境：Python 3.10（项目 GPU 训练环境），Windows；`PYTHONUTF8=1 KMP_DUPLICATE_LIB_OK=TRUE`（GBK 控制台双变量已写进 README 与 `run_demo.cmd`）。CI（GitHub Actions, ubuntu）在 push 后自动复跑同一套件。
@@ -63,9 +63,10 @@
 模式（R146 T3.2）`beishan|试点|NDA|客户|AGENTS|看板|架构师|交接|task_|R1dd`，
 两处保意图收紧（脚本头有记录）：`NDA` 按大小写敏感缩写+词边界（防
 "standard" 假阳）；`R1dd` 加词边界。冻结锚点数字（36.687/12.37/0.37）为
-应保留科学内容，不属命中。扫描器自排除（工具不报自身）。
+应保留科学内容，不属命中。扫描器自排除；台账与本守卫件按 FILE_OVERRIDES
+登记（二者按设计引用模式串与禁止名单原文）。
 
-90 个豁免命中全部落在四个类别（完整逐条清单见 `_release_checks/scan_report.md`）：
+128 个豁免命中全部落在五类（完整逐条清单见 `_release_checks/scan_report.md`）：
 
 | 类别 | 理由 |
 |---|---|

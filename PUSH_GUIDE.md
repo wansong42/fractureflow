@@ -57,6 +57,12 @@ git push origin v0.1.0
 
 > 若账号启用了 2FA，密码处填 Personal Access Token（Settings → Developer
 > settings → Tokens）。SSH 方式同理（`git@github.com:<账号>/fractureflow.git`）。
+>
+> 署名说明：首提交作者是构建占位身份（`FractureFlow Release Builder`）。
+> push 前如需改为真实署名（未 push 阶段可安全执行）：
+> `git config user.name "<真实姓名>" && git config user.email "<真实邮箱>"`
+> 然后 `git commit --amend --reset-author --no-edit` 并重打 tag：
+> `git tag -fa v0.1.0 -m "v0.1.0 first public release (push-ready)"`。
 
 ## 步骤 5 · GitHub 侧配置（转公开前完成）
 
