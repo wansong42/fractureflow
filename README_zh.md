@@ -39,7 +39,8 @@ git clone https://github.com/wansong42/fractureflow.git
 cd fractureflow
 
 # Python >= 3.10，CPU 即可，无需 GPU
-pip install -r requirements.txt
+pip install .              # 安装 fractureflow 及全部依赖
+#   或: pip install -r requirements.txt
 #   或: conda env create -f environment.yml && conda activate fractureflow
 
 ./run_demo.sh            # Windows 用户: run_demo.cmd
@@ -157,6 +158,10 @@ results/               支撑基准表的冻结结果快照
 data/                  可再分发的派生数据（见数据政策）
 docs/                  GitHub Pages 门户源码（交互式 DFN 演示）
 ```
+
+所有代码与文档均为纯文本 Python / Markdown。仓库中唯一的二进制文件是
+数据样本（`data/**/*.pt`，派生自开放许可的 FORGE 测井）和图件（`*.png`），
+没有任何代码以二进制形式发布。
 
 ## 数据政策
 

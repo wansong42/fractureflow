@@ -44,7 +44,8 @@ git clone https://github.com/wansong42/fractureflow.git
 cd fractureflow
 
 # Python >= 3.10; CPU is sufficient
-pip install -r requirements.txt
+pip install .              # installs fractureflow + dependencies
+#   or: pip install -r requirements.txt
 #   or: conda env create -f environment.yml && conda activate fractureflow
 
 ./run_demo.sh            # Windows: run_demo.cmd
@@ -177,6 +178,11 @@ results/               frozen result snapshots backing the benchmark table
 data/                  redistributable derived data (see data policy)
 docs/                  GitHub Pages portal source (interactive DFN demo)
 ```
+
+All code and documentation are plain-text Python / Markdown. The only
+binary files in the repository are data fixtures (`data/**/*.pt`, derived
+from openly licensed FORGE logs) and figures (`*.png`) — no code is shipped
+as binary.
 
 ## Data policy
 
