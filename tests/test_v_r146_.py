@@ -176,6 +176,9 @@ def test_git_tag_and_first_commit_in_place():
     assert log.returncode == 0, f"git log failed: {log.stderr}"
     commits = [c for c in log.stdout.strip().splitlines() if c.strip()]
     assert commits, "repository has no commits"
+    shallow = _p(".git/shallow")
+    if os.path.isfile(shallow):
+        pytest.skip("shallow clone (CI fetch-depth=1); first-commit check requires full history")
     assert "v0.1.0" in commits[0] or "release" in commits[0].lower(), \
         f"first commit is not the release commit: {commits[0]!r}"
     tags = git("tag", "--list")
