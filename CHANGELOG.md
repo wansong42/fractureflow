@@ -3,6 +3,48 @@
 All notable changes to this repository are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/) + semantic versioning.
 
+## [0.1.2] - 2026-09-19
+
+Public-wording compliance release. It closes quantitative-commitment wording on
+the GitHub Pages portal that contradicted the project's standing rule of **zero
+quantitative public commitments**. No code path changes; no benchmark reading is
+added, changed or strengthened anywhere in this repository.
+
+### Changed
+- `docs/index.html`, screen 3 — retitled from a commercial "commitment line" to a
+  research-line accuracy line, marked **not an external commitment**. The sentence
+  that read as an outward commitment (a per-group error band) and the sentence
+  asserting that all three sites pass the engineering threshold are removed; the
+  threshold itself stays, because a threshold is an operative acceptance
+  criterion while the readings under it are not.
+- `docs/index.html`, screen 3 — the three rows are now labelled `TRUTH` or
+  `CIRCULAR`, and the reference object of each `CIRCULAR` row is stated in the
+  same box: those two sites have no independent ground truth, so their numbers
+  measure consistency against the same campaign's catalogue, not accuracy.
+- `docs/index.html` — a retired "hugging the floor" phrasing is replaced by the
+  statement that the floor requires oracle assignment and is not deployable; an
+  unregistered percentage derivation in the observation-cost section is deleted
+  with no replacement figure published; a connectivity cell that was mislabelled
+  as near-threshold is corrected to the far-threshold high-density cell it is in
+  the table directly above; the multi-well sentence now discloses that the
+  two-well joint run came out as a **degradation** and names its source file,
+  without publishing that research-line value; one dead internal document
+  pointer is repointed to the archived report.
+- Machine check: the set of numeric tokens rendered on `docs/index.html` after
+  this release is a **subset** of the set before it (deletions only), and the set
+  of honesty-qualifier markers did not shrink. Both assertions are re-runnable.
+
+### Added
+- Standing rule (see `README.md` / `README_zh.md`): public wording is operative
+  **only for the currently published version**. Git history deliberately is not
+  rewritten — history in a shared public repository is irreversible to rewrite,
+  and the audit trail matters more than tidiness. Any numeric commitment found
+  in history, in superseded tags, or in a Pages cache is void.
+
+### Not changed
+- No source file, no product entry point, no test, no data file. The published
+  accuracy figures of `0.1.0` / `0.1.1` remain exactly as they were.
+
 ## [0.1.1] - 2026-09-19
 
 Engineering maintenance release. No new benchmark readings are introduced and

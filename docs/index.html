@@ -440,7 +440,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div class="stat">
       <div class="v"><span class="num" data-src="NNS-017 · results/set_table_beishan.json#12.modal_err_mean (std ±0.66)">9.82°±0.66</span></div>
       <div class="k"><b>Set table · 组系表</b>同数据、同一协议下的产品口径（K=12）</div>
-      <div class="src">组系表承诺线见 ③</div>
+      <div class="src">组系表精度线见 ③</div>
     </div>
     <div class="stat">
       <div class="v"><span class="num" data-src="NNS-021 · results/pointcloud_gate.json#evaluation.mae_hidden_deg (K=4 多走向壁, 100k 点)">0.37°</span></div>
@@ -521,7 +521,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
         <div class="wallline"></div>
         <div class="walllabel">信息墙 <span class="num" data-src="NNS-045 · results/l4_evidence_grading.json#threshold_sources.information_ceiling_31_7deg.value（L1 留一探针，非方法误差）">~31.7°±0.5°</span></div>
       </div>
-      <div class="big"><span class="gapchip">真值指派再 ↓ <span class="num" data-src="差值 NNS-015 − NNS-011（两端实测相减）">≈3.8°</span></span><br><span class="small">简单聚类已贴住地板</span></div>
+      <div class="big"><span class="gapchip">真值指派再 ↓ <span class="num" data-src="差值 NNS-015 − NNS-011（两端实测相减）">≈3.8°</span></span><br><span class="small">该地板须 oracle 指派才可达（不可部署参考线）—— 不知真值时存在显著指派缺口</span></div>
     </div>
 
     <div class="rung">
@@ -549,7 +549,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
 
   <p class="note">读法：<b>买方位、买身份、买密度 —— 每一笔“信息采购”都有实测价格（度）。</b>
   L0 无标签档的一切算法都停在 <span class="num" data-src="NNS-001~NNS-008 · results/honest_leaderboard/">36.69–39.88°</span> 窄带里；
-  组隶属一旦可恢复即贴住 <span class="num" data-src="NNS-011 · results/phase0_oracle_floor_strict.json">12.37°</span> 地板；
+  组隶属一旦可恢复（须组标签或 oracle 指派）即接近 <span class="num" data-src="NNS-011 · results/phase0_oracle_floor_strict.json">12.37°</span> 参考地板线，该线不可部署；
   fracture_id 直接跨数量级；点云与融合档进入亚度级。详见 ②③④ 屏与页脚溯源表。</p>
 </section>
 
@@ -589,20 +589,20 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
   </div>
 </section>
 
-<!-- ============ S3 商务承诺线 ============ -->
+<!-- ============ S3 组系表精度线（R279 随主树 v1.4 改判：裁定 58 零量化承诺）============ -->
 <section class="panel" id="s3">
   <button class="fs-btn" onclick="fs('s3')">全屏</button>
   <header class="shead">
     <div class="sindex">03</div>
     <div>
-      <p class="skicker">The commitment line · 承诺线</p>
-      <h2>③ 商务承诺线：组系表模态误差（三源验证）</h2>
-      <p class="lead">产品交付口径 = 自动生成的<b>组系表</b>（每组方向 / 浓度 / 占比），衡量“组模态方向”与评审基准的角距。三源全部通过 ≤12° 工程阈值。</p>
+      <p class="skicker">Accuracy line · 精度线（研究线口径）</p>
+      <h2>③ 组系表精度线：模态误差三源对照（研究线口径 · 非对外承诺）</h2>
+      <p class="lead">产品交付口径 = 自动生成的<b>组系表</b>（每组方向 / 浓度 / 占比），衡量“组模态方向”与参照基准的角距。<b>三条读数分属两个证据档，不可混读为同一类精度</b>：有外部真值的基准站（TRUTH）可称精度，真实矿区站无独立真值、参照物只能是同批编录的全量法向 k-means 表（CIRCULAR），<b>只可称一致性</b>。</p>
     </div>
   </header>
 
   <div class="strow">
-    <div class="name">DECOVALEX（国际基准）<div class="small">1089 裂隙 · K=4</div></div>
+    <div class="name">DECOVALEX（国际基准）<div class="small">1089 裂隙 · K=4 · <b>TRUTH</b></div></div>
     <div class="track">
       <div class="fill" style="width:0.4%;background:#5E7A3A"></div>
       <div class="thresh" style="left:100%"><span class="thlabel">工程阈值 ≤12°</span></div>
@@ -610,7 +610,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div class="stval"><span class="num" data-src="NNS-018 · results/set_table_decovalex.json#4.modal_err_mean (std ±0.0)">0.05°</span></div>
   </div>
   <div class="strow">
-    <div class="name">beishan（中国场地）<div class="small">22 井 880 法向 · K=12</div></div>
+    <div class="name">beishan（中国场地）<div class="small">22 井 880 法向 · K=12 · <b>CIRCULAR</b></div></div>
     <div class="track">
       <div class="fill" style="width:81.8%;background:#B4551E"></div>
       <div class="thresh" style="left:100%"></div>
@@ -618,7 +618,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div class="stval"><span class="num" data-src="NNS-017 · results/set_table_beishan.json#12.modal_err_mean (std ±0.66)">9.82±0.66°</span></div>
   </div>
   <div class="strow">
-    <div class="name">FORGE 双井 FMI（美国场地）<div class="small">4328 条 · K=12</div></div>
+    <div class="name">FORGE 双井 FMI（美国场地）<div class="small">4328 条 · K=12 · <b>CIRCULAR</b></div></div>
     <div class="track">
       <div class="fill" style="width:92%;background:#8F4A1F"></div>
       <div class="thresh" style="left:100%"></div>
@@ -627,13 +627,11 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
   </div>
 
   <div class="promisebox">
-    <b>对外承诺口径：</b>当某组有
-    <span class="num" data-src="docs/面向客户的数据需求与精度可达性说明.md §3.1.1（承诺前提）">≥5 条</span>同组裂隙观测时，组模态方向误差
-    <span class="num" data-src="docs/面向客户的数据需求与精度可达性说明.md §3.1.1（对外商务承诺表述）">7–10°</span>；
+    <b>现役对外口径（裁定 58：零量化承诺）：</b>公开面只表述<b>能力线</b>（编录表 / FMI 产状表 → 免标签自动出组系表三件套）与<b>阈值判据</b>；
     工程验收阈值
-    <span class="num" data-src="docs/A1-B3_诚实评测与组系表产品化_总结报告.md（三源全部 &lt; 12° 判定）· docs/论文/论文全文_EN_v0.7.md Table 3">≤12°</span>
-    —— 三源全部通过。
-    <div class="small" style="margin-top:6px">注：FORGE 行为 T58 法向修复后复算值，历史受染快照仅存于台账废弃记录；页面不展示内部研发锚点与 oracle 性质数字（按台账纪律）。</div>
+    <span class="num" data-src="docs/_archive_已完成使命报告/A1-B3_诚实评测与组系表产品化_总结报告.md（三源全部 &lt; 12° 判定）· 数字台账 NNS-051">≤12°</span>
+    —— 阈值本身是可对外判据，其下的误差读数不是。
+    <div class="small" style="margin-top:6px"><b>循环对象（CIRCULAR 档必携）</b>：beishan = 该 22 井全量法向 k-means 表；FORGE 双井 = 同站点全量法向 k-means 表 —— 两站均无独立真值，故<b>只可称一致性、禁称精度</b>。注：FORGE 行为 T58 法向修复后复算值，历史受染快照仅存于台账废弃记录；公开页不展示内部研发锚点与 oracle 性质数字、不展示任何数值承诺（按台账纪律与裁定 58）。</div>
   </div>
 </section>
 
@@ -679,8 +677,8 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
       距信息墙 <span class="num" data-src="NNS-045 · results/l4_evidence_grading.json">~31.7°±0.5°</span> 尚有约
       <span class="num" data-src="差值 NNS-001 − NNS-045（两端实测相减）">约 5°</span> 渐近空间；学习解码器全部输给简单 k-means。
       结论：<b>继续在 L0 上堆模型没有意义，升数据档位才有新空间。</b>
-      另一诚实负结果：多井池化在诚实口径下无增益（联合 <span class="num" data-src="NNS-031 · results/p0_full_audit.json#multiwell strict K=12">19.47°</span>
-      ≈ 单井 <span class="num" data-src="NNS-014 · results/p0_full_audit.json#single strict K=12">19.49°</span>）。
+      另一诚实负结果：多井池化在诚实口径下无增益且可反向（beishan 联合 <span class="num" data-src="NNS-031 · results/p0_full_audit.json#multiwell strict K=12">19.47°</span>
+      ≈ 单井 <span class="num" data-src="NNS-014 · results/p0_full_audit.json#single strict K=12">19.49°</span>；FORGE 双井联合相对单井为<b>劣化</b>，源件指针 results/forge_joint_strict_audit.json（数字台账 NNS-037，旧红利读数已判废 DEP-013），其逐井数值属研究线读数、公开页不展示）。
     </div>
   </div>
 </section>
@@ -712,7 +710,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
       </table>
       <div class="platform-note">
         <b>平台期已到：</b>10 口井 (19.30°) → 21 口 (18.07°) 仅再降 <span class="num" data-src="差值 cells.w10 − cells.loo = 1.24°">1.24°</span>。
-        继续加井边际收益递减 —— 10 口井已吃下 90% 可收割空间 (25.76→19.30 = 6.46° 中的 6.46−1.24 = <span class="num" data-src="差值 cells.w1 − cells.w10 = 6.46°">5.22°</span>)。
+        继续加井边际收益递减 —— 1→10 口买掉 <span class="num" data-src="差值 cells.w1 − cells.w10 = 6.46°">6.46°</span>，其后 11 口只再买上方已标的 1.24°；本页不给百分比派生值（无可直读源件的比例一律不写）。
       </div>
     </div>
 
@@ -748,7 +746,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <ol>
       <li><b>(R62-A1)</b> 打 <b class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w10">10 口井</b>校准, 未打处的组系走向外推误差约 <b class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w10.modal_err.mean">19.3°</b>, 再加井到 21 口只再降 <b class="num" data-src="差值 cells.w10 − cells.loo = 1.24°">1.2°</b>, 平台期已到。</li>
       <li><b>(R62-A2)</b> 少打井省下的不只是钻井费: 组系统计在 10 口井即达可用精度, 后续井主要用于降低单井波动而非提升均值。</li>
-      <li><b>(R62-B1)</b> 连通判定: 远离阈值场地, ≥<b class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_8">8 口</b>整孔编录即达 100% 判对; 近阈值场地需 ≥<b class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_32">32 口</b>才达 90% —— <b>本质变量 = 观测条数 (~300+) 而非覆盖率本身</b>; 贴阈值场地物理不可判, 系统输出『不确定 + 建议补勘』而非硬判。</li>
+      <li><b>(R62-B1)</b> 连通判定: 远离阈值场地, ≥<b class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_8">8 口</b>整孔编录即达 100% 判对; 高强度档（强度距临界 +35%，与上表同属远阈值可判断区间）需 ≥<b class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_32">32 口</b>才达 90% —— <b>本质变量 = 观测条数 (~300+) 而非覆盖率本身</b>; 贴阈值场地物理不可判, 系统输出『不确定 + 建议补勘』而非硬判。</li>
     </ol>
   </div>
 
@@ -806,7 +804,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div>
       <p class="skicker">Research sprint · 重构线冲刺 (research-grade)</p>
       <h2>⑦ 重构线冲刺：从败因定位到因果闭合</h2>
-      <p class="lead">重构线冲刺日战报四幕 —— 基线谱系合围二阶聚集阵地 → κ 剂量响应完成因果闭合 → 无标架等变去噪器全门通过 → L4 交付壳首次单入口闭环。<b>本屏全部数字为研究线口径（初筛待复核），对外承诺一律仍走 ③ 屏。</b></p>
+      <p class="lead">重构线冲刺日战报四幕 —— 基线谱系合围二阶聚集阵地 → κ 剂量响应完成因果闭合 → 无标架等变去噪器全门通过 → L4 交付壳首次单入口闭环。<b>本屏全部数字为研究线口径（初筛待复核），对外口径一律仍走 ③ 屏。</b></p>
     </div>
   </header>
   <span class="research-flag">研究线数字 · 初筛待复核 · 零商务承诺语气 · 数字由冻结 JSON 直读生成</span>
@@ -874,7 +872,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
         <li>⑦ 屏（重构线冲刺）全部数字为<b>研究线水印</b>（active-research / active-baseline 口径），初筛待复核；
             其中“原型座次地板”为 κ 归因诊断，仅用于方法归因、不入承诺语境。
             <span class="num" data-src="data/recon_line.json#meta.watermark（随页分发）">本屏水印声明</span></li>
-        <li>本页不展示内部研发锚点与 oracle-existence 性质数字；对外承诺一律走 ③ 屏口径。</li>
+        <li>本页不展示内部研发锚点与 oracle-existence 性质数字；对外口径一律走 ③ 屏（该屏不含数值承诺）。</li>
       </ul>
       <p class="small" style="color:#B9A683;margin-top:10px">
         悬停任意虚线数字即可看到其溯源（NNS 编号 · JSON 路径 · 口径限定）。悬浮路径指向上游证据库；本仓库随附 results/ 冻结子集与随页 data/。
@@ -889,7 +887,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <a href="../PUSH_GUIDE.md" lang="en"><b>PUSH_GUIDE</b>Pages &amp; release ops</a>
   </div>
   <div class="fineprint">
-    FractureFlow 开源首页 (docs/) v1.0 · 改编自 B 线展示件 v1.3（R147, 2026-08-29）· 数据基线 = 数字台账 v1.1（锁定，变更需走 changelog）
+    FractureFlow 开源首页 (docs/) · 改编自 B 线展示件（基版 R147, 2026-08-29；主树门户经 R276 数字纪律改正后由 R279 逐短语同步）· 数据基线 = 数字台账 v1.1（锁定，变更需走 changelog）
     · 单文件离线页面（本地 plotly 副本 4.4MB，零后端零构建零外部请求）· S5 少打井双轴汇率表 (R57/R47 数据) · ⑦ 重构线冲刺屏 (B1~B5b / R117 / R121 / R127 / R119 / R133 冻结件直读)
     · 复现入口：src/fractureflow/honest_eval.py（评测）/ set_table_eval.py（组系表）/ dfn.py（DFN 生成器，本页 3D 使用其冻结版）。
     本页为展示层，不属于评测链路；数字若与台账冲突，以台账为准并请回报。

@@ -143,7 +143,10 @@ regime geotechnical reports actually use.
 
 This project measured its own ceiling and publishes it — we believe bounded
 claims with failure modes are worth more to practitioners than unbounded
-claims without evidence. Highlights:
+claims without evidence. Standing rule: the accuracy wording that is operative
+is the one in the **currently published version only**; any numeric commitment
+found in git history, superseded tags or a cached page copy is void (added in
+`0.1.2`; history is deliberately not rewritten). Highlights:
 
 - **An early headline claim was a leak.** Under the leak-audited BlindInput
   protocol the same method scores **36.69°**, not the 13° originally
