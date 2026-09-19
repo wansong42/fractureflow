@@ -3,7 +3,48 @@
 All notable changes to this repository are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/) + semantic versioning.
 
+## [0.1.1] - 2026-09-19
+
+Engineering maintenance release. No new benchmark readings are introduced and
+no precision claim in this repository is added, changed or strengthened: the
+accuracy figures quoted by the project remain exactly those of `0.1.0`.
+
+### Added
+- `src/fractureflow/em_decoder.py` — polar Bingham-mixture EM decoder with a
+  declared applicability domain (borehole axis required, effective-sample-size
+  gate, K bounded by the number of observations). When a precondition is not
+  met it degrades to an explicitly labelled plain variant instead of failing
+  silently.
+- `src/fractureflow/orthostats/` — orthonormal statistics layer, including the
+  corrected Terzaghi weighting used by the labelling product.
+- `scripts/console_safety.py` — one shared stdout/stderr encoding guard for all
+  product entry points on Windows GBK consoles.
+
+### Changed
+- `scripts/auto_label_borehole.py` — new `--decoder kmeans|em` option; the
+  default remains `kmeans`, so existing behaviour and outputs are unchanged.
+  Borehole-axis resolution now discloses when a vertical approximation is used;
+  input problems report the offending column/key and exit with status 2
+  (`FRACTUREFLOW_DEBUG=1` restores full tracebacks).
+- `scripts/borehole_excel_entry.py`, `scripts/dfn_from_borehole.py`,
+  `scripts/full_pipeline.py` — console-encoding guard installed, failure exit
+  status unified to 2, and customer-visible error text sorted so that repeated
+  runs of the same input produce byte-identical output.
+- `src/fractureflow/terzaghi.py` — `terzaghi_summary` accepts an explicit borehole
+  axis and reports how many weights were clipped.
+
+### Known boundary of this release
+- The `--decoder em` group-table CSV writer imports `forge_fmi_pipeline`, which is
+  deliberately not part of the release surface. The EM decoder itself works; only
+  that optional CSV sub-path is unavailable here.
+
+### Release-surface method
+- The shipped file set was computed as the transitive import closure of the product
+  entry points already published in `0.1.0`, not chosen by hand; refusals and
+  no-ops are registered in the release verification ledger.
+
 ## [0.1.0] - 2026-08-29
+
 
 Initial public release (push-ready tag; public push is performed manually by
 the project owner — see `PUSH_GUIDE.md`).

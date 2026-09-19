@@ -19,6 +19,10 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# 控制台兜底 (R261-A-3 模式, R268 T2 铺满): 本入口结尾打 '✓' 且无包装 ⇒ gbk 客户机上
+# 全管线跑完却在最后一步裸崩 (R268 t2_console_pre.json 的 f4/t91:C2/t91:D9 三例实测)。
+from console_safety import install_console_safe_streams  # noqa: E402
 
 
 def run_cmd(cmd, desc):
@@ -34,6 +38,7 @@ def run_cmd(cmd, desc):
 
 
 def main():
+    install_console_safe_streams()
     ap = argparse.ArgumentParser(description='一键全管线: 数据 → 打标 → DFN → 渗流 → 报告')
     ap.add_argument('--input-las', default=None, help='FMI LAS 文件路径')
     ap.add_argument('--set-table', default=None, help='含 set_ids 的 npz/pt 文件')
@@ -81,4 +86,15 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # 友好错误包装 (R91/T91 FIX-3 同款纪律, R268 T2 补齐本入口): 单行中文 + rc 2,
+    # FRACTUREFLOW_DEBUG=1 恢复全栈。子进程的 rc 经 run_cmd 原样透传 (SystemExit 不在此列)。
+    try:
+        main()
+    except (FileNotFoundError, KeyError, ValueError, TypeError, RuntimeError,
+            IndexError) as e:
+        if os.environ.get("FRACTUREFLOW_DEBUG"):
+            raise
+        print(f"\n[错误] {type(e).__name__}: {e}", file=sys.stderr)
+        print("[提示] 请检查输入文件路径/列名/空值, 或看上方各步骤的输出; 完整调试栈: "
+              "设置环境变量 FRACTUREFLOW_DEBUG=1 后重跑。", file=sys.stderr)
+        sys.exit(2)

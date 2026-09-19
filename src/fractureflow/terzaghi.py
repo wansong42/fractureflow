@@ -71,7 +71,7 @@ def terzaghi_weights(normals, well_axis=None):
     return w
 
 
-def terzaghi_summary(normals, weights=None):
+def terzaghi_summary(normals, weights=None, well_axis=None):
     """Summary statistics for a Terzaghi-weighted normal set.
 
     Parameters
@@ -80,6 +80,8 @@ def terzaghi_summary(normals, weights=None):
         Fracture normal vectors.
     weights : (N,) array, optional
         Pre-computed weights.  If None, computed via ``terzaghi_weights``.
+    well_axis : (3,) array, optional
+        Borehole axis.  Only used for ``mean_angle_to_axis_deg``.
 
     Returns
     -------
@@ -89,12 +91,28 @@ def terzaghi_summary(normals, weights=None):
     """
     pts = _validated_normals(normals, "terzaghi_summary")
     if weights is None:
-        weights = terzaghi_weights(pts)
+        weights = terzaghi_weights(pts, well_axis=well_axis)
     weights = np.asarray(weights, dtype=float)
     if weights.shape != (pts.shape[0],):
         raise ValueError(
             f"terzaghi_summary: weights 形状 {weights.shape} 与法向数 "
             f"{pts.shape[0]} 不符")
+
+    if well_axis is None:
+        well_axis = np.array([0.0, 0.0, 1.0])
+    else:
+        well_axis = _unit(np.asarray(well_axis, dtype=float))
+    cos_wa = np.abs(pts @ well_axis)
+    angle_deg = np.degrees(np.arccos(np.clip(cos_wa, 0.0, 1.0)))
+
+    n_clipped = int(np.sum((weights <= 0.1 + 1e-9) | (weights >= 5.0 - 1e-9)))
+    return {
+        "mean_weight": float(weights.mean()),
+        "max_weight": float(weights.max()),
+        "min_weight": float(weights.min()),
+        "n_clipped": n_clipped,
+        "mean_angle_to_axis_deg": float(angle_deg.mean()),
+    }
 
 
 def _validated_normals(normals, who):
@@ -115,15 +133,3 @@ def _validated_normals(normals, who):
         raise ValueError(
             f"{who}: 法向含零向量 (无方向), 拒绝消费 (R80 毒丸 PP-D3 响亮拒绝)")
     return _unit(arr)
-
-    cos_wa = np.abs(pts @ np.array([0.0, 0.0, 1.0]))
-    angle_deg = np.degrees(np.arccos(np.clip(cos_wa, 0.0, 1.0)))
-
-    n_clipped = int(np.sum((weights <= 0.1 + 1e-9) | (weights >= 5.0 - 1e-9)))
-    return {
-        "mean_weight": float(weights.mean()),
-        "max_weight": float(weights.max()),
-        "min_weight": float(weights.min()),
-        "n_clipped": n_clipped,
-        "mean_angle_to_axis_deg": float(angle_deg.mean()),
-    }

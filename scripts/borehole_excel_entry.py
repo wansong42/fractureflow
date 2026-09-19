@@ -30,6 +30,10 @@ import torch
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "src"))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# 控制台兜底 (R261-A-3 模式, R268 T2): 编录表列名常带全角括号/度数符号, gbk 客户机上
+# `print(f"列匹配: ...")` 这类回显本身就是崩点。
+from console_safety import install_console_safe_streams  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -463,6 +467,7 @@ def build_net_dict(clean_df, quality_report):
 # ---------------------------------------------------------------------------
 
 def main():
+    install_console_safe_streams()
     ap = argparse.ArgumentParser(description="T1: Excel/CSV 编录表入口 → net dict")
     ap.add_argument("--input", required=True, help="输入 .xlsx / .csv 文件路径")
     ap.add_argument("--out", required=True, help="输出 .pt 文件路径")
@@ -472,8 +477,8 @@ def main():
     args = ap.parse_args()
 
     if not os.path.isfile(args.input):
-        print(f"[ERROR] 文件不存在: {args.input}")
-        sys.exit(1)
+        print(f"[ERROR] 文件不存在: {args.input}", file=sys.stderr)
+        sys.exit(2)
 
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
 
@@ -494,12 +499,16 @@ def main():
         if depth_col is None: missing.append("深度")
         if dip_col is None: missing.append("倾角")
         if dipdir_col is None: missing.append("倾向")
-        print(f"[ERROR] 找不到必要列: {missing}")
-        print(f"  可用列: {list(df.columns)}")
-        print(f"  深度别名: {DEPTH_ALIASES}")
-        print(f"  倾角别名: {DIP_ALIASES}")
-        print(f"  倾向别名: {DIPDIR_ALIASES}")
-        sys.exit(1)
+        print(f"[ERROR] 找不到必要列: {missing}", file=sys.stderr)
+        # 别名集合直接打 set ⇒ 顺序随 PYTHONHASHSEED 变 (R268 实测: 同一份代码连跑两次,
+        # 这条客户可见提示的字节 sha 不同) ⇒ 排序后输出, 让报错文本可复现。
+        print(f"  可用列: {list(df.columns)}", file=sys.stderr)
+        print(f"  深度别名: {sorted(DEPTH_ALIASES)}", file=sys.stderr)
+        print(f"  倾角别名: {sorted(DIP_ALIASES)}", file=sys.stderr)
+        print(f"  倾向别名: {sorted(DIPDIR_ALIASES)}", file=sys.stderr)
+        # rc 1 → 2 (R268 T5 / 裁决 D-12): 与 R91·T91 FIX-3 的退出码约定统一 (2 = 数据/用法错),
+        # 只动失败路径, 成功路径 rc 仍为 0。
+        sys.exit(2)
 
     # 校验
     clean_df, quality_report = validate_and_clean(df, depth_col, dip_col, dipdir_col, well_col)
@@ -515,8 +524,9 @@ def main():
 
     # 质量 F 档 → 拒绝
     if quality_report["quality_grade"] == "F":
-        print(f"[ERROR] 数据不足: 有效行数 {quality_report['n_valid']} < 20, 无法产出组系表")
-        sys.exit(1)
+        print(f"[ERROR] 数据不足: 有效行数 {quality_report['n_valid']} < 20, 无法产出组系表",
+              file=sys.stderr)
+        sys.exit(2)
 
     # 构建 net dict
     nets = build_net_dict(clean_df, quality_report)
@@ -548,4 +558,17 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # 友好错误包装 (R91 / T91 FIX-3 同款纪律, R268 T5 —— 该纪律的第三例漏网: 本入口此前
+    # 对旧版 .xls 只 raise ValueError, 客户拿到的是整段 traceback)。
+    # FRACTUREFLOW_DEBUG=1 恢复完整调试栈。
+    try:
+        main()
+    except (FileNotFoundError, KeyError, ValueError, TypeError, RuntimeError,
+            IndexError) as e:
+        if os.environ.get("FRACTUREFLOW_DEBUG"):
+            raise
+        print(f"\n[错误] {type(e).__name__}: {e}", file=sys.stderr)
+        print("[提示] 编录表入口只支持 .xlsx 与 .csv (旧版 .xls 请先另存为 .xlsx); "
+              "请检查文件路径/列名/空值; 完整调试栈: 设置环境变量 FRACTUREFLOW_DEBUG=1 后重跑。",
+              file=sys.stderr)
+        sys.exit(2)

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fractureflow"
-version = "0.1.0"
+version = "0.1.1"
 description = "Borehole logs in, structural-orientation reports out — automated fracture-set analysis for geotechnical investigation."
 readme = "README.md"
 license = {text = "MIT"}

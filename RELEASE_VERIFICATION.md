@@ -58,6 +58,27 @@
 
 冻结数字零改写；以上编辑均不触碰任何数值口径。
 
+### 3.1 v0.1.1 追加登记（2026-09-19）
+
+发布面由**机算依赖闭包**决定（入口 = `0.1.0` 已发布的 `scripts/*.py` 产品件，
+递归 import + 已核实的 subprocess 边），不手工挑件。闭包 22 件 = **入库 9 件**
+（5 改 + 4 新）+ **不动 13 件**。下表前两行登记入库件所重放的 §3 适配与脱敏，
+后四行登记不动件的判定理由：
+
+| 文件 | 处置 | 原因 |
+|---|---|---|
+| `scripts/dfn_from_borehole.py`、`scripts/full_pipeline.py` | 重放 §3 适配 | 主树侧文档示例重新指回 `data/real/beishan_wells.npz` / `loaded_real_nets_setid.pt`；已按 §3 原文改回通用占位名 |
+| `scripts/auto_label_borehole.py` | 脱敏 3 处 | 新增行的注释/产物元数据 `provenance` 字段含内部任务证据件路径；已改为不含路径的表述，计算逻辑零改动 |
+| `scripts/console_safety.py` | 脱敏 1 处 | 新增件 docstring 含内部任务证据件路径；已改为不含路径的表述 |
+| `scripts/demo_run.py` | 不动 | 与 `0.1.0` 的差异**恰为** §3 登记的合成样本适配本身（主树自 2026-08-19 无产品改动）；拷入等于把演示数据依赖回退到禁止分发件 |
+| `src/fractureflow/borehole_report.py` | 不动 | 差异恰为 §3 登记的 `sys.executable` 适配；拷入等于泄漏本机绝对路径 |
+| `scripts/forge_fmi_pipeline.py` | **不发** | 在闭包内（`_em_group_table_csv` 惰性 import），但 §2 已按研究线脚本剔除并为此排除 `test_p15_deliverable_fixes.py`；其注释含内部裁定词汇。公开面扩大不可逆、后补可逆 ⇒ 维持剔除。已知边界见 `CHANGELOG.md` [0.1.1] |
+| 其余 10 件 | 不动 | 与已提交 blob **逐字节相同**（差异只是 `core.autocrlf` 造成的工作树行尾） |
+
+卫生检查比本仓扫描器额外多查三类（判废数字家族按权威清单直读、本机绝对路径、
+指向未随仓证据件的具体路径），且**只扫新增行** —— 已公开存量不重复追究；
+应用后复扫零残留。`EXEMPTIONS` 豁免表本轮**一字未改**。
+
 ## 4. 敏感扫描：token 定义与豁免表
 
 模式（R146 T3.2）`beishan|试点|NDA|客户|AGENTS|看板|架构师|交接|task_|R1dd`，

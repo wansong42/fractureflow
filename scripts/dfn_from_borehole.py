@@ -27,6 +27,9 @@ import torch
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# 控制台兜底 (R261-A-3 模式, R268 T2 铺满): gbk 客户机上打 ✓/⚠ 不再整单崩
+from console_safety import install_console_safe_streams  # noqa: E402
 
 
 def _fmt_score(k, v):
@@ -96,6 +99,7 @@ def load_source(args):
 
 
 def main():
+    install_console_safe_streams()
     ap = argparse.ArgumentParser(description='钻孔→SetTable→DFN→渗流→报告 端到端管线')
     ap.add_argument('--set-table', default=None,
                     help='含 set_ids 的 net 文件 (.pt/.npz)')

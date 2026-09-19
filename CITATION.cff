@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "FractureFlow: label-free structural-orientation statistics and honest machine-learning benchmarks for fracture data"
-version: 0.1.0
+version: 0.1.1
 date-released: 2026-08-29
 license: MIT
 authors:
