@@ -110,15 +110,28 @@ def test_zero_dead_links_and_relative_paths():
             f"undocumented external link: {target}"
 
 
+TABLE_ROWS = ("| T", "| X")
+
+
+def _table_rows(text):
+    return [ln for ln in text.splitlines() if ln.startswith(TABLE_ROWS)]
+
+
 def test_number_discipline_on_landing_page():
+    """R279 / 裁定 83 形态：主张数字须能在随页附表面件里反查（不再靠读者点不开的内联属性）。"""
     html = _read("index.html")
-    # anchor numbers present and provenance-carrying (data-src on the line)
+    table = _read("number_pointers.md")
+    assert "data-src" not in html, "inline provenance attributes should have been stripped"
     for anchor in ["36.69", "9.82", "0.37", "0.0054"]:
         lines = [ln for ln in html.splitlines() if anchor in ln]
         assert lines, f"landing page lacks anchor number: {anchor}"
-        assert any("data-src" in ln for ln in lines), \
-            f"anchor number without data-src provenance: {anchor}"
-    assert html.count("data-src=") >= 50, "provenance coverage collapsed"
+        assert any(anchor in ln for ln in _table_rows(table)), \
+            f"anchor number not traceable in the shipped pointer table: {anchor}"
+    n_num = html.count('class="num"')
+    rows = _table_rows(table)
+    assert len(rows) >= 50, "pointer table coverage collapsed"
+    assert len(rows) >= n_num, \
+        f"pointer rows {len(rows)} < published .num readings {n_num}: coverage insufficient"
     # research-line watermark on the sprint screen
     assert "研究线" in html, "S7 research-line watermark missing"
     # deprecated / leaked numbers must not appear (boundary matched)
@@ -128,6 +141,21 @@ def test_number_discipline_on_landing_page():
         if pat.search(html):
             hits.append(num)
     assert not hits, f"deprecated numbers on public page: {hits}"
+
+
+def test_pointer_table_discipline_guard_has_teeth():
+    """判别式负例：附表面件的读数查找必须能区分在场与不在场（防空跑/恒真判绿）。"""
+    rows = _table_rows(_read("number_pointers.md"))
+    assert len(rows) >= 50, "附表行数塌陷：判据将在退化底面上判绿"
+    for anchor in ["36.69", "9.82", "0.37", "0.0054"]:
+        assert any(anchor in ln for ln in rows), "在场读数查不到 = 判据错红: " + anchor
+    for absent in ["12.3456", "99.999", "7.7777"]:
+        assert not any(absent in ln for ln in rows), "不存在读数被判为可反查 = 判据无牙: " + absent
+    carriers = [ln for ln in rows if "0.0054" in ln]
+    assert carriers, "底面里就没有承载行，负例无效"
+    pruned = [r for r in rows if r not in carriers]
+    assert len(pruned) < len(rows), "负例注入后与底本相同 = 该负例无效"
+    assert not any("0.0054" in ln for ln in pruned), "删承载行后仍判为可反查 = 判据无牙"
 
 
 def test_docs_readme_documents_first_load_and_provenance():

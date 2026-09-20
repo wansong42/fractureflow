@@ -41,6 +41,22 @@ added, changed or strengthened anywhere in this repository.
   and the audit trail matters more than tidiness. Any numeric commitment found
   in history, in superseded tags, or in a Pages cache is void.
 
+### Changed (continued)
+- `docs/index.html` — inline provenance attributes removed
+- `docs/index.html` — inline provenance attributes removed from the public page: 98
+  `data-src` occurrences (92 parsed attributes plus 6 assembled inside interactive-script
+  string templates) are gone, together with the hover-tooltip style that consumed them and the
+  89 -> 0 repository-internal path mentions that sat in visible prose and source comments. A
+  path that a visitor cannot open in this repository was a false lookup entry, not provenance.
+- The reverse-lookup relationship is **not deleted**: it now ships beside the page as
+  `docs/number_pointers.md` (human readable) and `docs/number_pointers.json` (machine readable),
+  linked from the page footer, and carries 100 rows. Reading-level wording is unchanged: no
+  unit-bearing measurement was added to the page, and no honesty qualifier was removed.
+- The public page and both pointer files are outputs of the main-tree derivation chain (portal
+  -> adaptation table -> declared strip spec); the copy in this repository is an artifact, not a
+  second hand-maintained source. Replaying the chain 3 times in independent processes reproduces
+  the shipped bytes exactly.
+
 ### Not changed
 - No source file, no product entry point, no test, no data file. The published
   accuracy figures of `0.1.0` / `0.1.1` remain exactly as they were.

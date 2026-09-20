@@ -14,11 +14,11 @@
   Signature graphics are DOMAIN-NATIVE: hero rose diagram (SVG, deterministic bimodal
   synthetic strikes, seed 42) and the product stereonet screenshot — deliberately NOT a
   generic radial-burst template graphic.
-  数字纪律: 每个可见数字带 data-src (NNS 编号或 JSON 路径, 悬停可见) — 与 demos/portal v1.3
-  同源同值, 全部内容块逐字节保留; 判废数字 (台账 DEP 系列) 零出现。
+  数字纪律: 每个可见数字的溯源改由随页附表面件 number_pointers.{md,json} 承载
+  (NNS 编号或源件指针 + 口径限定) — 与 demos/portal 同源同值, 全部内容块逐字节保留; 判废数字 (台账 DEP 系列) 零出现。
   运行方式: 静态托管 (GitHub Pages: Settings → Pages → deploy from branch /docs)。
   plotly.min.js (4.4MB) 与 data/*.js 均为本地副本 —— 页面零外部请求, 断网可渲染。
-  悬停溯源中的 results/… 路径指向上游证据库; 本仓库随附 results/ 冻结子集与随页 data/。
+  溯源不以内联属性承载，改由随页附表面件 number_pointers.{md,json} 给出。
 -->
 <style>
 :root{
@@ -139,18 +139,8 @@ section.panel>.lead{color:var(--muted);font-size:14.5px;margin:6px 0 4px}
 /* ---- 数字溯源 ---- */
 .num{
   font-weight:700;font-style:normal;white-space:nowrap;
-  border-bottom:2px dotted rgba(143,74,31,.6);cursor:help;position:relative;
+  border-bottom:2px dotted rgba(143,74,31,.6);position:relative;
 }
-.num::after{
-  content:attr(data-src);
-  position:absolute;left:50%;transform:translateX(-50%);bottom:130%;
-  background:var(--ink);color:var(--cream);font-size:13px;font-weight:400;line-height:1.5;
-  font-family:Consolas,monospace;
-  padding:8px 12px;width:max-content;max-width:430px;white-space:normal;
-  opacity:0;pointer-events:none;transition:opacity .12s;z-index:30;
-  border:1px solid var(--orange);text-align:left;
-}
-.num:hover::after,.num:focus::after{opacity:1}
 .src-tag{font-size:12.5px;color:var(--muted);white-space:normal}
 /* ---- S1 阶梯 ---- */
 .ladder{display:flex;flex-direction:column;gap:14px;margin-top:20px}
@@ -433,24 +423,24 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
 <div class="statband">
   <div class="inner">
     <div class="stat">
-      <div class="v"><span class="num" data-src="NNS-001 · results/honest_leaderboard/l1_local__beishan_22.json#mae_mean (std ±1.20, 10 seed)">36.69°</span></div>
+      <div class="v"><span class="num">36.69°</span></div>
       <div class="k"><b>L0 unlabeled · point MAE</b>无标签编录表的可部署最优（beishan 22 井）</div>
-      <div class="src">results/honest_leaderboard/</div>
+      <div class="src">溯源见随页附表 · number_pointers.md</div>
     </div>
     <div class="stat">
-      <div class="v"><span class="num" data-src="NNS-017 · results/set_table_beishan.json#12.modal_err_mean (std ±0.66)">9.82°±0.66</span></div>
+      <div class="v"><span class="num">9.82°±0.66</span></div>
       <div class="k"><b>Set table · 组系表</b>同数据、同一协议下的产品口径（K=12）</div>
       <div class="src">组系表精度线见 ③</div>
     </div>
     <div class="stat">
-      <div class="v"><span class="num" data-src="NNS-021 · results/pointcloud_gate.json#evaluation.mae_hidden_deg (K=4 多走向壁, 100k 点)">0.37°</span></div>
+      <div class="v"><span class="num">0.37°</span></div>
       <div class="k"><b>L3 dense point cloud</b>合成多走向基准（壁面级场景）</div>
-      <div class="src">results/pointcloud_gate.json</div>
+      <div class="src">溯源见随页附表 · number_pointers.md</div>
     </div>
     <div class="stat">
-      <div class="v"><span class="num" data-src="NNS-020 · results/decovalex_routeB.json#4fracplus_example.hidden_mae_mean">0.0054°</span></div>
+      <div class="v"><span class="num">0.0054°</span></div>
       <div class="k"><b>L1 with fracture_id</b>同一裂隙多点共面拟合（DECOVALEX Route B）</div>
-      <div class="src">results/decovalex_routeB.json</div>
+      <div class="src">溯源见随页附表 · number_pointers.md</div>
     </div>
   </div>
 </div>
@@ -471,11 +461,11 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
   <div class="shotgrid">
     <figure class="fig">
       <img src="./screenshots/rose_diagram.png" alt="Auto-labeled fracture set rose diagram (synthetic demo well)">
-      <figcaption><b>Fig. S1</b> — 走向玫瑰图 rose diagram · auto-labeled sets<br>scripts/demo_run.py → results/demo/</figcaption>
+      <figcaption><b>Fig. S1</b> — 走向玫瑰图 rose diagram · auto-labeled sets<br>scripts/demo_run.py → examples/</figcaption>
     </figure>
     <figure class="fig">
       <img src="./screenshots/stereonet.png" alt="Pole stereonet with set mean orientations (synthetic demo well)">
-      <figcaption><b>Fig. S2</b> — 极点图 pole stereonet · set mean stars<br>scripts/demo_run.py → results/demo/</figcaption>
+      <figcaption><b>Fig. S2</b> — 极点图 pole stereonet · set mean stars<br>scripts/demo_run.py → examples/</figcaption>
     </figure>
     <figure class="fig">
       <img src="./screenshots/dfn_3d.png" alt="Interactive 3D DFN disc network rendered by this page">
@@ -502,54 +492,54 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div class="rung">
       <div class="tag"><b>L0 编录表 · 无标签点几何</b>depth + dip + dip_dir，无组标签
         <span class="caliber"><br>口径：隐伏点 acos|cos| 均值</span></div>
-      <div class="barbox"><div class="bar" style="width:73%;background:#A8321E"><span class="num" data-src="NNS-001 · results/honest_leaderboard/l1_local__beishan_22.json#mae_mean (std ±1.20, 10 seed)">36.69°</span></div></div>
-      <div class="big small">可部署最优 l1_local<br><span class="src-tag">8 方法窄带 <span class="num" data-src="NNS-001~NNS-008 · results/honest_leaderboard/ 各方法 mae_mean 最小/最大">36.69–39.88°</span></span></div>
+      <div class="barbox"><div class="bar" style="width:73%;background:#A8321E"><span class="num">36.69°</span></div></div>
+      <div class="big small">可部署最优 l1_local<br><span class="src-tag">8 方法窄带 <span class="num">36.69–39.88°</span></span></div>
     </div>
 
     <div class="rung">
       <div class="tag"><b>L0 + 自动打标</b>观测-only 球形 k-means（无真值标签）
         <span class="caliber"><br>口径：同上 · strict K=6</span></div>
-      <div class="barbox"><div class="bar" style="width:32%;background:#C2601F"><span class="num" data-src="NNS-015 · results/p1_honest_decoder.json (kmeans_obs K=6 strict)">16.12°</span></div></div>
-      <div class="big"><span class="gapchip">补组隶属信息 ↓ 约 <span class="num" data-src="差值 NNS-001 − NNS-015（两端实测相减）">20.6°</span></span></div>
+      <div class="barbox"><div class="bar" style="width:32%;background:#C2601F"><span class="num">16.12°</span></div></div>
+      <div class="big"><span class="gapchip">补组隶属信息 ↓ 约 <span class="num">20.6°</span></span></div>
     </div>
 
     <div class="rung">
       <div class="tag"><b>组隶属理论地板</b>观测组心 + 真值指派（oracle 参考线，不可部署）
         <span class="caliber"><br>口径：同上 · K=12 · 内部参考</span></div>
       <div class="barbox">
-        <div class="bar" style="width:25%;background:#8F6A28"><span class="num" data-src="NNS-011 · results/phase0_oracle_floor_strict.json#beishan_22.12.mae_mean">12.37°</span></div>
+        <div class="bar" style="width:25%;background:#8F6A28"><span class="num">12.37°</span></div>
         <div class="wallline"></div>
-        <div class="walllabel">信息墙 <span class="num" data-src="NNS-045 · results/l4_evidence_grading.json#threshold_sources.information_ceiling_31_7deg.value（L1 留一探针，非方法误差）">~31.7°±0.5°</span></div>
+        <div class="walllabel">信息墙 <span class="num">~31.7°±0.5°</span></div>
       </div>
-      <div class="big"><span class="gapchip">真值指派再 ↓ <span class="num" data-src="差值 NNS-015 − NNS-011（两端实测相减）">≈3.8°</span></span><br><span class="small">该地板须 oracle 指派才可达（不可部署参考线）—— 不知真值时存在显著指派缺口</span></div>
+      <div class="big"><span class="gapchip">真值指派再 ↓ <span class="num">≈3.8°</span></span><br><span class="small">该地板须 oracle 指派才可达（不可部署参考线）—— 不知真值时存在显著指派缺口</span></div>
     </div>
 
     <div class="rung">
       <div class="tag"><b>L1 迹线档 · 有 fracture_id</b>同一裂隙多点共面拟合
         <span class="caliber"><br>口径：隐伏点 MAE · DECOVALEX 基准</span></div>
-      <div class="barbox"><div class="bar" style="width:2%;min-width:56px;background:#5E7A3A"><span class="num" data-src="NNS-020 · results/decovalex_routeB.json#4fracplus_example.hidden_mae_mean">0.0054°</span></div></div>
-      <div class="big"><span class="gapchip">一个观测量 = 数量级跃迁</span><br><span class="small">同数据无 id 对照 <span class="num" data-src="results/global_honest_leaderboard/decovalex.json#point_eval.mae_mean (std ±0.84, l1_local)">49.27±0.84°</span></span></div>
+      <div class="barbox"><div class="bar" style="width:2%;min-width:56px;background:#5E7A3A"><span class="num">0.0054°</span></div></div>
+      <div class="big"><span class="gapchip">一个观测量 = 数量级跃迁</span><br><span class="small">同数据无 id 对照 <span class="num">49.27±0.84°</span></span></div>
     </div>
 
     <div class="rung">
       <div class="tag"><b>L3 稠密点云 · 免标签</b>RANSAC 分割 + 分段 SVD
         <span class="caliber"><br>口径：隐伏 MAE · 合成多走向基准（壁面级场景）</span></div>
-      <div class="barbox"><div class="bar" style="width:2%;min-width:56px;background:#4E6E58"><span class="num" data-src="NNS-021 · results/pointcloud_gate.json#evaluation.mae_hidden_deg (K=4 多走向壁, 100k 点)">0.37°</span></div></div>
-      <div class="big small">组间错分率 <span class="num" data-src="results/pointcloud_gate.json#evaluation.misclass_rate_hidden (&lt;15% 阈值 PASS)">0.40%</span></div>
+      <div class="barbox"><div class="bar" style="width:2%;min-width:56px;background:#4E6E58"><span class="num">0.37°</span></div></div>
+      <div class="big small">组间错分率 <span class="num">0.40%</span></div>
     </div>
 
     <div class="rung">
       <div class="tag"><b>L4 多源融合数字孪生</b>冲突门控融合引擎
         <span class="caliber"><br>口径：合成孪生模态误差（与前两行口径不同，勿直接横比）</span></div>
-      <div class="barbox"><div class="bar" style="width:2%;min-width:120px;background:#3F5847"><span class="num" data-src="NNS-022 · results/l4_fuse_gate.json#fused_result.modal_err_deg">1.47°</span></div></div>
-      <div class="big small">最佳单源 <span class="num" data-src="results/l4_fuse_gate.json#best_single_source">18.22°</span> → 融合改善 <span class="num" data-src="NNS-022 · results/l4_fuse_gate.json (improvement 91.9%)">91.9%</span></div>
+      <div class="barbox"><div class="bar" style="width:2%;min-width:120px;background:#3F5847"><span class="num">1.47°</span></div></div>
+      <div class="big small">最佳单源 <span class="num">18.22°</span> → 融合改善 <span class="num">91.9%</span></div>
     </div>
 
   </div>
 
   <p class="note">读法：<b>买方位、买身份、买密度 —— 每一笔“信息采购”都有实测价格（度）。</b>
-  L0 无标签档的一切算法都停在 <span class="num" data-src="NNS-001~NNS-008 · results/honest_leaderboard/">36.69–39.88°</span> 窄带里；
-  组隶属一旦可恢复（须组标签或 oracle 指派）即接近 <span class="num" data-src="NNS-011 · results/phase0_oracle_floor_strict.json">12.37°</span> 参考地板线，该线不可部署；
+  L0 无标签档的一切算法都停在 <span class="num">36.69–39.88°</span> 窄带里；
+  组隶属一旦可恢复（须组标签或 oracle 指派）即接近 <span class="num">12.37°</span> 参考地板线，该线不可部署；
   fracture_id 直接跨数量级；点云与融合档进入亚度级。详见 ②③④ 屏与页脚溯源表。</p>
 </section>
 
@@ -567,9 +557,9 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
 
   <div class="wallgrid">
     <div class="wallbig">
-      <div class="num" data-src="NNS-045 · results/l4_evidence_grading.json#threshold_sources.information_ceiling_31_7deg.value（局部真值 L1 留一探针上限）">~31.7°±0.5°</div>
+      <div class="num">~31.7°±0.5°</div>
       <p><b>机制：</b>即使空间距离 &lt; 0.25r 的相邻裂隙对，法向平均仍相差
-      <span class="num" data-src="docs/论文素材包/README.md L15 · docs/论文素材包/智能性论证章节.md §2.2（局部真值 L1 留一探测）">30.5°</span>。
+      <span class="num">30.5°</span>。
       观测变量里根本没有“它属于哪一组”这个维度。</p>
       <p><b>立场：</b>我们不是在“解决 L0 重构”，而是在<b>证明 L0 的墙在哪、有多高</b>，
       并给出升档路径（L1 迹线 → L2 露头 → L3 点云 → L4 融合）。</p>
@@ -577,11 +567,11 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div>
       <table class="probe">
         <tr><th>独立可学性探针</th><th>结果</th><th>判定</th></tr>
-        <tr><td>group_probe（组隶属直接监督）</td><td><span class="num" data-src="docs/论文素材包/智能性论证章节.md §2.2 表（复跑 36.48°）">36.28°</span> vs 几何基线 <span class="num" data-src="docs/论文素材包/智能性论证章节.md §2.2 表（几何基线）">34.63°</span></td><td class="verdict-fail">明确劣化</td></tr>
-        <tr><td>rank_probe argmax（硬选择候选）</td><td><span class="num" data-src="docs/论文素材包/智能性论证章节.md §2.2 表（复跑 34.84°）">35.19°</span></td><td>与基线平手（训练噪声内）</td></tr>
-        <tr><td>rank soft 聚合（最强学习变体）</td><td><span class="num" data-src="docs/论文素材包/智能性论证章节.md §2.2 表（复跑 32.95°）">33.27°</span></td><td class="verdict-fail">小胜 ≤1.7° 但仍高于墙</td></tr>
-        <tr><td>对抗复审三攻击（核族扫描 / 多核边际化 / 逐点自适应核）</td><td><span class="num" data-src="docs/13度目标可达性审计.md §7.4 · results/skeptic_repro/（最大收益 ≤0.1°）">≤0.1° 收益</span></td><td class="verdict-fail">全部失败，墙值稳定</td></tr>
-        <tr><td>学习解码器 vs 简单 k-means</td><td><span class="num" data-src="docs/论文素材包/关键数字.md §2.2 · results/p1_honest_decoder.json">全部不如 k-means</span></td><td class="verdict-fail">瓶颈在数据不在算法</td></tr>
+        <tr><td>group_probe（组隶属直接监督）</td><td><span class="num">36.28°</span> vs 几何基线 <span class="num">34.63°</span></td><td class="verdict-fail">明确劣化</td></tr>
+        <tr><td>rank_probe argmax（硬选择候选）</td><td><span class="num">35.19°</span></td><td>与基线平手（训练噪声内）</td></tr>
+        <tr><td>rank soft 聚合（最强学习变体）</td><td><span class="num">33.27°</span></td><td class="verdict-fail">小胜 ≤1.7° 但仍高于墙</td></tr>
+        <tr><td>对抗复审三攻击（核族扫描 / 多核边际化 / 逐点自适应核）</td><td><span class="num">≤0.1° 收益</span></td><td class="verdict-fail">全部失败，墙值稳定</td></tr>
+        <tr><td>学习解码器 vs 简单 k-means</td><td><span class="num">全部不如 k-means</span></td><td class="verdict-fail">瓶颈在数据不在算法</td></tr>
       </table>
       <p class="note" style="margin-top:10px">六类探针 + 对抗复审一致结论：<b>无新观测量时墙不可破；有标签 / 身份 / 密度时逐级打开</b>。
       这把优化精力从“换模型”重定向到“换数据档位”。</p>
@@ -607,7 +597,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
       <div class="fill" style="width:0.4%;background:#5E7A3A"></div>
       <div class="thresh" style="left:100%"><span class="thlabel">工程阈值 ≤12°</span></div>
     </div>
-    <div class="stval"><span class="num" data-src="NNS-018 · results/set_table_decovalex.json#4.modal_err_mean (std ±0.0)">0.05°</span></div>
+    <div class="stval"><span class="num">0.05°</span></div>
   </div>
   <div class="strow">
     <div class="name">beishan（中国场地）<div class="small">22 井 880 法向 · K=12 · <b>CIRCULAR</b></div></div>
@@ -615,7 +605,7 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
       <div class="fill" style="width:81.8%;background:#B4551E"></div>
       <div class="thresh" style="left:100%"></div>
     </div>
-    <div class="stval"><span class="num" data-src="NNS-017 · results/set_table_beishan.json#12.modal_err_mean (std ±0.66)">9.82±0.66°</span></div>
+    <div class="stval"><span class="num">9.82±0.66°</span></div>
   </div>
   <div class="strow">
     <div class="name">FORGE 双井 FMI（美国场地）<div class="small">4328 条 · K=12 · <b>CIRCULAR</b></div></div>
@@ -623,13 +613,13 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
       <div class="fill" style="width:92%;background:#8F4A1F"></div>
       <div class="thresh" style="left:100%"></div>
     </div>
-    <div class="stval"><span class="num" data-src="NNS-019 · results/t58_b2b3_forge_rebuild.json#new_numbers.K12.mean (std ±2.14, T58 法向修复后复算)">11.05±2.14°</span></div>
+    <div class="stval"><span class="num">11.05±2.14°</span></div>
   </div>
 
   <div class="promisebox">
     <b>现役对外口径（裁定 58：零量化承诺）：</b>公开面只表述<b>能力线</b>（编录表 / FMI 产状表 → 免标签自动出组系表三件套）与<b>阈值判据</b>；
     工程验收阈值
-    <span class="num" data-src="docs/_archive_已完成使命报告/A1-B3_诚实评测与组系表产品化_总结报告.md（三源全部 &lt; 12° 判定）· 数字台账 NNS-051">≤12°</span>
+    <span class="num">≤12°</span>
     —— 阈值本身是可对外判据，其下的误差读数不是。
     <div class="small" style="margin-top:6px"><b>循环对象（CIRCULAR 档必携）</b>：beishan = 该 22 井全量法向 k-means 表；FORGE 双井 = 同站点全量法向 k-means 表 —— 两站均无独立真值，故<b>只可称一致性、禁称精度</b>。注：FORGE 行为 T58 法向修复后复算值，历史受染快照仅存于台账废弃记录；公开页不展示内部研发锚点与 oracle 性质数字、不展示任何数值承诺（按台账纪律与裁定 58）。</div>
   </div>
@@ -651,34 +641,34 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div class="win">
       <h3>胜₁ 类型隔离聚类</h3>
       天然 / 诱导裂隙分入不同组空间：
-      混聚 <span class="num" data-src="NNS-025 · results/t51_type_isolation_revalidation.json#new_numbers.mixed（T58 重验）">12.37°</span>
-      → 隔离后 <span class="num" data-src="NNS-025 · results/t51_type_isolation_revalidation.json#new_numbers.isolated（T58 重验）">9.29°</span>
-      <div class="kpi"><span class="num" data-src="NNS-025 · results/t51_type_isolation_revalidation.json#new_numbers.improvement（预注册闸门 ≥0.5° PASS）">+3.08°</span></div>
+      混聚 <span class="num">12.37°</span>
+      → 隔离后 <span class="num">9.29°</span>
+      <div class="kpi"><span class="num">+3.08°</span></div>
       <div class="small">FORGE 双井 FMI · 已入管线默认</div>
     </div>
     <div class="win">
       <h3>胜₂ 冲突门控多源融合</h3>
-      合成孪生三源融合：最佳单源 <span class="num" data-src="results/l4_fuse_gate.json#best_single_source">18.22°</span>
-      → 融合 <span class="num" data-src="NNS-022 · results/l4_fuse_gate.json#fused_result.modal_err_deg">1.47°</span>
-      <div class="kpi"><span class="num" data-src="NNS-022 · results/l4_fuse_gate.json#gates.gate2_improvement.improvement_pct（3/3 GATES PASS）">−91.9%</span></div>
-      <div class="small">后验集合另将渗流阈值钉在 <span class="num" data-src="NNS-023 · results/l4_ensemble_gate.json#ensemble_result.p32_crit_interval.median">0.214</span>（全部闸门 PASS）</div>
+      合成孪生三源融合：最佳单源 <span class="num">18.22°</span>
+      → 融合 <span class="num">1.47°</span>
+      <div class="kpi"><span class="num">−91.9%</span></div>
+      <div class="small">后验集合另将渗流阈值钉在 <span class="num">0.214</span>（全部闸门 PASS）</div>
     </div>
     <div class="win">
       <h3>胜₃ 置信锥校准</h3>
-      浓度重标定后覆盖率恢复名义水平：原始 <span class="num" data-src="NNS-042 · results/l4_calibration.json#raw_coverage">0%</span>
-      → 校准后 <span class="num" data-src="NNS-024 · results/l4_calibration.json#recalibrated_coverage（目标 90%）">90.6%</span>
-      <div class="kpi"><span class="num" data-src="NNS-042 → NNS-024 · results/l4_calibration.json">0% → 90.6%</span></div>
-      <div class="small">分场地：beishan <span class="num" data-src="NNS-043 · results/l4_calibration.json">89.77%</span> · FORGE <span class="num" data-src="NNS-044 · results/l4_calibration.json">87.5%</span></div>
+      浓度重标定后覆盖率恢复名义水平：原始 <span class="num">0%</span>
+      → 校准后 <span class="num">90.6%</span>
+      <div class="kpi"><span class="num">0% → 90.6%</span></div>
+      <div class="small">分场地：beishan <span class="num">89.77%</span> · FORGE <span class="num">87.5%</span></div>
     </div>
     <div class="cap">
       <h3>封顶：点级档的墙（发现而非失败）</h3>
       无标签 L0 档上，8 个可部署方法（含神经网络混合注意力模型）全部收敛在
-      <span class="num" data-src="NNS-001~NNS-008 · results/honest_leaderboard/">36.69–39.88°</span> 窄带，
-      距信息墙 <span class="num" data-src="NNS-045 · results/l4_evidence_grading.json">~31.7°±0.5°</span> 尚有约
-      <span class="num" data-src="差值 NNS-001 − NNS-045（两端实测相减）">约 5°</span> 渐近空间；学习解码器全部输给简单 k-means。
+      <span class="num">36.69–39.88°</span> 窄带，
+      距信息墙 <span class="num">~31.7°±0.5°</span> 尚有约
+      <span class="num">约 5°</span> 渐近空间；学习解码器全部输给简单 k-means。
       结论：<b>继续在 L0 上堆模型没有意义，升数据档位才有新空间。</b>
-      另一诚实负结果：多井池化在诚实口径下无增益且可反向（beishan 联合 <span class="num" data-src="NNS-031 · results/p0_full_audit.json#multiwell strict K=12">19.47°</span>
-      ≈ 单井 <span class="num" data-src="NNS-014 · results/p0_full_audit.json#single strict K=12">19.49°</span>；FORGE 双井联合相对单井为<b>劣化</b>，源件指针 results/forge_joint_strict_audit.json（数字台账 NNS-037，旧红利读数已判废 DEP-013），其逐井数值属研究线读数、公开页不展示）。
+      另一诚实负结果：多井池化在诚实口径下无增益且可反向（beishan 联合 <span class="num">19.47°</span>
+      ≈ 单井 <span class="num">19.49°</span>；FORGE 双井联合相对单井为<b>劣化</b>（反向读数；台账锚 NNS-037，旧红利读数已判废 DEP-013，源件指针见随页附表 <b>X001</b> 条），其逐井数值属研究线读数、公开页不展示）。
     </div>
   </div>
 </section>
@@ -702,15 +692,15 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
       <div class="axisname">校准井数 → 未打井处的组模态方向误差（beishan 22 井 LOO 外推, R57）</div>
       <table>
         <tr><th>校准井数</th><th>modal_err</th><th>95% CI</th><th>观测井均条数</th></tr>
-        <tr><td>1</td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w1.modal_err.mean">25.76°</span></td><td>[24.34, 27.31]</td><td>~40</td></tr>
-        <tr><td>2</td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w2.modal_err.mean">21.94°</span></td><td>[20.52, 23.38]</td><td>~80</td></tr>
-        <tr><td>5</td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w5.modal_err.mean">19.82°</span></td><td>[17.73, 21.87]</td><td>~200</td></tr>
-        <tr class="highlight"><td><b>10</b></td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w10.modal_err.mean">19.30°</span></td><td>[17.39, 21.26]</td><td>~400</td></tr>
-        <tr><td>21 (全量)</td><td><span class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.loo.modal_err.mean">18.07°</span></td><td>[15.99, 20.21]</td><td>~840</td></tr>
+        <tr><td>1</td><td><span class="num">25.76°</span></td><td>[24.34, 27.31]</td><td>~40</td></tr>
+        <tr><td>2</td><td><span class="num">21.94°</span></td><td>[20.52, 23.38]</td><td>~80</td></tr>
+        <tr><td>5</td><td><span class="num">19.82°</span></td><td>[17.73, 21.87]</td><td>~200</td></tr>
+        <tr class="highlight"><td><b>10</b></td><td><span class="num">19.30°</span></td><td>[17.39, 21.26]</td><td>~400</td></tr>
+        <tr><td>21 (全量)</td><td><span class="num">18.07°</span></td><td>[15.99, 20.21]</td><td>~840</td></tr>
       </table>
       <div class="platform-note">
-        <b>平台期已到：</b>10 口井 (19.30°) → 21 口 (18.07°) 仅再降 <span class="num" data-src="差值 cells.w10 − cells.loo = 1.24°">1.24°</span>。
-        继续加井边际收益递减 —— 1→10 口买掉 <span class="num" data-src="差值 cells.w1 − cells.w10 = 6.46°">6.46°</span>，其后 11 口只再买上方已标的 1.24°；本页不给百分比派生值（无可直读源件的比例一律不写）。
+        <b>平台期已到：</b>10 口井 (19.30°) → 21 口 (18.07°) 仅再降 <span class="num">1.24°</span>。
+        继续加井边际收益递减 —— 1→10 口买掉 <span class="num">6.46°</span>，其后 11 口只再买上方已标的 1.24°；本页不给百分比派生值（无可直读源件的比例一律不写）。
       </div>
     </div>
 
@@ -722,20 +712,20 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
       <div style="margin-bottom:6px"><span class="scenario-tag scenario-far">远阈值档</span><span class="small" style="color:var(--muted)"> 强度距临界 −50%, 可判断区间</span></div>
       <table>
         <tr><th>井数 W</th><th>观测条数</th><th>判对率</th><th>95% CI</th></tr>
-        <tr><td>1</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_1.n_obs_mean">3.6</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_1.p10_axis.acc_site_strict">1%</span></td><td>[0%, 3%]</td></tr>
-        <tr><td>2</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_2.n_obs_mean">7.0</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_2.p10_axis.acc_site_strict">40%</span></td><td>[27%, 52%]</td></tr>
-        <tr class="highlight"><td><b>4</b></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_4.n_obs_mean">13.8</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_4.p10_axis.acc_site_strict">97%</span></td><td>[91%, 100%]</td></tr>
-        <tr><td>8</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_8.n_obs_mean">28.2</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_8.p10_axis.acc_site_strict">100%</span></td><td>[100%, 100%]</td></tr>
+        <tr><td>1</td><td><span class="num">3.6</span></td><td><span class="num">1%</span></td><td>[0%, 3%]</td></tr>
+        <tr><td>2</td><td><span class="num">7.0</span></td><td><span class="num">40%</span></td><td>[27%, 52%]</td></tr>
+        <tr class="highlight"><td><b>4</b></td><td><span class="num">13.8</span></td><td><span class="num">97%</span></td><td>[91%, 100%]</td></tr>
+        <tr><td>8</td><td><span class="num">28.2</span></td><td><span class="num">100%</span></td><td>[100%, 100%]</td></tr>
       </table>
 
       <div style="margin:14px 0 6px"><span class="scenario-tag scenario-high">高强度档</span><span class="small" style="color:var(--muted)"> 强度距临界 +35%（同为远阈值可判断区间, 上侧更难判）</span></div>
       <table>
         <tr><th>井数 W</th><th>观测条数</th><th>判对率</th><th>95% CI</th></tr>
-        <tr><td>4</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_4.n_obs_mean">40.5</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_4.p10_axis.acc_site_strict">71%</span></td><td>[61%, 82%]</td></tr>
-        <tr><td>8</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_8.n_obs_mean">81.9</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_8.p10_axis.acc_site_strict">76%</span></td><td>[66%, 85%]</td></tr>
-        <tr><td>16</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_16.n_obs_mean">160.3</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_16.p10_axis.acc_site_strict">82%</span></td><td>[72%, 90%]</td></tr>
-        <tr class="highlight"><td><b>32</b></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_32.n_obs_mean">322.3</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_32.p10_axis.acc_site_strict">90%</span></td><td>[83%, 96%]</td></tr>
-        <tr><td>64</td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_64.n_obs_mean">642.8</span></td><td><span class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_64.p10_axis.acc_site_strict">98%</span></td><td>[94%, 100%]</td></tr>
+        <tr><td>4</td><td><span class="num">40.5</span></td><td><span class="num">71%</span></td><td>[61%, 82%]</td></tr>
+        <tr><td>8</td><td><span class="num">81.9</span></td><td><span class="num">76%</span></td><td>[66%, 85%]</td></tr>
+        <tr><td>16</td><td><span class="num">160.3</span></td><td><span class="num">82%</span></td><td>[72%, 90%]</td></tr>
+        <tr class="highlight"><td><b>32</b></td><td><span class="num">322.3</span></td><td><span class="num">90%</span></td><td>[83%, 96%]</td></tr>
+        <tr><td>64</td><td><span class="num">642.8</span></td><td><span class="num">98%</span></td><td>[94%, 100%]</td></tr>
       </table>
     </div>
   </div>
@@ -744,9 +734,9 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
   <div class="takeawaybox">
     <h3>三句话结论（预注册截止前落盘, R62-A1/A2/B1）</h3>
     <ol>
-      <li><b>(R62-A1)</b> 打 <b class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w10">10 口井</b>校准, 未打处的组系走向外推误差约 <b class="num" data-src="results/v_r57_extrapolation_interwell.json#cells.w10.modal_err.mean">19.3°</b>, 再加井到 21 口只再降 <b class="num" data-src="差值 cells.w10 − cells.loo = 1.24°">1.2°</b>, 平台期已到。</li>
+      <li><b>(R62-A1)</b> 打 <b class="num">10 口井</b>校准, 未打处的组系走向外推误差约 <b class="num">19.3°</b>, 再加井到 21 口只再降 <b class="num">1.2°</b>, 平台期已到。</li>
       <li><b>(R62-A2)</b> 少打井省下的不只是钻井费: 组系统计在 10 口井即达可用精度, 后续井主要用于降低单井波动而非提升均值。</li>
-      <li><b>(R62-B1)</b> 连通判定: 远离阈值场地, ≥<b class="num" data-src="results/v_r47_cost_curve.json#L0_wells_wholewell_8">8 口</b>整孔编录即达 100% 判对; 高强度档（强度距临界 +35%，与上表同属远阈值可判断区间）需 ≥<b class="num" data-src="results/v_r47_cost_curve.json#L3_wells_wholewell_32">32 口</b>才达 90% —— <b>本质变量 = 观测条数 (~300+) 而非覆盖率本身</b>; 贴阈值场地物理不可判, 系统输出『不确定 + 建议补勘』而非硬判。</li>
+      <li><b>(R62-B1)</b> 连通判定: 远离阈值场地, ≥<b class="num">8 口</b>整孔编录即达 100% 判对; 高强度档（强度距临界 +35%，与上表同属远阈值可判断区间）需 ≥<b class="num">32 口</b>才达 90% —— <b>本质变量 = 观测条数 (~300+) 而非覆盖率本身</b>; 贴阈值场地物理不可判, 系统输出『不确定 + 建议补勘』而非硬判。</li>
     </ol>
   </div>
 
@@ -783,15 +773,15 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div class="dfn-side">
       <h3>来源与参数（JSON 直读）</h3>
       <table>
-        <tr><td>组系表来源</td><td><span class="num" data-src="results/dfn_pipeline_final.json#set_table（beishan 22 井 880 法向, Auto-K=4）">beishan Auto-K=4</span></td></tr>
-        <tr><td>P32 临界</td><td><span class="num" data-src="results/dfn_pipeline_final.json#percolation.p32_crit [lower, upper]">0.240 [0.215, 0.276]</span></td></tr>
-        <tr><td>幂律 β</td><td><span class="num" data-src="results/dfn_pipeline_final.json#percolation.beta（假设值; 迹长拟合可收窄, 见关键数字 §2.7）">3.5（假设）</span></td></tr>
-        <tr><td>域尺寸</td><td><span class="num" data-src="results/dfn_pipeline_final.json#input.domain_m">50 × 50 × 50 m</span></td></tr>
-        <tr><td>生成 / 显示</td><td><span class="num" data-src="data/dfn_demo_discs.json#meta.sampling（冻结生成器 + 固定种子确定性重排抽样）">13644 → 2000 盘</span></td></tr>
+        <tr><td>组系表来源</td><td><span class="num">beishan Auto-K=4</span></td></tr>
+        <tr><td>P32 临界</td><td><span class="num">0.240 [0.215, 0.276]</span></td></tr>
+        <tr><td>幂律 β</td><td><span class="num">3.5（假设）</span></td></tr>
+        <tr><td>域尺寸</td><td><span class="num">50 × 50 × 50 m</span></td></tr>
+        <tr><td>生成 / 显示</td><td><span class="num">13644 → 2000 盘</span></td></tr>
       </table>
       <h3 style="margin-top:16px">组系属性（悬停同款）</h3>
       <div id="setlegend"></div>
-      <p class="note" style="font-size:13px;margin-top:12px">诚实边界：渗流结论为<b>筛查级</b>（无开度、非真实连通性判定）；本视图仅示意几何与组系结构。<span class="num" data-src="results/dfn_pipeline_final.json#honest_boundary">详见 JSON honest_boundary 字段</span>。</p>
+      <p class="note" style="font-size:13px;margin-top:12px">诚实边界：渗流结论为<b>筛查级</b>（无开度、非真实连通性判定）；本视图仅示意几何与组系结构。<span class="num">详见 JSON honest_boundary 字段</span>。</p>
     </div>
   </div>
 </section>
@@ -846,8 +836,8 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <div>
       <h2>质量故事：这套数字为什么可信 <span class="zh">/ Why trust these numbers</span></h2>
       <div class="bugstory">
-        项目历史上共发生 <b class="num" data-src="docs/论文/论文全文_EN_v0.7.md §Leakage（four leakage incidents）">4 起</b>泄漏事件、
-        产生 <b class="num" data-src="results/digital_ledger.json#deprecated（DEP-001 ~ DEP-018 新旧对照记录）">18 条</b>带新旧对照的废弃数字记录
+        项目历史上共发生 <b class="num">4 起</b>泄漏事件、
+        产生 <b class="num">18 条</b>带新旧对照的废弃数字记录
         —— <b>全部被 BlindInput 协议（物理掩码 + 毒丸测试 + 红旗审计）揪出</b>，包括曾被视为头版结果的口径。
         多次修正让数字“变差”：诚实不是装饰，是交付的前提。
       </div>
@@ -862,20 +852,20 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
       <h2>诚实边界（引用本页前必读） <span class="zh">/ Honest boundaries</span></h2>
       <ul>
         <li>L3 点云多走向验证为<b>合成基准</b>（壁面级空间分离场景；可获得的真实扫描均为单组近水平）。
-            <span class="num" data-src="docs/论文素材包/诚实边界.md §3.1 · results/pointcloud_gate.json">边界详情</span></li>
+            <span class="num">边界详情</span></li>
         <li>DFN 渗流为<b>筛查级</b>：Baecher 盘模型 + 假设尺寸分布，无开度，非真实连通性判定。
-            <span class="num" data-src="results/dfn_pipeline_final.json#honest_boundary">边界详情</span></li>
+            <span class="num">边界详情</span></li>
         <li>置信锥度量的是<b>跨井变异性</b>（校准后），非井内采样误差，两种语义不可混用。
-            <span class="num" data-src="docs/论文/论文全文_EN_v0.7.md §6.6 · results/l4_calibration.json">边界详情</span></li>
+            <span class="num">边界详情</span></li>
         <li>信息墙数值按数据集标定（beishan）；其机制（点几何不含组隶属）是普适的。
-            <span class="num" data-src="NNS-045 · results/digital_ledger.json">台账条目</span></li>
+            <span class="num">台账条目</span></li>
         <li>⑦ 屏（重构线冲刺）全部数字为<b>研究线水印</b>（active-research / active-baseline 口径），初筛待复核；
             其中“原型座次地板”为 κ 归因诊断，仅用于方法归因、不入承诺语境。
-            <span class="num" data-src="data/recon_line.json#meta.watermark（随页分发）">本屏水印声明</span></li>
+            <span class="num">本屏水印声明</span></li>
         <li>本页不展示内部研发锚点与 oracle-existence 性质数字；对外口径一律走 ③ 屏（该屏不含数值承诺）。</li>
       </ul>
       <p class="small" style="color:#B9A683;margin-top:10px">
-        悬停任意虚线数字即可看到其溯源（NNS 编号 · JSON 路径 · 口径限定）。悬浮路径指向上游证据库；本仓库随附 results/ 冻结子集与随页 data/。
+        本页主张数字的溯源不再以内联属性承载，改由**随页附表面件**给出：人读 `number_pointers.md`、机读 `number_pointers.json`（与本页面同版本发布，含每条读数的源件指针与口径限定语）。⑥⑦ 两屏交互图的数值另可由随页 `data/` 目录直接反查。
       </p>
     </div>
   </div>
@@ -885,6 +875,8 @@ section.panel:fullscreen{overflow:auto;background:var(--card);padding:40px 48px}
     <a href="../CITATION.cff" lang="en"><b>CITATION.cff</b>cite this repo</a>
     <a href="../SECURITY.md" lang="en"><b>SECURITY</b>report an issue</a>
     <a href="../PUSH_GUIDE.md" lang="en"><b>PUSH_GUIDE</b>Pages &amp; release ops</a>
+<a href="number_pointers.md" lang="zh"><b>数字溯源附表</b>读数 → 源件指针 / 台账锚 / 口径限定</a>
+<a href="number_pointers.json" lang="en"><b>number_pointers.json</b>machine-readable pointer table</a>
   </div>
   <div class="fineprint">
     FractureFlow 开源首页 (docs/) · 改编自 B 线展示件（基版 R147, 2026-08-29；主树门户经 R276 数字纪律改正后由 R279 逐短语同步）· 数据基线 = 数字台账 v1.1（锁定，变更需走 changelog）
@@ -981,11 +973,11 @@ function fs(id){
     legendRows.push(
       '<span style="display:block;margin:6px 0;font-size:13.8px">' +
       '<span class="setdot" style="background:' + color + '"></span><b>' + s.name + '</b>' +
-      '　倾角 ~<span class="num" data-src="data/dfn_demo_discs.json#sets[' + k + ']（展示实现统计）">' + s.dip_mean_deg + '°</span>' +
-      ' · 倾向 ~<span class="num" data-src="data/dfn_demo_discs.json#sets[' + k + ']（展示实现统计，圆均值）">' + s.dipdir_circmean_deg + '°</span>' +
-      '<br><span style="color:#6E5B41;margin-left:17px">κ=<span class="num" data-src="results/dfn_pipeline_final.json#set_table.concentrations[' + k + ']">' + s.kappa +
-      '</span> · 目标占比 <span class="num" data-src="results/dfn_pipeline_final.json#set_table.proportions[' + k + ']">' + (s.proportion_target * 100).toFixed(1) + '%</span>' +
-      ' · 显示 <span class="num" data-src="data/dfn_demo_discs.json#sets[' + k + '].n_displayed">' + s.n_displayed + '</span> 盘</span></span>'
+      '　倾角 ~<span class="num">' + s.dip_mean_deg + '°</span>' +
+      ' · 倾向 ~<span class="num">' + s.dipdir_circmean_deg + '°</span>' +
+      '<br><span style="color:#6E5B41;margin-left:17px">κ=<span class="num">' + s.kappa +
+      '</span> · 目标占比 <span class="num">' + (s.proportion_target * 100).toFixed(1) + '%</span>' +
+      ' · 显示 <span class="num">' + s.n_displayed + '</span> 盘</span></span>'
     );
   });
 
@@ -1019,8 +1011,7 @@ function fs(id){
 <script>
 'use strict';
 /* ============ S7 重构线冲刺屏 (数据: data/recon_line.js → window.RECON_LINE) ============
-   本屏零手打数字: 所有可见数字对象 {v,t,src} 均来自 recon_line.json (scripts/r135_portal_data.py
-   从冻结 results/*.json 直读生成)。图表轴刻度/悬停数值为图形几何口径 (与 ⑥ 屏同例), 主张数字一律走 DOM .num。 */
+   本屏零手打数字: 所有可见数字对象 {v,t,src} 均来自随页 data/recon_line.json（由主仓派生脚本从冻结证据件直读生成）。图表轴刻度/悬停数值为图形几何口径 (与 ⑥ 屏同例), 主张数字一律走 DOM .num。 */
 (function(){
   var D = window.RECON_LINE;
   var root = document.getElementById('s7');
@@ -1031,7 +1022,7 @@ function fs(id){
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
   function NUM(o){
-    return '<span class="num" data-src="' + esc(o.src) + '">' + esc(o.t) + '</span>';
+    return '<span class="num">' + esc(o.t) + '</span>';
   }
 
   /* ---------- 卡一 · 基线谱系 ---------- */
