@@ -112,14 +112,19 @@ Capability is organized by observation tier (L0 → L4). Values are frozen
 anchors from the shipped result files (path given per row); the evaluation
 protocol is leak-audited (footnote below the table).
 
-| Tier | Data | Metric (honest protocol*) | Value | Evidence |
+This table reports **point-level** error only: the angle between a predicted
+hidden-fracture normal and its recorded normal. Group-level ("set-table")
+error is a different estimand, and on a site without an independent joint-set
+classification it can only be scored against that site's own clustering — so
+those readings are kept out of this table and reported below, per row, as
+consistency rather than accuracy
+(see "Set-table readings: consistency, not accuracy").
+
+| Tier | Data | Metric (honest protocol*, point-level) | Value | Evidence |
 |---|---|---|---|---|
 | L0 | borehole logs (22 wells, 880 fractures) | hidden-point MAE | **36.69°** | [`results/honest_leaderboard/l1_local__beishan_22.json`](results/honest_leaderboard/l1_local__beishan_22.json) |
-| L0 | same | set-table modal error (K=12, obs-only k-means) | **9.82° ± 0.66°** | [`results/global_honest_leaderboard/beishan.json`](results/global_honest_leaderboard/beishan.json) |
 | L1 | borehole imaging (FORGE, 2 wells, 4328 fractures) | hidden-point MAE | **39.70° ± 0.33°** | [`results/global_honest_leaderboard/forge.json`](results/global_honest_leaderboard/forge.json) |
-| L1 | borehole imaging (FORGE) | set-table modal error | **12.37° ± 4.00°** | [`results/global_honest_leaderboard/forge.json`](results/global_honest_leaderboard/forge.json) |
-| L1 | DFN benchmark (DECOVALEX, 1089 fractures) | set-table modal error (K=4) | **0.05°** | [`results/global_honest_leaderboard/decovalex.json`](results/global_honest_leaderboard/decovalex.json) |
-| L1 | same, with `fracture_id` (Route B) | hidden-point MAE | **0.0054°** | [`results/decovalex_routeB.json`](results/decovalex_routeB.json) |
+| L1 | DFN benchmark (DECOVALEX, 1089 fractures), with `fracture_id` (Route B) | hidden-point MAE | **0.0054°** | [`results/decovalex_routeB.json`](results/decovalex_routeB.json) |
 | L3 | dense point cloud (synthetic 4-wall benchmark) | hidden-point MAE | **0.37°** | [`results/pointcloud_gate.json`](results/pointcloud_gate.json) |
 
 \* *Honest protocol* = BlindInput evaluation: hidden points are never visible
@@ -127,17 +132,50 @@ to the predictor, masks are fixed (`obs_frac=0.4`, `rng=999`), and the metric
 is `mean acos(|<pred, true>|)` over hidden points, 10 seeds. A
 poison-pill/self-leak audit runs inside the harness.
 
-Caliber note: the FORGE set-table figure quotes the linked result file as
-shipped (pooled obs-only k-means, 10 seeds). The project's type-aware rebuild
-pipeline reports **11.05° ± 2.14°** on the same data — both are honest
-post-bug-fix calibers; they differ in grouping protocol, not in correctness.
+### Set-table readings: consistency, not accuracy (appendix position, not a commitment line)
 
-**The practical reading of this table**: point-level reconstruction from
-unlabeled borehole data tops out around ~37–49° — an information limit, not
-a model limit. But the *set-table* regime (≥5 observations per group,
-K=4–12) reaches **7–12° modal error**, inside the ≤12° engineering
-threshold. That is what the product chain above delivers, and that is the
-regime geotechnical reports actually use.
+The product-relevant group-level statistic is the **modal direction error** of
+the generated set table (`set_table_score`: Hungarian pairing against a
+reference table, K fixed, 10 mask seeds). What the reference table *is* decides
+what the reading may say:
+
+- **TRUTH** — the reference existed before the observation (a generator's own
+  family labels). Only such a reading may be called *accuracy*.
+- **CIRCULAR** — the site has no independent joint-set classification, so the
+  reference can only be a k-means table built from that same site's own normals
+  with the same estimator. Such a reading measures **how well the pipeline
+  reproduces its own clustering**; it is not accuracy, and it must name its
+  loop object.
+
+| Site | Reading | Value | Evidence level and loop object | Evidence |
+|---|---|---|---|---|
+| DECOVALEX (DFN benchmark) | set-table modal error, K=4 | **0.05°** | **consistency (CIRCULAR)** — reference is the same cohort's observed-fracture k-means table, i.e. the same data and the same estimator as the prediction (the shipped file's own provenance string: `obs-only k-means, 10 seeds, pooled`). The site does carry generator family labels; the truth-referenced re-measurement of them is a different reading, held with the project's set-table admission records, and is deliberately not printed here. | [`results/global_honest_leaderboard/decovalex.json`](results/global_honest_leaderboard/decovalex.json) |
+| beishan (22 wells) | set-table modal error, K=12 | **9.82° ± 0.66°** | **consistency (CIRCULAR)** — reference is this site's own k-means table over its recorded normals (same estimator as the labeling step). K is beyond the cap this statistic supports (K must stay at or below half the per-well observation count), and at large K it degenerates toward the nearest-observed-normal value — hence the appendix position. Do not compare it across K, and not against the point-level rows above either. | [`results/global_honest_leaderboard/beishan.json`](results/global_honest_leaderboard/beishan.json) |
+| FORGE (2 wells) | set-table modal error, K=12 | **12.37° ± 4.00°** | **consistency (CIRCULAR)** — reference is this site's own full-normal k-means table over both wells' recorded normals, built with the same estimator as the labeling step, on the post sin/cos-fix normals. Same caution as the previous row regarding K. **Digit collision:** these digits are also used elsewhere in this project for a point-level error floor that needs oracle-level assignment (not deployable) and for a mixed-pooling grouping protocol. Neither is this row, and this row is not a bound, a floor, or an achievable-accuracy figure. | [`results/global_honest_leaderboard/forge.json`](results/global_honest_leaderboard/forge.json) |
+
+Caliber note: the FORGE row above quotes the linked result file as shipped
+(pooled obs-only k-means, 10 seeds). The project's type-aware rebuild pipeline
+reports **11.05° ± 2.14°** on the same data — both are honest post-bug-fix
+calibers of the *same consistency quantity*; they differ in grouping protocol,
+not in correctness, and neither one is an accuracy measurement.
+
+**What these readings do — and do not — support.** Point-level: every method
+tried on unlabeled borehole logs, including the equivariant networks, stays
+inside the ~37–49° band — an information limit rather than a model limit (the
+upper figure of that band is the no-`fracture_id` point evaluation in the
+DECOVALEX file linked in the table above, a DFN benchmark rather than borehole
+data). Group-level: the labeling pipeline reproduces each site's own group
+structure to within the consistency figures quoted above — consistency
+against that site's own k-means table, built with the same estimator, not
+accuracy — and the report generator emits exactly that structure. None of these rows is an accuracy
+measurement on a real site, so none is offered as a delivered capability. The
+≤12° engineering acceptance threshold on group-modal-direction error is a
+criterion to be met by a *site-specific evaluation against an independent
+reference*: the threshold is an operative acceptance criterion, the error
+readings under it are not, and no reading on this page is presented as
+satisfying it. A verified number requires the site to supply an independent
+joint-set classification, or fracture-level `fracture_id` traces — with those
+the same pipeline reaches the Route-B row above.
 
 ## Honesty & negative results
 

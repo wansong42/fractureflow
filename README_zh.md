@@ -103,28 +103,54 @@ python -m fractureflow.eval --point-mode l1local
 能力按观测档位组织（L0 → L4）。下表数字是随仓结果文件的冻结锚点（每行给出
 路径），评测协议经过泄漏审计（脚注见下表）。
 
-| 档位 | 数据 | 指标（诚实协议*） | 数值 | 证据 |
+本表只报**逐点档**误差：预测的隐伏裂隙法向与其记录法向之间的夹角。组级
+（“组系表”）误差是另一个估计量，而且在没有独立组系分类的站点上，它的参照物
+只能是该站点自己的聚类结果——因此组级读数不单列在本表里，而是移到下文
+“组系表读数：一致性，不是精度”一节，逐行标明它是一致性而非精度。
+
+| 档位 | 数据 | 指标（诚实协议*，逐点档） | 数值 | 证据 |
 |---|---|---|---|---|
 | L0 | 钻孔编录（22 井，880 条裂隙） | 隐伏点 MAE | **36.69°** | [`results/honest_leaderboard/l1_local__beishan_22.json`](results/honest_leaderboard/l1_local__beishan_22.json) |
-| L0 | 同上 | 组系表模态误差（K=12，观测-only k-means） | **9.82° ± 0.66°** | [`results/global_honest_leaderboard/beishan.json`](results/global_honest_leaderboard/beishan.json) |
 | L1 | 钻孔成像（FORGE，2 井，4328 条） | 隐伏点 MAE | **39.70° ± 0.33°** | [`results/global_honest_leaderboard/forge.json`](results/global_honest_leaderboard/forge.json) |
-| L1 | 钻孔成像（FORGE） | 组系表模态误差 | **12.37° ± 4.00°** | [`results/global_honest_leaderboard/forge.json`](results/global_honest_leaderboard/forge.json) |
-| L1 | DFN 基准（DECOVALEX，1089 条） | 组系表模态误差（K=4） | **0.05°** | [`results/global_honest_leaderboard/decovalex.json`](results/global_honest_leaderboard/decovalex.json) |
-| L1 | 同上，带 `fracture_id`（路线 B） | 隐伏点 MAE | **0.0054°** | [`results/decovalex_routeB.json`](results/decovalex_routeB.json) |
+| L1 | DFN 基准（DECOVALEX，1089 条），带 `fracture_id`（路线 B） | 隐伏点 MAE | **0.0054°** | [`results/decovalex_routeB.json`](results/decovalex_routeB.json) |
 | L3 | 稠密点云（合成四壁基准） | 隐伏点 MAE | **0.37°** | [`results/pointcloud_gate.json`](results/pointcloud_gate.json) |
 
 \* *诚实协议* = BlindInput 评测：隐伏点对预测器完全不可见，掩码固定
 （`obs_frac=0.4`, `rng=999`），指标为隐伏点上 `mean acos(|<pred, true>|)`，
 10 个随机种子；评测框架内置毒丸/自泄漏审计。
 
-口径注：FORGE 组系表数字按随仓结果文件原样引用（池化 obs-only k-means，
-10 种子）。项目的类型感知重建管线在同一数据上报告 **11.05° ± 2.14°**——
-两者都是修复 bug 后的诚实口径，差别在分组协议，不在正确性。
+### 组系表读数：一致性，不是精度（附录位——非承诺线）
 
-**这张表的工程读法**：无标签钻孔数据的逐点重构天花板在 ~37–49°——这是
-信息极限，不是模型不行。但**组系表档位**（每组 ≥5 条观测，K=4–12）的
-模态方向误差可达 **7–12°**，落在 ≤12° 的工程阈值之内。上面那条产品链
-交付的就是这个档位——这也正是勘察报告实际使用的统计粒度。
+产品实际使用的组级统计量是组系表的**模态方向误差**（`set_table_score`：与参照
+表做匈牙利配对，K 固定，10 个掩码种子）。参照表是什么，决定这个读数能说什么：
+
+- **TRUTH**——参照在观测之前既存（生成器自己的族标签）。只有这类读数可称**精度**。
+- **CIRCULAR**——该站点没有独立的组系分类，参照只能是**用同一估计器、由该站点
+  自身法向建出的 k-means 表**。这类读数衡量的是**管线复现自身聚类的程度**，
+  不是精度，且必须写明循环对象。
+
+| 站点 | 读数 | 数值 | 证据级与循环对象 | 证据 |
+|---|---|---|---|---|
+| DECOVALEX（DFN 基准） | 组系表模态误差，K=4 | **0.05°** | **一致性（CIRCULAR）**——参照是同一批数据的“观测点 k-means 表”，即与预测同源同估计器（随仓文件自带的溯源串：`obs-only k-means, 10 seeds, pooled`）。该站点确有生成器族标签；对着族标签重测的是另一个读数，存于项目的集合档准入裁定中，本页刻意不印。 | [`results/global_honest_leaderboard/decovalex.json`](results/global_honest_leaderboard/decovalex.json) |
+| beishan（22 井） | 组系表模态误差，K=12 | **9.82° ± 0.66°** | **一致性（CIRCULAR）**——参照为该站点自身记录法向的 k-means 表（与打标同估计器）。K 超出该统计量能承受的上限（K 不得超过单井观测数的一半），K 偏大时它退化成“最近观测法向”的量——故置于附录位。不同 K 之间不可比，与上表逐点档之间也不可直比。 | [`results/global_honest_leaderboard/beishan.json`](results/global_honest_leaderboard/beishan.json) |
+| FORGE（2 井） | 组系表模态误差，K=12 | **12.37° ± 4.00°** | **一致性（CIRCULAR）**——参照为该站点两井全部记录法向的 k-means 表，与打标步骤同一估计器，且为 sin/cos 修复后的法向。K 的限定与上一行相同。**撞值提醒：**本仓另有两处用到同一串数字——需要 oracle 级指派才可达的逐点误差地板（不可部署）、以及混池分组的口径。两者都不是本行，本行也不是上界、地板或可达精度。 | [`results/global_honest_leaderboard/forge.json`](results/global_honest_leaderboard/forge.json) |
+
+口径注：上表 FORGE 行按随仓结果文件原样引用（池化 obs-only k-means，10 种子）。
+项目的类型感知重建管线在同一数据上报告 **11.05° ± 2.14°**——两者都是修复 bug
+后的诚实口径，量的是**同一个一致性量**，差别在分组协议、不在正确性；两者都不
+是精度测量。
+
+**这些读数支持什么、不支持什么。** 逐点档：无标签钻孔数据上试过的一切方法
+（含等变神经网络）都停在 ~37–49° 窄带里——这是信息极限，不是模型不行（该带上沿
+是上表 DECOVALEX 文件里不带 `fracture_id` 的逐点评测，属 DFN 基准而非钻孔数据）。
+组级：打标管线能复现各站点自身的组结构，误差即上表所引的一致性数字（参照物是该
+站点自身法向的 k-means 表，与预测同一估计器），不是精度；报告生成器输出的也正是
+这套结构。但本页没有任何一行是真实站点上的**精度**测量，因此也没有
+任何一行被当作交付能力。**组模态方向误差 ≤12° 是工程验收阈值**，它要由
+*针对独立参照的站点级评测*去满足：阈值本身是可对外的判据，阈值之下的误差读数
+不是，本页没有任何读数被表述为满足该阈值。要拿到可核验的精度数字，需要站点提供
+独立的组系分类，或裂隙级 `fracture_id` 迹线——有了它们，同一套管线即达到上表
+路线 B 那一行。
 
 ## 诚实性与负结果
 
